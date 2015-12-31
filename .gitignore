@@ -1,0 +1,4 @@
+#.gitignore
+
+#ignore office temp file. eg. ~$adc.doc
+~$*
