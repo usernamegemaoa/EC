@@ -1,4 +1,4 @@
-# 本地软件安装
+﻿# 本地软件安装
 
 0. [科学上网](http://www.ss-link.com/)
 1. [jdk1.7\*](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
@@ -7,7 +7,7 @@
 3. [mysql](https://www.mysql.com/downloads/)
 4. [git](https://git-scm.com/downloads)
 5. [GitHub Desktop](https://desktop.github.com/)
-6. [maven](https://maven.apache.org/download.cgi)
+6. [maven\*\*\*\*](https://maven.apache.org/download.cgi)
 7. [chrome](https://www.google.com/chrome/browser/desktop/index.html)
 8. [firefox](https://www.mozilla.org/zh-CN/firefox/new/#)
 9. [safari\*\*](http://www.apple.com/safari/)
@@ -17,3 +17,5 @@
 > \*\*windows系统无需安装
 
 > \*\*\*以上所有软件均要求最新版
+
+> \*\*\*\*eclipse自带maven无需安装
