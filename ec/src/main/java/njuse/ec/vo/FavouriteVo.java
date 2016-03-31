@@ -7,27 +7,60 @@ package njuse.ec.vo;
  */
 public class FavouriteVo {
 
-	int id;
-	int userId;
-	int goodId;
+	/**
+	 * 关注id.
+	 */
+	private int id;
+	/**
+	 * 用户id.
+	 */
+	private int userId;
+	/**
+	 * 商品id.
+	 */
+	private int goodId;
 	
-	public int getId() {
+	/**
+	 * 获取id.
+	 * @return 关注id
+	 */
+	public final int getId() {
 		return id;
 	}
-	public void setId(int id) {
-		this.id = id;
+	/**
+	 * 设置关注id.
+	 * @param newId 关注id
+	 */
+	public final void setId(final int newId) {
+		this.id = newId;
 	}
-	public int getUserId() {
+	/**
+	 * 获取用户id.
+	 * @return 用户id
+	 */
+	public final int getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
-		this.userId = userId;
+	/**
+	 * 设置用户id.
+	 * @param newUserId 用户id
+	 */
+	public final void setUserId(final int newUserId) {
+		this.userId = newUserId;
 	}
-	public int getGoodId() {
+	/**
+	 * 设置商品id.
+	 * @return 商品id
+	 */
+	public final int getGoodId() {
 		return goodId;
 	}
-	public void setGoodId(int goodId) {
-		this.goodId = goodId;
+	/**
+	 * 获取商品id.
+	 * @param newGoodId 商品id
+	 */
+	public final void setGoodId(final int newGoodId) {
+		this.goodId = newGoodId;
 	}
 	
 }

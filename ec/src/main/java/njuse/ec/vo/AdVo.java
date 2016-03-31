@@ -7,27 +7,60 @@ package njuse.ec.vo;
  */
 public class AdVo {
 
+	/**
+	 * 广告id.
+	 */
 	private int id;
+	/**
+	 * 广告图片路径.
+	 */
 	private String picturePath;
+	/**
+	 * 商品网址.
+	 */
 	private String goodPath;
 	
-	public int getId() {
+	/**
+	 * 获取id.
+	 * @return 广告id
+	 */
+	public final int getId() {
 		return id;
 	}
-	public void setId(int id) {
-		this.id = id;
+	/**
+	 * 设置id.
+	 * @param newId 广告id
+	 */
+	public final void setId(final int newId) {
+		this.id = newId;
 	}
-	public String getPicturePath() {
+	/**
+	 * 获取图片路径.
+	 * @return 图片路径 
+	 */
+	public final String getPicturePath() {
 		return picturePath;
 	}
-	public void setPicturePath(String picturePath) {
-		this.picturePath = picturePath;
+	/**
+	 * 设置图片路径.
+	 * @param newPicturePath 图片路径
+	 */
+	public final void setPicturePath(final String newPicturePath) {
+		this.picturePath = newPicturePath;
 	}
-	public String getGoodPath() {
+	/**
+	 * 获取商品网址.
+	 * @return 设置商品网址
+	 */
+	public final String getGoodPath() {
 		return goodPath;
 	}
-	public void setGoodPath(String goodPath) {
-		this.goodPath = goodPath;
+	/**
+	 * 设置商品网址.
+	 * @param newGoodPath 商品网址
+	 */
+	public final void setGoodPath(final String newGoodPath) {
+		this.goodPath = newGoodPath;
 	}
 
 }
