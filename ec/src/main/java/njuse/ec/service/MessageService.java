@@ -2,7 +2,7 @@ package njuse.ec.service;
 
 import java.util.List;
 
-import njuse.ec.model.Message;
+import njuse.ec.vo.MessageVo;
 import njuse.ec.vo.ResultVo;
 
 /**
@@ -16,7 +16,7 @@ public interface MessageService {
 	 * @param message 消息
 	 * @return 结果
 	 */
-	ResultVo addMessage(Message message);
+	ResultVo addMessage(MessageVo message);
 	
 	/**
 	 * 阅读消息.
@@ -24,7 +24,7 @@ public interface MessageService {
 	 * @param message 消息
 	 * @return 结果
 	 */
-	ResultVo readMessage(int userId, Message message);
+	ResultVo readMessage(int userId, MessageVo message);
 	
 	/**
 	 * 获取未读消息.
@@ -32,7 +32,7 @@ public interface MessageService {
 	 * @param message 消息
 	 * @return 消息列表
 	 */
-	List<Message> getUnReadMessage(int userId, Message message);
+	List<MessageVo> getUnReadMessage(int userId, MessageVo message);
 	
 	/**
 	 * 获取所有消息.
@@ -40,6 +40,6 @@ public interface MessageService {
 	 * @param message 消息
 	 * @return 消息列表
 	 */
-	List<Message> getAllMessage(int userId, Message message);
+	List<MessageVo> getAllMessage(int userId, MessageVo message);
 	
 }
