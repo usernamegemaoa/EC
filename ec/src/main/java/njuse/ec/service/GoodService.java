@@ -103,6 +103,7 @@ public interface GoodService {
 	ResultVo addGoodComment(int goodId, CommentVo comment);
 	
 	/**
+	 * 获取咨询页数.
 	 * @param goodId 商品id
 	 * @return 商品的咨询页数
 	 */
