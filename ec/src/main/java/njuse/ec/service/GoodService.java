@@ -7,6 +7,7 @@ import njuse.ec.vo.ConsultVo;
 import njuse.ec.vo.GoodVo;
 import njuse.ec.vo.KindVo;
 import njuse.ec.vo.SimpleGoodVo;
+import njuse.ec.vo.StockVo;
 import njuse.ec.vo.ResultVo;
 
 /**
@@ -84,7 +85,15 @@ public interface GoodService {
 	 * @param goodId 商品id
 	 * @return 同类热销商品列表
 	 */
-	List<SimpleGoodVo> gotHotGood(int goodId);
+	List<SimpleGoodVo> getHotGood(int goodId);
+	
+	/**
+	 * 发布商品.
+	 * @param goodVo 商品vo
+	 * @param stockVos 库存列表
+	 * @return 发布结果
+	 */
+	ResultVo addGood(GoodVo goodVo, List<StockVo> stockVos);
 
 	/**
 	 * 为商品添加咨询.
