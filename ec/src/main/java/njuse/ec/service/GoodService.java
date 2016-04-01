@@ -7,6 +7,7 @@ import njuse.ec.vo.ConsultVo;
 import njuse.ec.vo.GoodVo;
 import njuse.ec.vo.KindVo;
 import njuse.ec.vo.SimpleGoodVo;
+import njuse.ec.vo.StockVo;
 import njuse.ec.vo.ResultVo;
 
 /**
@@ -84,7 +85,15 @@ public interface GoodService {
 	 * @param goodId 商品id
 	 * @return 同类热销商品列表
 	 */
-	List<SimpleGoodVo> gotHotGood(int goodId);
+	List<SimpleGoodVo> getHotGood(int goodId);
+	
+	/**
+	 * 发布商品.
+	 * @param goodVo 商品vo
+	 * @param stockVos 库存列表
+	 * @return 发布结果
+	 */
+	ResultVo addGood(GoodVo goodVo, List<StockVo> stockVos);
 
 	/**
 	 * 为商品添加咨询.
@@ -101,4 +110,34 @@ public interface GoodService {
 	 * @return 添加结果
 	 */
 	ResultVo addGoodComment(int goodId, CommentVo comment);
+	
+	/**
+	 * 获取咨询页数.
+	 * @param goodId 商品id
+	 * @return 商品的咨询页数
+	 */
+	int getConsultPages(int goodId);
+	
+	/**
+	 * 获取评论页数.
+	 * @param goodId 评论id
+	 * @return 商品的评论页数
+	 */
+	int getCommentPages(int goodId);
+	
+	/**
+	 * 获取咨询.
+	 * @param goodId 商品id
+	 * @param pages 咨询列表页数
+	 * @return 指定页的咨询列表
+	 */
+	List<ConsultVo> getConsults(int goodId, int pages);
+	
+	/**
+	 * 获取评论.
+	 * @param goodId 商品id
+	 * @param pages 评论列表页数
+	 * @return 指定页的评论列表
+	 */
+	List<CommentVo> getComments(int goodId, int pages);
 }
