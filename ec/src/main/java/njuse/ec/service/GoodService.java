@@ -101,4 +101,34 @@ public interface GoodService {
 	 * @return 添加结果
 	 */
 	ResultVo addGoodComment(int goodId, CommentVo comment);
+	
+	/**
+	 * 获取咨询页数.
+	 * @param goodId 商品id
+	 * @return 商品的咨询页数
+	 */
+	int getConsultPages(int goodId);
+	
+	/**
+	 * 获取评论页数.
+	 * @param goodId 评论id
+	 * @return 商品的评论页数
+	 */
+	int getCommentPages(int goodId);
+	
+	/**
+	 * 获取咨询.
+	 * @param goodId 商品id
+	 * @param pages 咨询列表页数
+	 * @return 指定页的咨询列表
+	 */
+	List<ConsultVo> getConsults(int goodId, int pages);
+	
+	/**
+	 * 获取评论.
+	 * @param goodId 商品id
+	 * @param pages 评论列表页数
+	 * @return 指定页的评论列表
+	 */
+	List<CommentVo> getComments(int goodId, int pages);
 }
