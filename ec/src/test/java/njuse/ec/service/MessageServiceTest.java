@@ -1,6 +1,6 @@
 package njuse.ec.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,37 +21,49 @@ import njuse.ec.vo.MessageVo;
 public class MessageServiceTest {
 
 	/**
-	 * 消息模块
+	 * 消息模块.
 	 */
 	@Autowired
 	private MessageService meService;
 	
+	/**
+	 * 测试添加消息. 
+	 */
 	@Test
-	public void testAddMessage() {
-		MessageVo message=null;
-		MessageVo message1=null;
-		message1.setUserId(0);
-		assertEquals(1,meService.addMessage(message).getResultCode());
-		assertEquals(0,meService.addMessage(message1).getResultCode());
+	public final void testAddMessage() {
+		MessageVo message = new MessageVo();
+		MessageVo nullMessage = null;
+		message.setUserId(0);
+		assertEquals(0, meService.addMessage(message).getResultCode());
+		assertEquals(1, meService.addMessage(nullMessage).getResultCode());
 	}
 
+	/**
+	 * 测试阅读消息.
+	 */
 	@Test
-	public void testReadMessage() {
-		MessageVo message=null;
-		assertEquals(1,meService.readMessage(-1, message).getResultCode());
-		assertEquals(0,meService.readMessage(0, message).getResultCode());
+	public final void testReadMessage() {
+		MessageVo message = new MessageVo();
+		assertEquals(1, meService.readMessage(-1, message).getResultCode());
+		assertEquals(0, meService.readMessage(0, message).getResultCode());
 	}
 
+	/**
+	 * 测试获取未读列表.
+	 */
 	@Test
-	public void testGetUnReadMessage() {
-		MessageVo message=null;
-		assertEquals(0,meService.getUnReadMessage(0,message).size());
+	public final void testGetUnReadMessage() {
+		MessageVo message = new MessageVo();
+		assertEquals(1, meService.getUnReadMessage(0, message).size());
 	}
 
+	/**
+	 * 测试获取所有消息列表.
+	 */
 	@Test
-	public void testGetAllMessage() {
-		MessageVo message=null;
-		assertEquals(0,meService.getAllMessage(0,message).size());
+	public final void testGetAllMessage() {
+		MessageVo message = new MessageVo();
+		assertEquals(1, meService.getAllMessage(0, message).size());
 	}
 
 }

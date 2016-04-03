@@ -15,35 +15,37 @@ import njuse.ec.vo.ResultVo;
  *
  */
 @Service
-public class MessageServiceImpl implements MessageService{
+public class MessageServiceImpl implements MessageService {
 
 	@Override
-	public ResultVo addMessage(MessageVo message) {
+	public final ResultVo addMessage(final MessageVo message) {
 		ResultVo result = new ResultVo();
 		if (message == null) {
-			result.setResultCode(0);
-		} else {
 			result.setResultCode(1);
+		} else {
+			result.setResultCode(0);
 		}
 		return result;
 	}
 	
 
 	@Override
-	public ResultVo readMessage(int userId, MessageVo message) {
+	public final ResultVo readMessage(final int userId, 
+			final MessageVo message) {
 		ResultVo result = new ResultVo();
 		if (userId < 0) {
-			result.setResultCode(0);
-		} else {
 			result.setResultCode(1);
+		} else {
+			result.setResultCode(0);
 		}
 		return result;
 	}
 
 	@Override
-	public List<MessageVo> getUnReadMessage(int userId, MessageVo message) {
-		List<MessageVo> messageList=new ArrayList<MessageVo>();
-		if(userId < 0){
+	public final List<MessageVo> getUnReadMessage(final int userId, 
+			final MessageVo message) {
+		List<MessageVo> messageList = new ArrayList<MessageVo>();
+		if (userId < 0) {
 			return messageList;
 		} else {
 			messageList.add(message);
@@ -52,9 +54,10 @@ public class MessageServiceImpl implements MessageService{
 	}
 
 	@Override
-	public List<MessageVo> getAllMessage(int userId, MessageVo message) {
-		List<MessageVo> messageList=new ArrayList<MessageVo>();
-		if(userId < 0){
+	public final List<MessageVo> getAllMessage(final int userId, 
+			final MessageVo message) {
+		List<MessageVo> messageList = new ArrayList<MessageVo>();
+		if (userId < 0) {
 			return messageList;
 		} else {
 			messageList.add(message);
