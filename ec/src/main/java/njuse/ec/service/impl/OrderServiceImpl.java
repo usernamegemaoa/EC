@@ -22,9 +22,9 @@ public class OrderServiceImpl implements OrderService {
 			final List<CastVo> casts) {
 		ResultVo result = new ResultVo();
 		if (userId < 0) {
-			result.setResultCode(0);
-		} else {
 			result.setResultCode(1);
+		} else {
+			result.setResultCode(0);
 		}
 		return result;
 	}
@@ -33,9 +33,9 @@ public class OrderServiceImpl implements OrderService {
 	public final ResultVo cancelOrder(final int userId, final OrderVo order) {
 		ResultVo result = new ResultVo();
 		if (userId < 0) {
-			result.setResultCode(0);
-		} else {
 			result.setResultCode(1);
+		} else {
+			result.setResultCode(0);
 		}
 		return result;
 	}
@@ -44,9 +44,9 @@ public class OrderServiceImpl implements OrderService {
 	public final ResultVo payOrder(final int userId, final OrderVo order) {
 		ResultVo result = new ResultVo();
 		if (userId < 0) {
-			result.setResultCode(0);
-		} else {
 			result.setResultCode(1);
+		} else {
+			result.setResultCode(0);
 		}
 		return result;
 	}
@@ -55,9 +55,9 @@ public class OrderServiceImpl implements OrderService {
 	public final ResultVo shipOrder(final int storeId, final OrderVo order) {
 		ResultVo result = new ResultVo();
 		if (storeId < 0) {
-			result.setResultCode(0);
-		} else {
 			result.setResultCode(1);
+		} else {
+			result.setResultCode(0);
 		}
 		return result;
 	}
@@ -66,9 +66,9 @@ public class OrderServiceImpl implements OrderService {
 	public final ResultVo receiptOrder(final int userId, final OrderVo order) {
 		ResultVo result = new ResultVo();
 		if (userId < 0) {
-			result.setResultCode(0);
-		} else {
 			result.setResultCode(1);
+		} else {
+			result.setResultCode(0);
 		}
 		return result;
 	}
@@ -77,9 +77,9 @@ public class OrderServiceImpl implements OrderService {
 	public final ResultVo refundOrder(final int userId, final OrderVo order) {
 		ResultVo result = new ResultVo();
 		if (userId < 0) {
-			result.setResultCode(0);
-		} else {
 			result.setResultCode(1);
+		} else {
+			result.setResultCode(0);
 		}
 		return result;
 	}
@@ -88,9 +88,9 @@ public class OrderServiceImpl implements OrderService {
 	public final ResultVo refundMoney(final int userId, final OrderVo order) {
 		ResultVo result = new ResultVo();
 		if (userId < 0) {
-			result.setResultCode(0);
-		} else {
 			result.setResultCode(1);
+		} else {
+			result.setResultCode(0);
 		}
 		return result;
 	}
