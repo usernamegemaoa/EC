@@ -29,7 +29,7 @@ public class FileServiceTest {
 	 * 测试上传函数.
 	 */
 	@Test
-	public void testUpload() {
+	public final void testUpload() {
 		assertEquals(1, fileService.upload(null).getResultCode());
 		assertEquals(0, fileService.upload(new File("aaa")).getResultCode());
 	}
