@@ -27,7 +27,7 @@ Electronic Commerce
 7. `Window`>>`Preferences`>>`JAVA`>>`Installed JREs`>>`Edit`>>修改*jre*目录为*jdk*目录
 8. 右键项目>>`Configure`>>`Conver to Maven Project`
 9. 右键项目>>`Preferences` *以下操作均在Preferences中进行*
-10. `Project Facets`>>`Runtimes`>>`Apache Tomcat`>>`Dynamic Web Module`>>`Java`>>`JavaScript`>>`Further configuartion available`>>`Content directory`=`/src/main/wabapp`>>`Generate web.xml`打勾>>`Apply`
+10. `Project Facets`>>`Runtimes`>>`Apache Tomcat`>>`Dynamic Web Module`>>`Java`>>`JavaScript`>>`Further configuartion available`>>`Content directory`=`/src/main/webapp`>>`Generate web.xml`打勾>>`Apply`
 11. `Java Build Path`>>`JRE`>>`Edit`>>1.7+>>`Apply`
 12. `OK`关闭
 13. 右键项目>>`Preferences`
