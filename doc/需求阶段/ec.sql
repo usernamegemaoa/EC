@@ -148,8 +148,8 @@ CREATE TABLE IF NOT EXISTS `sub_consult` (
 
 CREATE TABLE IF NOT EXISTS `message` (
     `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '消息id',
-    `type` INT(11) NOT NULL COMMENT '消息类别',
-    `is_read` INT(11) NOT NULL COMMENT '已读标签',
+    `user_id` INT(11) NOT NULL COMMENT '用户id',
+    `is_read` BOOLEAN NOT NULL COMMENT '已读标签',
     `content` TEXT NOT NULL COMMENT '消息内容',
     `time` TIMESTAMP NOT NULL COMMENT '时间',
     PRIMARY KEY (`id`)
