@@ -1,5 +1,7 @@
 package njuse.ec.vo;
 
+import java.util.Date;
+
 /**
  * 消息vo.
  * @author 丞
@@ -23,6 +25,10 @@ public class MessageVo {
 	 * 是否阅读.
 	 */
 	private boolean read;
+	/**
+	 * 消息发送时间
+	 */
+	private Date time;
 	/**
 	 * @return the id
 	 */
@@ -70,5 +76,17 @@ public class MessageVo {
 	 */
 	public final void setRead(final boolean newRead) {
 		this.read = newRead;
+	}
+	/**
+	 * @return time
+	 */
+	public final Date getTime(){
+		return time;
+	}
+	/**
+	 * @param newTime the time to set
+	 */
+	public final void setTime(final Date newTime){
+		this.time=newTime;
 	}
 }
