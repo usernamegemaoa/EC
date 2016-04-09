@@ -36,11 +36,11 @@ public class MessageDAOImpl implements MessageDAO {
 	}
 	
 	@Override
-	public boolean addMessage(MessageVo message){
+	public boolean addMessage(Message message){
 		   boolean result=true;
-		   int userId=message.getUserId();              
-		   String content=message.getMessage();
-		   boolean is_read=message.isRead();
+		   int userId=message.getUser_id();   
+		   String content=message.getContent();
+		   boolean is_read=message.getIs_read();
 		   Date time=message.getTime();
 		   String hql="inesrt into message (uer_id,is_read,content,time) values("+userId+","+content+","+is_read+","+time+")";
 		   Session session=getSession();
@@ -53,7 +53,7 @@ public class MessageDAOImpl implements MessageDAO {
 	}
 	
 	@Override
-	public boolean readMessage(MessageVo message){
+	public boolean readMessage(Message message){
 		   boolean result=true;
 		   int id=message.getId();
 		   String hql="update message set is_read=true where id="+id+"";

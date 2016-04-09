@@ -31,7 +31,10 @@ public class Message implements Serializable{
 	public int getId() {
 		return id;
 	}
-	public long getUser_id() {
+	public void setId(int newId){
+		this.id=newId;
+	}
+	public int getUser_id() {
 		return user_id;
 	}
 	public void setUser_id(int user_id) {

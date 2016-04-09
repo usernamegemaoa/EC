@@ -2,7 +2,9 @@ package njuse.ec.service;
 
 import java.util.List;
 
+import njuse.ec.model.Order;
 import njuse.ec.vo.CastVo;
+import njuse.ec.vo.OrderDetailVo;
 import njuse.ec.vo.OrderVo;
 import njuse.ec.vo.ResultVo;
 
@@ -14,12 +16,26 @@ import njuse.ec.vo.ResultVo;
 public interface OrderService {
 	
 	/**
+	 * 查看订单.
+	 * @param userId 用户编号
+	 * @return 订单列表
+	 */
+	List<OrderVo> viewOrder(int userId);
+	/**
+	 * 查看订单详情
+	 * @param userId 用户编号
+	 * @param order 订单
+	 * @return 订单详情列表
+	 */
+	List<OrderDetailVo>  viewOrderDetail(int userId, OrderVo order);
+	/**
 	 * 创建订单.
 	 * @param userId 用户编号
 	 * @param casts 购物车列表
+	 * @param order 订单
 	 * @return 结果
 	 */
-	ResultVo creatOrder(int userId, List<CastVo> casts); 
+	ResultVo creatOrder(int userId, List<CastVo> casts, OrderVo order); 
 	
 	/**
 	 * 取消订单.
@@ -68,5 +84,5 @@ public interface OrderService {
 	 * @return 结果
 	 */
 	ResultVo refundMoney(int userId, OrderVo order);
-	
+
 }
