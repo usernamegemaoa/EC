@@ -31,13 +31,12 @@ CREATE TABLE IF NOT EXISTS `rbac_user` (
     `salt` VARCHAR(64) NOT NULL COMMENT '盐',
     `name` VARCHAR(64) NOT NULL COMMENT '店铺名或昵称',
     `email` VARCHAR(64) NULL COMMENT '邮箱',
-    `birthday` DATE NULL COMMENT '生日',
+    `birthday` DATETIME NULL COMMENT '生日',
     `icon` VARCHAR(255) NULL COMMENT '头像',
     `score` INT(11) NOT NULL DEFAULT '0' COMMENT '分数',
     `male` INT(11) NOT NULL DEFAULT '0' COMMENT '性别',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `account` (`account`),
-    UNIQUE KEY `name` (`name`)
+    UNIQUE KEY `account` (`account`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表' AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `rbac_user_role` (

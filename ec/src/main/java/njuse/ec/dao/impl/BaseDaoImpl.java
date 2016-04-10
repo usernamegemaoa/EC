@@ -48,7 +48,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public final T load(final Class<T> c, final Long id) {
+	public final T load(final Class<T> c, final int id) {
 		Session session = getSession();
 		return (T) session.get(c, id);
 	}
@@ -59,12 +59,11 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		String hql = "from " + c.getName();
 		Session session = getSession();
 		return session.createQuery(hql).list();
-
 	}
 
 	@Override
 	public final Long getTotalCount(final Class<T> c) {
-		Session session = getNewSession();
+		Session session = getSession();
 		String hql = "select count(*) from " + c.getName();
 		Long count = (Long) session.createQuery(hql).uniqueResult();
 		session.close();
@@ -76,61 +75,57 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	}
 
 	@Override
-	public final void save(final Object bean) {
+	public final void save(final T bean) {
 		try {
-			Session session = getNewSession();
+			Session session = getSession();
 			session.save(bean);
 			session.flush();
-			session.clear();
-			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public final void update(final Object bean) {
-		Session session = getNewSession();
+	public final void update(final T bean) {
+		Session session = getSession();
 		session.update(bean);
 		session.flush();
-		session.clear();
-		session.close();
 	}
 
 	@Override
-	public final void delete(final Object bean) {
+	public final void delete(final T bean) {
 
-		Session session = getNewSession();
+		Session session = getSession();
 		session.delete(bean);
 		session.flush();
-		session.clear();
-		session.close();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public final void delete(final Class<T> c, final String id) {
-		Session session = getNewSession();
-		Object obj = session.get(c, id);
+		Session session = getSession();
+		T obj = (T) session.get(c, id);
 		session.delete(obj);
 		session.flush();
-		session.clear();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public final void delete(final Class<T> c, final String[] ids) {
 		for (String id : ids) {
-			Object obj = getSession().get(c, id);
+			T obj = (T) getSession().get(c, id);
 			if (obj != null) {
 				getSession().delete(obj);
 			}
 		}
+		flush();
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public final T find(final Class<T> c,
 			final String coloum, final String value) {
-		Session session = getNewSession();
+		Session session = getSession();
 		Transaction tx = session.beginTransaction();
 
 		try {
@@ -154,8 +149,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 			e.printStackTrace();
 			tx.rollback();
 			return null;
-		} finally {
-			session.close();
 		}
 	}
 
@@ -163,7 +156,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	@SuppressWarnings("unchecked")
 	public final List<T> findlist(final Class<T> c,
 			final String coloum, final String value) {
-		Session session = getNewSession();
+		Session session = getSession();
 		Transaction tx = session.beginTransaction();
 
 		try {
@@ -183,8 +176,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 			e.printStackTrace();
 			tx.rollback();
 			return null;
-		} finally {
-			session.close();
 		}
 	}
 }

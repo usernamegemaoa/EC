@@ -40,7 +40,7 @@ public interface BaseDao<T> {
 	 * @param id 主键id
 	 * @return 对应model类
 	 */
-	T load(Class<T> c, Long id);
+	T load(Class<T> c, int id);
 
 	/**
 	 * 获取某张表所有行.
