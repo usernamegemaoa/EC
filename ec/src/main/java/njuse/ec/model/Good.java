@@ -2,10 +2,14 @@ package njuse.ec.model;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -82,6 +86,12 @@ public class Good implements Serializable {
 	 */
 	@Column(name = "time")
 	private Date time;
+	
+	/**
+	 * 收藏本商品的用户列表.
+	 */
+	@ManyToMany(mappedBy = "collections", fetch = FetchType.LAZY)
+	private Set<User> users = new HashSet<User>();
 
 	/**
 	 * 获取用户id.
@@ -241,5 +251,20 @@ public class Good implements Serializable {
 	 */
 	public final void setTime(final Date newTime) {
 		this.time = newTime;
+	}
+	/**
+	 * 获取收藏本商品的用户列表.
+	 * @return the users
+	 */
+	public final Set<User> getUsers() {
+		return users;
+	}
+
+	/**
+	 * 设置本商品的用户列表.
+	 * @param newUsers the users to set
+	 */
+	public final void setUsers(final Set<User> newUsers) {
+		this.users = newUsers;
 	}
 }

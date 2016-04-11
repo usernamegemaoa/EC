@@ -3517,3 +3517,19 @@ INSERT INTO `place` (`place_code`, `place_name`) VALUES
 
 INSERT INTO `kind` (`father_id`, `kind_name`) VALUES
 (0, '上装');
+
+INSERT INTO `rbac_role` (`id`, `name`) VALUES
+(1, '顾客'),
+(2, '商家');
+
+INSERT INTO `rbac_user` (`id`, `account`, `password`, `salt`, `name`) VALUES
+(123, 'TESTFAVOUR@123.COM', 'PASSWORD', 'SALT', 'TESTFAVOUR');
+
+INSERT INTO `rbac_user_role` (`id`, `user_id`, `role_id`) VALUES
+(123, 123, 1);
+
+INSERT INTO `kind` (`id`, `father_id`, `name`) VALUES
+(123, 0, 'testfavour');
+
+INSERT INTO `good` (`id`, `kind_id`, `shop_id`, `name`, `good_num`, `description`, `price`, `deliver_info`, `return_info`, `time`) VALUE
+(123, 123, 123, 'TESTFAVOUR', 'ASDF', 'ASDF', 12, 'ASDF', 'ASDF', now());

@@ -2,8 +2,9 @@ package njuse.ec.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+
+import java.util.Date;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import njuse.ec.vo.AddressVo;
 import njuse.ec.vo.FavouriteVo;
 import njuse.ec.vo.UserVo;
 
@@ -28,15 +30,28 @@ public class UserServiceTest {
 	 */
 	@Autowired
 	private UserService userService;
+	
+	/**
+	 * 数据库中用于测试的ID.
+	 */
+	private static final int MAGIC_ID = 123;
 
 	/**
 	 * 注册测试.
 	 */
 	@Test
 	public final void testRegister() {
-		assertEquals(0, 
-				userService.register(new UserVo(), "", "").getResultCode());
-		assertEquals(1, userService.register(null, "", "").getResultCode());
+		UserVo vo = new UserVo();
+		vo.setAccount("account");
+		vo.setBirthday(new Date());
+		vo.setEmail("504906985@qq.com");
+		vo.setIconPath("/asdf/asdf.png");
+		vo.setMale(0);
+		vo.setName("lc");
+		vo.setScore(0);
+		vo.setRole(1);
+		String pw  = "12345678";
+		assertEquals(0, userService.register(vo, pw, pw).getResultCode());
 	}
 
 	/**
@@ -44,8 +59,18 @@ public class UserServiceTest {
 	 */
 	@Test
 	public final void testLogin() {
-		assertEquals(0, userService.login("", "").getResultCode());
-		assertEquals(1, userService.login(null, null).getResultCode());
+		UserVo vo = new UserVo();
+		vo.setAccount("testlogin");
+		vo.setBirthday(new Date());
+		vo.setEmail("504906985@qq.com");
+		vo.setIconPath("/asdf/asdf.png");
+		vo.setMale(0);
+		vo.setName("hehe");
+		vo.setScore(0);
+		vo.setRole(1);
+		String pw  = "12345678";
+		userService.register(vo, pw, pw);
+		assertEquals(0, userService.login(vo.getAccount(), pw).getResultCode());
 	}
 
 	/**
@@ -53,10 +78,22 @@ public class UserServiceTest {
 	 */
 	@Test
 	public final void testModifyPassword() {
-		assertEquals(0, userService.modifyPassword(new UserVo(), "", "", "")
-				.getResultCode());
-		assertEquals(1, userService.modifyPassword(null, "", "", "")
-				.getResultCode());
+		UserVo vo = new UserVo();
+		vo.setAccount("testmodifypassword");
+		vo.setBirthday(new Date());
+		vo.setEmail("504906985@qq.com");
+		vo.setIconPath("/asdf/asdf.png");
+		vo.setMale(0);
+		vo.setName("hehe");
+		vo.setScore(0);
+		vo.setRole(1);
+		String pw  = "12345678";
+		userService.register(vo, pw, pw);
+		String s = userService.login(vo.getAccount(), pw).getResultMessage();
+		int userId = Integer.parseInt(s);
+		vo = userService.userInfo(userId);
+		assertEquals(0,
+				userService.modifyPassword(vo, pw, pw, pw).getResultCode());
 	}
 
 	/**
@@ -64,8 +101,34 @@ public class UserServiceTest {
 	 */
 	@Test
 	public final void testModify() {
-		assertEquals(0, userService.modify(new UserVo()).getResultCode());
-		assertEquals(1, userService.modify(null).getResultCode());
+		UserVo vo = new UserVo();
+		vo.setAccount("testmodify");
+		vo.setBirthday(new Date());
+		vo.setEmail("504906985@qq.com");
+		vo.setIconPath("/asdf/asdf.png");
+		vo.setMale(0);
+		vo.setName("hehe");
+		vo.setScore(0);
+		vo.setRole(1);
+		String pw  = "12345678";
+		userService.register(vo, pw, pw);
+		String s = userService.login(vo.getAccount(), pw).getResultMessage();
+		int userId = Integer.parseInt(s);
+		vo = userService.userInfo(userId);
+		vo.setName("fffff");
+		vo.setRole(2);
+		AddressVo addressVo = new AddressVo();
+		addressVo.setPeople("adsf");
+		addressVo.setPhone("12345678");
+		addressVo.setPlaceCode(1);
+		addressVo.setPlaceName("erewrwer");
+		vo.getAddressVoList().add(addressVo);
+		assertEquals(0, userService.modify(vo).getResultCode());
+		vo = userService.userInfo(userId);
+		vo.getAddressVoList().get(0).setPhone("9999999");
+		addressVo.setPlaceName("newone");
+		vo.getAddressVoList().add(addressVo);
+		userService.modify(vo);
 	}
 
 	/**
@@ -73,8 +136,21 @@ public class UserServiceTest {
 	 */
 	@Test
 	public final void testUserInfo() {
-		assertNull(userService.userInfo(-1));
-		assertNotNull(userService.userInfo(1));
+		UserVo vo = new UserVo();
+		vo.setAccount("testuserinfo");
+		vo.setBirthday(new Date());
+		vo.setEmail("504906985@qq.com");
+		vo.setIconPath("/asdf/asdf.png");
+		vo.setMale(0);
+		vo.setName("hehe");
+		vo.setScore(0);
+		vo.setRole(1);
+		String pw  = "12345678";
+		userService.register(vo, pw, pw);
+		String s = userService.login(vo.getAccount(), pw).getResultMessage();
+		int userId = Integer.parseInt(s);
+		vo = userService.userInfo(userId);
+		assertEquals("hehe", vo.getName());
 	}
 
 	/**
@@ -82,8 +158,7 @@ public class UserServiceTest {
 	 */
 	@Test
 	public final void testFavour() {
-		assertEquals(1, userService.favour(null).getResultCode());
-		assertEquals(0, userService.favour(new FavouriteVo()).getResultCode());
+		assertNotNull(userService.favour(MAGIC_ID, MAGIC_ID));
 	}
 
 	/**
@@ -91,8 +166,8 @@ public class UserServiceTest {
 	 */
 	@Test
 	public final void testFavourites() {
-		assertTrue(userService.favourites(-1).size() == 0);
-		assertTrue(userService.favourites(1).size() > 0);
+		assertNotNull(userService.favour(MAGIC_ID, MAGIC_ID));
+		assertTrue(userService.favourites(MAGIC_ID).size() > 0);
 	}
 
 	/**
@@ -100,8 +175,18 @@ public class UserServiceTest {
 	 */
 	@Test
 	public final void testIsFavour() {
-		assertEquals(1, userService.isFavour(-1, -1).getResultCode());
-		assertEquals(0, userService.isFavour(1, 1).getResultCode());
+		assertNotNull(userService.favour(MAGIC_ID, MAGIC_ID));
+		assertEquals(0,
+				userService.isFavour(MAGIC_ID, MAGIC_ID).getResultCode());
 	}
 
+	/**
+	 * 测试取消收藏.
+	 */
+	@Test
+	public final void testUnFavour() {
+		assertNotNull(userService.favour(MAGIC_ID, MAGIC_ID));
+		assertEquals(0,
+				userService.unFavour(MAGIC_ID, MAGIC_ID).getResultCode());
+	}
 }
