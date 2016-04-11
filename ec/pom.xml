@@ -143,7 +143,7 @@
 
 				<configuration>
 					<driver>com.mysql.jdbc.Driver</driver>
-					<url>jdbc:mysql://localhost:3306/</url>
+					<url>jdbc:mysql://localhost:3306/productsdb?useUnicode=yes&amp;characterEncoding=UTF-8</url>
 					<username>ec</username>
 					<password>ec</password>
 				</configuration>
