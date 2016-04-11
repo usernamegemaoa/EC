@@ -11,14 +11,26 @@ public class AdVo {
 	 * 广告id.
 	 */
 	private int id;
+	
 	/**
 	 * 广告图片路径.
 	 */
 	private String picturePath;
+	
 	/**
-	 * 商品网址.
+	 * 用户id.
 	 */
-	private String goodPath;
+	private int userId;
+	
+	/**
+	 * 商品id.
+	 */
+	private int goodId;
+	
+	/**
+	 * 广告类型.
+	 */
+	private AdMode mode;
 	
 	/**
 	 * 获取id.
@@ -49,18 +61,40 @@ public class AdVo {
 		this.picturePath = newPicturePath;
 	}
 	/**
-	 * 获取商品网址.
-	 * @return 设置商品网址
+	 * @return the userId
 	 */
-	public final String getGoodPath() {
-		return goodPath;
+	public final int getUserId() {
+		return userId;
 	}
 	/**
-	 * 设置商品网址.
-	 * @param newGoodPath 商品网址
+	 * @param newUserId the userId to set
 	 */
-	public final void setGoodPath(final String newGoodPath) {
-		this.goodPath = newGoodPath;
+	public final void setUserId(final int newUserId) {
+		this.userId = newUserId;
+	}
+	/**
+	 * @return the goodId
+	 */
+	public final int getGoodId() {
+		return goodId;
+	}
+	/**
+	 * @param newGoodId the goodId to set
+	 */
+	public final void setGoodId(final int newGoodId) {
+		this.goodId = newGoodId;
+	}
+	/**
+	 * @return the mode
+	 */
+	public final AdMode getMode() {
+		return mode;
+	}
+	/**
+	 * @param newMode the mode to set
+	 */
+	public final void setMode(final AdMode newMode) {
+		this.mode = newMode;
 	}
 
 }

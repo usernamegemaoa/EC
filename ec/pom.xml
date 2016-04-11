@@ -11,7 +11,7 @@
 		<java-version>1.8</java-version>
 		<org.springframework-version>4.2.4.RELEASE</org.springframework-version>
 		<org.strutsframework-version>2.3.24.1</org.strutsframework-version>
-		<org.hibernateframework-version>4.3.11.Final</org.hibernateframework-version>
+		<org.hibernateframework-version>4.2.7.Final</org.hibernateframework-version>
 		<org.mysqlconnector-version>5.1.38</org.mysqlconnector-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
