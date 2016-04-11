@@ -70,7 +70,7 @@ public interface UserService {
 	 * @return	0 - 收藏成功
 	 *			1 - 收藏失败	
 	 */
-	ResultVo favour(FavouriteVo favouriteVo);
+	ResultVo favour(int userId, int goodId);
 	
 	/**
 	 * 获取收藏列表.
@@ -87,4 +87,13 @@ public interface UserService {
 	 *			1 - 否
 	 */
 	ResultVo isFavour(int userId, int goodId);
+	
+	/**
+	 * 取消收藏.
+	 * @param userId 用户id
+	 * @param goodId 商品id
+	 * @return  0 - 取消成功
+	 * 			1 - 取消失败
+	 */
+	ResultVo unFavour(int userId, int goodId);
 }
