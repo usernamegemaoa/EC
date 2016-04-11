@@ -2,6 +2,7 @@ package njuse.ec.service.impl;
 
 import java.io.File;
 
+import org.apache.struts2.ServletActionContext;
 import org.springframework.stereotype.Service;
 
 import njuse.ec.service.FileService;
@@ -25,6 +26,10 @@ public class FileServiceImpl implements FileService {
 			uploadResult.setResultCode(0);
 			uploadResult.setResultMessage("上传成功");
 		}
+
+		String root = ServletActionContext.getServletContext().getRealPath("");
+		System.out.println(root);
+		uploadResult.setResultMessage(root);
 		return uploadResult;
 	}
 
