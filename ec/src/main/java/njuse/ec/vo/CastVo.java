@@ -154,5 +154,4 @@ public class CastVo {
 	public final void setNum(final int newNum) {
 		this.num = newNum;
 	}
-	
 }

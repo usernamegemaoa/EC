@@ -3514,3 +3514,6 @@ INSERT INTO `place` (`place_code`, `place_name`) VALUES
 (710000, '台湾省'),
 (810000, '香港特别行政区'),
 (820000, '澳门特别行政区');
+
+INSERT INTO `kind` (`father_id`, `kind_name`) VALUES
+(0, '上装');

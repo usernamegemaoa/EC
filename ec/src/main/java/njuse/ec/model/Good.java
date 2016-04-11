@@ -1,101 +1,115 @@
-package njuse.ec.vo;
+package njuse.ec.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
- * 商品vo.
+ * Good表的实体化映射.
  * @author 阳
  *
  */
-public class GoodVo {
+@Entity
+@Table(name = "good")
+public class Good implements Serializable {
+
+	/**
+	 * 序列化.
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * 商品id.
 	 */
-	private int goodId;
+	@Id
+	@Column(name = "id")
+	private int id;
 	
 	/**
 	 * 商品种类id.
 	 */
+	@Column(name = "kind_id")
 	private int kindId;
 	
 	/**
-	 * 商家id.
+	 * 店主id.
 	 */
-	private int sellerId;
+	@Column(name = "shop_id")
+	private int shopId;
 	
 	/**
-	 * 商品名称.
+	 * 商品名.
 	 */
+	@Column(name = "name")
 	private String name;
-	
+
 	/**
-	 * 商品货号.
+	 * 货号.
 	 */
+	@Column(name = "good_num")
 	private String goodNum;
 	
 	/**
-	 * 商品描述.
+	 * 描述.
 	 */
+	@Column(name = "description")
 	private String description;
 	
 	/**
-	 * 商品单价.
+	 * 价格.
 	 */
+	@Column(name = "price")
 	private double price;
 	
 	/**
 	 * 送货信息.
 	 */
+	@Column(name = "deliver_info")
 	private String deliverInfo;
 	
 	/**
-	 * 退货信息.
+	 * 退货相关.
 	 */
+	@Column(name = "return_info")
 	private String returnInfo;
 	
 	/**
 	 * 上架时间.
 	 */
+	@Column(name = "time")
 	private Date time;
-	
-	/**
-	 * 商品图片.
-	 */
-	private String[] imgs;
-	
-	/**
-	 * 商品主图片.
-	 */
-	private String mainPic;
 
 	/**
-	 * 获取商品id.
-	 * @return 商品id
+	 * 获取用户id.
+	 * @return 用户id.
 	 */
-	public final int getGoodId() {
-		return goodId;
+	public final int getId() {
+		return id;
 	}
 
 	/**
-	 * 设置商品id.
-	 * @param newGoodId 商品id
+	 * 设置用户id.
+	 * @param newId 用户id
 	 */
-	public final void setGoodId(final int newGoodId) {
-		this.goodId = newGoodId;
+	public final void setId(final int newId) {
+		this.id = newId;
 	}
 
 	/**
-	 * 获取种类id.
-	 * @return 种类id
+	 * 获取商品种类id.
+	 * @return 商品种类id
 	 */
 	public final int getKindId() {
 		return kindId;
 	}
 
 	/**
-	 * 设置种类id.
-	 * @param newKindId 种类id
+	 * 设置商品种类id.
+	 * @param newKindId 商品种类id
 	 */
 	public final void setKindId(final int newKindId) {
 		this.kindId = newKindId;
@@ -105,29 +119,29 @@ public class GoodVo {
 	 * 获取商家id.
 	 * @return 商家id
 	 */
-	public final int getSellerId() {
-		return sellerId;
+	public final int getShopId() {
+		return shopId;
 	}
 
 	/**
 	 * 设置商家id.
-	 * @param newSellerId 商家id
+	 * @param newShopId 商家id
 	 */
-	public final void setSellerId(final int newSellerId) {
-		this.sellerId = newSellerId;
+	public final void setShopId(final int newShopId) {
+		this.shopId = newShopId;
 	}
 
 	/**
-	 * 获取商品名称.
-	 * @return 商品名称
+	 * 获取商品名.
+	 * @return 商品名
 	 */
 	public final String getName() {
 		return name;
 	}
 
 	/**
-	 * 设置商品名称.
-	 * @param newName 商品名称
+	 * 设置商品名.
+	 * @param newName 商品名
 	 */
 	public final void setName(final String newName) {
 		this.name = newName;
@@ -214,7 +228,7 @@ public class GoodVo {
 	}
 
 	/**
-	 * 获取上架时间.
+	 * 获取商品上架时间.
 	 * @return 上架时间
 	 */
 	public final Date getTime() {
@@ -222,42 +236,10 @@ public class GoodVo {
 	}
 
 	/**
-	 * 设置上架时间.
+	 * 设置商品上架时间.
 	 * @param newTime 上架时间
 	 */
 	public final void setTime(final Date newTime) {
 		this.time = newTime;
-	}
-
-	/**
-	 * 获取商品图片.
-	 * @return 商品图片
-	 */
-	public final String[] getImgs() {
-		return imgs;
-	}
-
-	/**
-	 * 设置商品图片.
-	 * @param newImgs 商品图片
-	 */
-	public final void setImgs(final String[] newImgs) {
-		this.imgs = newImgs;
-	}
-
-	/**
-	 * 获取商品主图片.
-	 * @return 主图片
-	 */
-	public final String getMainPic() {
-		return mainPic;
-	}
-
-	/**
-	 * 设置商品主图片.
-	 * @param newMainPic 主图片
-	 */
-	public final void setMainPic(final String newMainPic) {
-		this.mainPic = newMainPic;
 	}
 }

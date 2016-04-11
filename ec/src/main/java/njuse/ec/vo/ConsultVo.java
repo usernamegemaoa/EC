@@ -1,5 +1,7 @@
 package njuse.ec.vo;
 
+import java.util.Date;
+
 /**
  * 咨询vo.
  * @author 阳
@@ -18,6 +20,11 @@ public class ConsultVo {
 	private int userId;
 	
 	/**
+	 * 商品id.
+	 */
+	private int goodId;
+	
+	/**
 	 * 父咨询.
 	 */
 	private ConsultVo fatherConsult;
@@ -26,6 +33,11 @@ public class ConsultVo {
 	 * 咨询内容.
 	 */
 	private String consult;
+	
+	/**
+	 * 咨询时间.
+	 */
+	private Date time;
 
 	/**
 	 * 获取咨询id.
@@ -60,6 +72,22 @@ public class ConsultVo {
 	}
 
 	/**
+	 * 获取商品id.
+	 * @return 商品id
+	 */
+	public final int getGoodId() {
+		return goodId;
+	}
+
+	/**
+	 * 设置商品id.
+	 * @param newGoodId 商品id
+	 */
+	public final void setGoodId(final int newGoodId) {
+		this.goodId = newGoodId;
+	}
+
+	/**
 	 * 获取父咨询.
 	 * @return 父咨询
 	 */
@@ -89,5 +117,21 @@ public class ConsultVo {
 	 */
 	public final void setConsult(final String newConsult) {
 		this.consult = newConsult;
+	}
+
+	/**
+	 * 获取咨询时间.
+	 * @return 咨询时间
+	 */
+	public final Date getTime() {
+		return time;
+	}
+
+	/**
+	 * 设置咨询时间.
+	 * @param newTime 咨询时间
+	 */
+	public final void setTime(final Date newTime) {
+		this.time = newTime;
 	}
 }
