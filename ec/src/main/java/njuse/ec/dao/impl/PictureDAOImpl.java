@@ -2,11 +2,9 @@ package njuse.ec.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import njuse.ec.dao.BaseDao;
 import njuse.ec.dao.PictureDAO;
 import njuse.ec.model.Picture;
 
@@ -19,64 +17,34 @@ import njuse.ec.model.Picture;
 public class PictureDAOImpl implements PictureDAO {
 	
 	/**
-	 * sessionFactory.
+	 * baseDao.
 	 */
-	@Autowired
-	private SessionFactory sessionFactory;
-	
-	/**
-	 * 获取一个session.
-	 * @return session
-	 */
-	private Session getSession() {
-		return sessionFactory.getCurrentSession();
-	}
+	private BaseDao<Picture> baseDao;
 	
 	@Override
 	public final void addPic(final Picture pic) {
-		try {
-			Session session = getSession();
-			session.save(pic);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+		baseDao.save(pic);
 	}
 
 	@Override
 	public final void deletePic(final Picture pic) {
-		try {
-			Session session = getSession();
-			session.save(pic);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+		baseDao.delete(pic);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public final List<Picture> getPics(final int goodId) {
-		String hql = "select * from picture where good_id = " + goodId + ";";
-		Session session = getSession();
-		try {
-			return session.createQuery(hql).list();
-		} catch (Exception e) {
-			return null;
-		}
+		return baseDao.findlist(Picture.class, "goodId", String.valueOf(goodId));
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public final List<Picture> getMainPic(final int goodId) {
-		String hql = "select * from picture where main = 'true' and good_id = " 
-				+ goodId + ";";
-		Session session = getSession();
-		try {
-			return session.createQuery(hql).list();
-		} catch (Exception e) {
-			return null;
+	public final Picture getMainPic(final int goodId) { 
+		List<Picture> pics = getPics(goodId);
+		for(int i = 0; i < pics.size(); i++) {
+			Picture pic = pics.get(i);
+			while(pic.getIsMain() == "true") {
+				return pic;
+			}
 		}
+		return null;
 	}
-
 }

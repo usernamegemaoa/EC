@@ -2,11 +2,9 @@ package njuse.ec.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import njuse.ec.dao.BaseDao;
 import njuse.ec.dao.ConsultDAO;
 import njuse.ec.model.Consult;
 
@@ -19,49 +17,22 @@ import njuse.ec.model.Consult;
 public class ConsultDAOImpl implements ConsultDAO {
 
 	/**
-	 * sessionFactory.
+	 * baseDao.
 	 */
-	@Autowired
-	private SessionFactory sessionFactory;
-	
-	/**
-	 * 获取一个session.
-	 * @return session
-	 */
-	private Session getSession() {
-		return sessionFactory.getCurrentSession();
-	}
+	private BaseDao<Consult> baseDao;
 	
 	@Override
 	public final void addConsult(final Consult consult) {
-		try {
-			Session session = getSession();
-			session.save(consult);		
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		baseDao.save(consult);
 	}
 
 	@Override
 	public final void deleteConsult(final Consult consult) {
-		try {
-			Session session = getSession();
-			session.delete(consult);		
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		baseDao.delete(consult);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public final List<Consult> getConsults(final int goodId) {
-		String hql = "select * from consult where good_id = " + goodId + ";";
-		Session session = getSession();
-		try {
-			return session.createQuery(hql).list();			
-		} catch (Exception e) {
-			return null;
-		}
+		return baseDao.findlist(Consult.class, "goodId", String.valueOf(goodId));
 	}
-
 }

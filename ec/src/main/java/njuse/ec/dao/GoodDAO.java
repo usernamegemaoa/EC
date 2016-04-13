@@ -46,7 +46,7 @@ public interface GoodDAO {
 	/**
 	 * 获取商品.
 	 * @param id 商品id
-	 * @return 商品列表
+	 * @return 商品
 	 */
-	List<Good> getGood(int id);
+	Good getGood(int id);
 }

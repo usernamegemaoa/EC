@@ -2,11 +2,9 @@ package njuse.ec.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import njuse.ec.dao.BaseDao;
 import njuse.ec.dao.PlanDAO;
 import njuse.ec.model.Plan;
 
@@ -19,59 +17,27 @@ import njuse.ec.model.Plan;
 public class PlanDAOImpl implements PlanDAO {
 
 	/**
-	 * sessionFactory.
+	 * baseDao.
 	 */
-	@Autowired
-	private SessionFactory sessionFactory;
-	
-	/**
-	 * 获取一个session.
-	 * @return session
-	 */
-	private Session getSession() {
-		return sessionFactory.getCurrentSession();
-	}
+	private BaseDao<Plan> baseDao;
 	
 	@Override
 	public final void addPlan(final Plan plan) {
-		try {
-		Session session = getSession();
-		session.save(plan);
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
+		baseDao.save(plan);
 	}
 
 	@Override
 	public final void deletePlan(final Plan plan) {
-		try {
-			Session session = getSession();
-			session.delete(plan);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}	
+		baseDao.delete(plan);	
 	}
 
 	@Override
 	public final void modifyPlan(final Plan plan) {
-		try {
-			Session session = getSession();
-			session.update(plan);	
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		baseDao.update(plan);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public final List<Plan> getPlan(final int userId) {
-		String hql = "select * from plan where user_id = " + userId + ";";
-		Session session = getSession();
-		try {
-		return session.createQuery(hql).list();
-		} catch (Exception e) {
-			return null;
-		}
+		return baseDao.findlist(Plan.class, "userId", String.valueOf(userId));
 	}
-
 }

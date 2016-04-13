@@ -1,12 +1,9 @@
 package njuse.ec.dao.impl;
 
-import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import njuse.ec.dao.BaseDao;
 import njuse.ec.dao.StockDAO;
 import njuse.ec.model.Stock;
 
@@ -19,59 +16,28 @@ import njuse.ec.model.Stock;
 public class StockDAOImpl implements StockDAO {
 	
 	/**
-	 * sessionFactory.
+	 * baseDao.
 	 */
-	@Autowired
-	private SessionFactory sessionFactory;
-	
-	/**
-	 * 获取一个session.
-	 * @return session
-	 */
-	private Session getSession() {
-		return sessionFactory.getCurrentSession();
-	}
+	private BaseDao<Stock> baseDao;
 
 	@Override
 	public final void addStock(final Stock stock) {
-		try {
-			Session session = getSession();
-			session.save(stock);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		baseDao.save(stock);
 	}
 
 	@Override
 	public final void deleteStock(final Stock stock) {
-		try {
-			Session session = getSession();
-			session.delete(stock);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		baseDao.delete(stock);
 	}
 
 	@Override
 	public final void modifyStock(final Stock stock) {
-		try {
-			Session session = getSession();
-			session.update(stock);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		baseDao.update(stock);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public final List<Stock> getStock(final int stockId) {
-		String hql = "select * from stock where id = " + stockId + ";";
-		Session session = getSession();
-		try {
-			return session.createQuery(hql).list();
-		} catch (Exception e) {
-			return null;
-		}
+	public final Stock getStock(final int stockId) {
+		return baseDao.load(Stock.class, stockId);
 	}
 
 }

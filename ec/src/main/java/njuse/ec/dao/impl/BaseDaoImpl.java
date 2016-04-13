@@ -2,10 +2,12 @@ package njuse.ec.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -177,5 +179,18 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 			tx.rollback();
 			return null;
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> sortlist(Class<T> c, String column, boolean isAsc) {
+		Session session = getSession();
+		Criteria crit = session.createCriteria(c);
+		if(isAsc) {
+			crit.addOrder(Order.asc(column));
+		} else {
+			crit.addOrder(Order.desc(column));
+		}
+		return crit.list();
 	}
 }

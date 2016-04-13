@@ -1,6 +1,5 @@
 package njuse.ec.dao;
 
-import java.util.List;
 
 import njuse.ec.model.Stock;
 
@@ -34,5 +33,5 @@ public interface StockDAO {
 	 * @param stockId 库存id
 	 * @return 库存列表
 	 */
-	List<Stock> getStock(int stockId);
+	Stock getStock(int stockId);
 }

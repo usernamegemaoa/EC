@@ -35,5 +35,5 @@ public interface PictureDAO {
 	 * @param goodId 商品id
 	 * @return 图片列表
 	 */
-	List<Picture> getMainPic(int goodId);
+	Picture getMainPic(int goodId);
 }

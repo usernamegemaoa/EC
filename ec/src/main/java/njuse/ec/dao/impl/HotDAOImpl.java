@@ -2,11 +2,9 @@ package njuse.ec.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import njuse.ec.dao.BaseDao;
 import njuse.ec.dao.HotDAO;
 import njuse.ec.model.Hot;
 
@@ -19,48 +17,22 @@ import njuse.ec.model.Hot;
 public class HotDAOImpl implements HotDAO {
 	
 	/**
-	 * sessionFactory.
+	 * baseDao.
 	 */
-	@Autowired
-	private SessionFactory sessionFactory;
-	
-	/**
-	 * 获取一个session.
-	 * @return session
-	 */
-	private Session getSession() {
-		return sessionFactory.getCurrentSession();
-	}
+	private BaseDao<Hot> baseDao;
 	
 	@Override
 	public final void addHot(final Hot hot) {
-		try {
-			Session session = getSession();
-			session.save(hot);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		baseDao.save(hot);
 	}
 
 	@Override
 	public final void deleteHot(final Hot hot) {
-		try {
-			Session session = getSession();
-			session.delete(hot);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		baseDao.delete(hot);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public final List<Hot> getHot(final int firstId) {
-		String hql = "select * from hot where first_id = " + firstId + ";";
-		Session session = getSession();
-		try {
-			return session.createQuery(hql).list();
-		} catch (Exception e) {
-			return null;
-		}
+		return baseDao.findlist(Hot.class, "firstId", String.valueOf(firstId));
 	}
 }

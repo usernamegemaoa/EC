@@ -104,7 +104,7 @@ public class CastServiceImpl implements CastService {
 		int stockId = plan.getStockId();
 		int userId = plan.getUserId();
 		int quantity = plan.getQuantity();
-		Stock stock = stockDao.getStock(stockId).get(0);
+		Stock stock = stockDao.getStock(stockId);
 		int goodId = stock.getGoodId();
 		String color = stock.getColor();
 		String size = stock.getSize();

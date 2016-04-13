@@ -212,7 +212,7 @@ public class GoodServiceImpl implements GoodService {
 
 	@Override
 	public final GoodVo getDetailGood(final int goodId) {
-		Good good = goodDao.getGood(goodId).get(0);
+		Good good = goodDao.getGood(goodId);
 		return convertToGoodVo(good);
 	}
 
@@ -223,7 +223,7 @@ public class GoodServiceImpl implements GoodService {
 		for (int i = 0; i < (perPage / 2); i++) {
 			Hot hot = hotGood.get(i);
 			int id = hot.getSecondId();
-			Good good = goodDao.getGood(id).get(0);
+			Good good = goodDao.getGood(id);
 			SimpleGoodVo sgVo = convertToSimpleGood(good);
 			hotGoodVo.add(sgVo);
 		}
@@ -390,7 +390,7 @@ public class GoodServiceImpl implements GoodService {
 		for (int i = 0; i < num; i++) {
 			pic[i] = pics.get(i).getFile();
 		}
-		String mainPic = pictureDao.getMainPic(id).get(0).getFile();
+		String mainPic = pictureDao.getMainPic(id).getFile();
 		goodVo.setGoodId(id);
 		goodVo.setKindId(kindId);
 		goodVo.setSellerId(shopId);
@@ -417,7 +417,7 @@ public class GoodServiceImpl implements GoodService {
 		int shopId = good.getShopId();
 		String name = good.getName();
 		double price = good.getPrice();
-		String img = pictureDao.getMainPic(id).get(0).getFile();
+		String img = pictureDao.getMainPic(id).getFile();
 		sgVo.setGoodId(id);
 		sgVo.setSellerId(shopId);
 		sgVo.setName(name);

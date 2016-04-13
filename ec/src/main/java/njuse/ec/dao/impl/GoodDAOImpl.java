@@ -2,11 +2,9 @@ package njuse.ec.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import njuse.ec.dao.BaseDao;
 import njuse.ec.dao.GoodDAO;
 import njuse.ec.model.Good;
 
@@ -19,85 +17,38 @@ import njuse.ec.model.Good;
 public class GoodDAOImpl implements GoodDAO {
 	
 	/**
-	 * sessionFactory.
+	 * baseDao.
 	 */
-	@Autowired
-	private SessionFactory sessionFactory;
-	
-	/**
-	 * 获取一个session.
-	 * @return session
-	 */
-	private Session getSession() {
-		return sessionFactory.getCurrentSession();
-	}
+	private BaseDao<Good> baseDao;
 
 	@Override
 	public final void addGood(final Good good) {
-		try {
-			Session session = getSession();
-			session.save(good);		
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		baseDao.save(good);
 	}
 
 	@Override
 	public final void deleteGood(final Good good) {
-		try {
-			Session session = getSession();
-			session.delete(good);		
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		baseDao.delete(good);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public final List<Good> getLatestGoods() {
-		String hql = "select * from good order by time desc" + ";";
-		Session session = getSession();
-		try {
-			return session.createQuery(hql).list();		
-		} catch (Exception e) {
-			return null;
-		}
+		return baseDao.sortlist(Good.class, "time", false);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public final List<Good> getKindGoods(final int kindId) {
-		String hql = "select * from good where kind_id = " + kindId + ";";
-		Session session = getSession();
-		try {
-			return session.createQuery(hql).list();			
-		} catch (Exception e) {
-			return null;
-		}
+		return baseDao.findlist(Good.class, "kindId", String.valueOf(kindId));
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public final List<Good> getNameGoods(final String name) {
-		String hql = "select * from good where name = " + name + ";";
-		Session session = getSession();
-		try {
-			return session.createQuery(hql).list();			
-		} catch (Exception e) {
-			return null;
-		}
+		String newName = "%" + name + "%";
+		return baseDao.findlist(Good.class, "name", newName);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public final List<Good> getGood(final int id) {
-		String hql = "select * from good where id =" + id + ";";
-		Session session = getSession();
-		try {
-			return session.createQuery(hql).list();			
-		} catch (Exception e) {
-			return null;
-		}
+	public final Good getGood(final int id) {
+		return baseDao.load(Good.class, id);
 	}
-
 }
