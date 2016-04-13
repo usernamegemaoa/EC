@@ -3528,7 +3528,7 @@ INSERT INTO `rbac_user` (`id`, `account`, `password`, `salt`, `name`) VALUES
 INSERT INTO `rbac_user_role` (`id`, `user_id`, `role_id`) VALUES
 (123, 123, 1);
 
-INSERT INTO `kind` (`id`, `father_id`, `name`) VALUES
+INSERT INTO `kind` (`id`, `father_id`, `kind_name`) VALUES
 (123, 0, 'testfavour');
 
 INSERT INTO `good` (`id`, `kind_id`, `shop_id`, `name`, `good_num`, `description`, `price`, `deliver_info`, `return_info`, `time`) VALUE

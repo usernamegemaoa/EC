@@ -87,11 +87,13 @@ public class GoodServiceImpl implements GoodService {
 	/**
 	 * HotDAO.
 	 */
+	@Autowired
 	private HotDAO hotDao;
 	
 	/**
 	 * StockDAO.
 	 */
+	@Autowired
 	private StockDAO stockDao;
 	
 	/**
