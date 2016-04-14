@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -31,6 +33,7 @@ public class Good implements Serializable {
 	 */
 	@Id
 	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private int id;
 	
 	/**

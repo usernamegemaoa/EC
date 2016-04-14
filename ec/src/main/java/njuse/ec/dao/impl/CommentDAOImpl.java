@@ -2,6 +2,7 @@ package njuse.ec.dao.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import njuse.ec.dao.BaseDao;
@@ -19,6 +20,7 @@ public class CommentDAOImpl implements CommentDAO {
 	/**
 	 * baseDao.
 	 */
+	@Autowired
 	private BaseDao<Comment> baseDao;
 
 	@Override

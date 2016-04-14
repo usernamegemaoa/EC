@@ -1,6 +1,7 @@
 package njuse.ec.dao.impl;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import njuse.ec.dao.BaseDao;
@@ -18,6 +19,7 @@ public class StockDAOImpl implements StockDAO {
 	/**
 	 * baseDao.
 	 */
+	@Autowired
 	private BaseDao<Stock> baseDao;
 
 	@Override

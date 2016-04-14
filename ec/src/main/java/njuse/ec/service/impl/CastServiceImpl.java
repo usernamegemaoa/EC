@@ -31,6 +31,7 @@ public class CastServiceImpl implements CastService {
 	/**
 	 * StockDAO.
 	 */
+	@Autowired
 	private StockDAO stockDao;
 	
 	@Override
@@ -49,15 +50,15 @@ public class CastServiceImpl implements CastService {
 	public final ResultVo addCast(final int userId, final CastVo cast) {
 		cast.setUserId(userId);
 		Plan plan = convertToPlan(cast);
-		planDao.addPlan(plan);
 		ResultVo addCastResult = new ResultVo();
-//		if (cast != null) {
-//			addCastResult.setResultCode(0);
-//			addCastResult.setResultMessage("进货单添加成功！");
-//		} else {
-//			addCastResult.setResultCode(1);
-//			addCastResult.setResultMessage("进货单添加失败！");
-//		}
+		try {
+			planDao.addPlan(plan);
+			addCastResult.setResultCode(0);
+			addCastResult.setResultMessage("订单添加成功");
+		} catch (Exception e) {
+			addCastResult.setResultCode(1);
+			addCastResult.setResultMessage("订单添加失败");
+		}
 		return addCastResult;
 	}
 
@@ -65,15 +66,15 @@ public class CastServiceImpl implements CastService {
 	public final ResultVo deleteCast(final int userId, final CastVo cast) {
 		cast.setUserId(userId);
 		Plan plan = convertToPlan(cast);
-		planDao.deletePlan(plan);
 		ResultVo deleteCastResult = new ResultVo();
-//		if (cast != null) {
-//			deleteCastResult.setResultCode(0);
-//			deleteCastResult.setResultMessage("进货单删除成功！");
-//		} else {
-//			deleteCastResult.setResultCode(1);
-//			deleteCastResult.setResultMessage("进货单删除失败！");
-//		}
+		try {
+			planDao.deletePlan(plan);
+			deleteCastResult.setResultCode(0);
+			deleteCastResult.setResultMessage("订单删除成功");
+		} catch (Exception e) {
+			deleteCastResult.setResultCode(1);
+			deleteCastResult.setResultMessage("订单删除失败");
+		}
 		return deleteCastResult;
 	}
 
@@ -81,15 +82,15 @@ public class CastServiceImpl implements CastService {
 	public final ResultVo modifyCast(final int userId, final CastVo cast) {
 		cast.setUserId(userId);
 		Plan plan = convertToPlan(cast);
-		planDao.modifyPlan(plan);
 		ResultVo modifyCastResult = new ResultVo();
-//		if (cast != null) {
-//			modifyCastResult.setResultCode(0);
-//			modifyCastResult.setResultMessage("进货单修改成功！");
-//		} else {
-//			modifyCastResult.setResultCode(1);
-//			modifyCastResult.setResultMessage("进货单修改失败！");
-//		}
+		try {
+			planDao.modifyPlan(plan);
+			modifyCastResult.setResultCode(0);
+			modifyCastResult.setResultMessage("订单修改成功");
+		} catch (Exception e) {
+			modifyCastResult.setResultCode(1);
+			modifyCastResult.setResultMessage("订单修改失败");
+		}
 		return modifyCastResult;
 	}
 	
