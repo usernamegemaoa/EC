@@ -13,9 +13,9 @@ public class KindVo {
 	private int kindId;
 	
 	/**
-	 * 父种类.
+	 * 父种类id.
 	 */
-	private KindVo fatherKind;
+	private int fatherId;
 	
 	/**
 	 * 种类名称.
@@ -42,16 +42,16 @@ public class KindVo {
 	 * 获取商品父种类.
 	 * @return 商品父种类
 	 */
-	public final KindVo getFatherKind() {
-		return fatherKind;
+	public final int getFatherKind() {
+		return fatherId;
 	}
 
 	/**
 	 * 设置商品父种类.
-	 * @param newFatherKind 商品父种类
+	 * @param newFatherId 商品父种类
 	 */
-	public final void setFatherKind(final KindVo newFatherKind) {
-		this.fatherKind = newFatherKind;
+	public final void setFatherKind(final int newFatherId) {
+		this.fatherId = newFatherId;
 	}
 
 	/**

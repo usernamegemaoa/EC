@@ -3518,18 +3518,67 @@ INSERT INTO `place` (`place_code`, `place_name`) VALUES
 INSERT INTO `good` (`kind_id`,`shop_id`,`name`,`good_num`,`description`,`price`,`deliver_info`,`return_info`,`time`) VALUES (1,1,"t恤",100,"男士上装",299,"包邮","不可退货","2008-08-08 22:47:11");
 INSERT INTO `cast` (`stock_id`,`user_id`,`good_id`,`color`,`size`,`quantity`) VALUES (1,1,1,"黑色","M",1);
 
+INSERT INTO `kind` (`father_id`, `kind_name`) VALUES
+(0, '上装'),
+(0, '下装'),
+(1, '衬衫'),
+(2, '裤子');
 INSERT INTO `rbac_role` (`id`, `name`) VALUES
 (1, '顾客'),
 (2, '商家');
 
 INSERT INTO `rbac_user` (`id`, `account`, `password`, `salt`, `name`) VALUES
-(123, 'TESTFAVOUR@123.COM', 'PASSWORD', 'SALT', 'TESTFAVOUR');
+(123, 'TESTFAVOUR@123.COM', 'PASSWORD', 'SALT', 'TESTFAVOUR'),
+(276, 'test@123.com', '1234', 'salt', 'test');
 
 INSERT INTO `rbac_user_role` (`id`, `user_id`, `role_id`) VALUES
-(123, 123, 1);
+(123, 123, 1),
+(276, 276, 1),
+(277, 276, 2);
 
-INSERT INTO `kind` (`id`, `father_id`, `name`) VALUES
+INSERT INTO `kind` (`id`, `father_id`, `kind_name`) VALUES
 (123, 0, 'testfavour');
 
 INSERT INTO `good` (`id`, `kind_id`, `shop_id`, `name`, `good_num`, `description`, `price`, `deliver_info`, `return_info`, `time`) VALUE
-(123, 123, 123, 'TESTFAVOUR', 'ASDF', 'ASDF', 12, 'ASDF', 'ASDF', now());
+(123, 123, 123, 'TESTFAVOUR', 'ASDF', 'ASDF', 12, 'ASDF', 'ASDF', now()),
+(1, 3, 276, '衬衫1', '货号1', '商品描述1', 11.99, '送货信息1', '退货信息1', now()),
+(2, 4, 276, '裤子1', '货号2', '商品描述2', 12.99, '送货信息2', '退货信息2', now());
+
+INSERT INTO `stock` (`id`, `good_id`, `size`, `color`, `quantity`) VALUES
+(276, 123, 'XL', '红色', 5),
+(1, 1, 'XXL', '黄色', 10),
+(2, 1, 'XL', '红色', 10),
+(3, 2, 'M', '黑色', 20),
+(4, 2, 'S', '黑色', 20);
+
+INSERT INTO `plan` (`id`, `stock_id`, `user_id`, `quantity`) VALUES
+(276, 276, 123, 1),
+(1, 1, 276, 3),
+(2, 2, 276, 4),
+(3, 3, 276, 1);
+
+INSERT INTO `Picture` (`id`, `good_id`, `file`, `main`) VALUES
+(1, 1, 'files', 'true'),
+(2, 2, 'files2', 'true'),
+(3, 1, 'files3', 'false'),
+(4, 123, 'files4', 'true');
+
+INSERT INTO `comment` (`id`, `good_id`, `user_id`, `score`, `content`, `time`) VALUES
+(1, 1, 123, 3, "一般", now()),
+(2, 2, 123, 5, "很好", now());
+
+INSERT INTO `consult` (`id`,`good_id`, `user_id`, `content`, `time`) VALUES
+(1, 1, 123, "可以吃吗？", now()),
+(2, 2, 123, "不可以吃吗？", now());
+
+INSERT INTO `sub_consult` (`id`, `consult_id`, `user_id`, `content`, `time`) VALUES
+(1, 1, 276, "不可以", now()),
+(2, 2, 276, "是的", now());
+
+INSERT INTO `sub_comment` (`id`, `comment_id`, `user_id`, `content`, `time`) VALUES
+(1, 1, 276, "哦", now()),
+(2, 2, 276, "谢谢", now());
+
+INSERT INTO `hot` (`first_id`, `second_id`) VALUES
+(1, 2),
+(2, 1);

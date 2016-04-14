@@ -105,4 +105,13 @@ public interface BaseDao<T> {
 	 * @return 列表
 	 */
 	List<T> findlist(Class<T> c, String coloum, String value);
+	
+	/**
+	 * 根据列排序.
+	 * @param c T.CLASS
+	 * @param column 列头
+	 * @param isAsc 是否正序
+	 * @return 列表
+	 */
+	List<T> sortlist(Class<T> c, String column, boolean isAsc);
 }

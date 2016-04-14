@@ -53,7 +53,7 @@
 	</bean>
 	<bean id="IndexAction" class="njuse.ec.action.IndexAction">
 	</bean>
-    <bean id="GoodInfoction" class="njuse.ec.action.GoodInfoAction">
+	<bean id="MyOrderAction" class="njuse.ec.action.MyOrderAction">
 	</bean>
 	
 	
