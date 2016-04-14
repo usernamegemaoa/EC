@@ -34,4 +34,18 @@ public interface PlanDAO {
 	 * @return 进货单
 	 */
 	List<Plan> getPlan(int userId);
+
+	/**
+	 * 根据plan获得店家id
+	 * @param plan 进货单
+	 * @return 店家id
+	 */
+	int getShopId(Plan plan);
+
+	/**
+	 * 根据plan获得价格
+	 * @param plan 进货单
+	 * @return 价格
+	 */
+	int getPrice(Plan plan);
 }

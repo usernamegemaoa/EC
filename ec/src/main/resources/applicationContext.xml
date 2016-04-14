@@ -39,6 +39,7 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.connection.autocommit">true</prop>
 			</props>
@@ -52,6 +53,9 @@
 	</bean>
 	<bean id="IndexAction" class="njuse.ec.action.IndexAction">
 	</bean>
+	<bean id="MyOrderAction" class="njuse.ec.action.MyOrderAction">
+	</bean>
+	
 	
 	<!-- 定义 Autowired 自动注入 bean -->
 	<bean

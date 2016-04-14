@@ -1,5 +1,10 @@
 package njuse.ec.vo;
 
+import java.util.List;
+
+import njuse.ec.model.Cast;
+import njuse.ec.model.OrderInfo;
+
 /**
  * 进货单vo.
  * @author 阳
@@ -154,4 +159,5 @@ public class CastVo {
 	public final void setNum(final int newNum) {
 		this.num = newNum;
 	}
+
 }

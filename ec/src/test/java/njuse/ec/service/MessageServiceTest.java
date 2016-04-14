@@ -2,6 +2,8 @@ package njuse.ec.service;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Date;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,38 +34,12 @@ public class MessageServiceTest {
 	@Test
 	public final void testAddMessage() {
 		MessageVo message = new MessageVo();
-		MessageVo nullMessage = null;
-		message.setUserId(0);
-		assertEquals(0, meService.addMessage(message).getResultCode());
-		assertEquals(1, meService.addMessage(nullMessage).getResultCode());
+		message.setMessage("系统消息");
+		message.setRead(false);
+		Date now=new Date();
+		message.setTime(now);
+		message.setUserId(1);
+		meService.addMessage(message);
 	}
-
-	/**
-	 * 测试阅读消息.
-	 */
-	@Test
-	public final void testReadMessage() {
-		MessageVo message = new MessageVo();
-		assertEquals(1, meService.readMessage(-1, message).getResultCode());
-		assertEquals(0, meService.readMessage(0, message).getResultCode());
-	}
-
-	/**
-	 * 测试获取未读列表.
-	 */
-	@Test
-	public final void testGetUnReadMessage() {
-		MessageVo message = new MessageVo();
-		assertEquals(1, meService.getUnReadMessage(0, message).size());
-	}
-
-	/**
-	 * 测试获取所有消息列表.
-	 */
-	@Test
-	public final void testGetAllMessage() {
-		MessageVo message = new MessageVo();
-		assertEquals(1, meService.getAllMessage(0, message).size());
-	}
-
 }
+

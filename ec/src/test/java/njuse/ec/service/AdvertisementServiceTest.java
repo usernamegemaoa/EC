@@ -3,12 +3,15 @@ package njuse.ec.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import njuse.ec.vo.AdMode;
 import njuse.ec.vo.AdVo;
 import njuse.ec.vo.KindVo;
 
@@ -28,12 +31,21 @@ public class AdvertisementServiceTest {
 	private AdvertisementService adService;
 	
 	/**
+	 * 数据库中用于测试的ID.
+	 */
+	private static final int MAGIC_ID = 123;
+	
+	/**
 	 * 测试添加广告.
 	 */
 	@Test
 	public final void testAddAd() {
-		assertEquals(1, adService.addAd(null).getResultCode());
-		assertEquals(0, adService.addAd(new AdVo()).getResultCode());
+		AdVo vo = new AdVo();
+		vo.setMode(AdMode.NORMAL);
+		vo.setGoodId(MAGIC_ID);
+		vo.setUserId(MAGIC_ID);
+		vo.setPicturePath("asdf");
+		assertEquals(0, adService.addAd(vo).getResultCode());
 	}
 
 	/**
@@ -41,8 +53,15 @@ public class AdvertisementServiceTest {
 	 */
 	@Test
 	public final void testDelAd() {
-		assertEquals(1, adService.delAd(-1, -1).getResultCode());
-		assertEquals(0, adService.delAd(1, 1).getResultCode());
+		AdVo vo = new AdVo();
+		vo.setMode(AdMode.NORMAL);
+		vo.setGoodId(MAGIC_ID);
+		vo.setUserId(MAGIC_ID);
+		vo.setPicturePath("asdf");
+		assertEquals(0, adService.addAd(vo).getResultCode());
+		List<AdVo> ads = adService.getAds(MAGIC_ID);
+		assertTrue(ads.size() > 0);
+		adService.delAd(MAGIC_ID, ads.get(0).getId());
 	}
 
 	/**
@@ -50,8 +69,14 @@ public class AdvertisementServiceTest {
 	 */
 	@Test
 	public final void testGetAdsInt() {
-		assertEquals(1, adService.getAds(1).size());
-		assertEquals(0, adService.getAds(-1).size());
+		AdVo vo = new AdVo();
+		vo.setMode(AdMode.NORMAL);
+		vo.setGoodId(MAGIC_ID);
+		vo.setUserId(MAGIC_ID);
+		vo.setPicturePath("asdf");
+		assertEquals(0, adService.addAd(vo).getResultCode());
+		List<AdVo> ads = adService.getAds(MAGIC_ID);
+		assertTrue(ads.size() > 0);
 	}
 
 	/**
@@ -59,8 +84,15 @@ public class AdvertisementServiceTest {
 	 */
 	@Test
 	public final void testGetAdsKindVo() {
-		assertEquals(1, adService.getAds(new KindVo()).size());
-		assertEquals(0, adService.getAds(null).size());
+		AdVo vo = new AdVo();
+		vo.setMode(AdMode.NORMAL);
+		vo.setGoodId(MAGIC_ID);
+		vo.setUserId(MAGIC_ID);
+		vo.setPicturePath("asdf");
+		assertEquals(0, adService.addAd(vo).getResultCode());
+		KindVo kindVo = new KindVo();
+		kindVo.setKindId(MAGIC_ID);
+		assertTrue(adService.getAds(kindVo).size() > 0);
 	}
 
 	/**
@@ -68,8 +100,12 @@ public class AdvertisementServiceTest {
 	 */
 	@Test
 	public final void testAddIndexAd() {
-		assertEquals(1, adService.addIndexAd(null).getResultCode());
-		assertEquals(0, adService.addIndexAd(new AdVo()).getResultCode());
+		AdVo vo = new AdVo();
+		vo.setMode(AdMode.INDEX);
+		vo.setGoodId(MAGIC_ID);
+		vo.setUserId(MAGIC_ID);
+		vo.setPicturePath("asdf");
+		assertEquals(0, adService.addIndexAd(vo).getResultCode());
 	}
 
 	/**
@@ -77,8 +113,12 @@ public class AdvertisementServiceTest {
 	 */
 	@Test
 	public final void testAddLatestAd() {
-		assertEquals(1, adService.addLatestAd(null).getResultCode());
-		assertEquals(0, adService.addLatestAd(new AdVo()).getResultCode());
+		AdVo vo = new AdVo();
+		vo.setMode(AdMode.LATEST);
+		vo.setGoodId(MAGIC_ID);
+		vo.setUserId(MAGIC_ID);
+		vo.setPicturePath("asdf");
+		assertEquals(0, adService.addLatestAd(vo).getResultCode());
 	}
 
 	/**

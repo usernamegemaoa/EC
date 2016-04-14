@@ -230,3 +230,14 @@ CREATE TABLE IF NOT EXISTS `hot` (
 	`second_id` INT(11) NOT NULL COMMENT '第二件商品',
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='同类热销' AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ad` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '广告id',
+	`picture` varchar(64) NOT NULL COMMENT '广告图片',
+	`mode` INT(11) NOT NULL COMMENT '广告类型',
+    `good_id` INT(11) NOT NULL COMMENT '商品id',
+    `user_id` INT(11) NOT NULL COMMENT '用户id',
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES `rbac_user` (`id`),
+    FOREIGN KEY (`good_id`) REFERENCES `good` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='广告' AUTO_INCREMENT=1 ;

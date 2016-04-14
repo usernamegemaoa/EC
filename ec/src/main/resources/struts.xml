@@ -9,6 +9,9 @@
 		<action name="" class="IndexAction">
 			<result name="success">/webPage/index.jsp</result>
 		</action>
+		<action name="MyOrder" class="MyOrderAction">
+			<result name="ViewOrderSuccess">/webPage/ViewOrder/jsp</result>
+			</action>
 	</package>
 </struts>
 

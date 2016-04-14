@@ -136,10 +136,10 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 			stringBuilder.append(c.getName());
 			stringBuilder.append(" AS u WHERE u.");
 			stringBuilder.append(coloum);
-			stringBuilder.append(" = ?");
+			stringBuilder.append(" = :value");
 			String hql = stringBuilder.toString();
 			Query query = session.createQuery(hql);
-			query.setString(0, value);
+			query.setString("value", value);
 			List<T> list = query.list();
 			tx.commit();
 			if ((list.size()) == 0) {
@@ -167,10 +167,10 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 			stringBuilder.append(c.getName());
 			stringBuilder.append(" AS u WHERE u.");
 			stringBuilder.append(coloum);
-			stringBuilder.append(" = ?");
+			stringBuilder.append(" = :value");
 			String hql = stringBuilder.toString();
 			Query query = session.createQuery(hql);
-			query.setString(0, value);
+			query.setString("value", value);
 			List<T> list = query.list();
 			tx.commit();
 			return list;

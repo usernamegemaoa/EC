@@ -99,7 +99,7 @@ public class CastServiceImpl implements CastService {
 	 * @param plan plan实体
 	 * @return CastVo
 	 */
-	private CastVo convertToCast(final Plan plan) {
+	public CastVo convertToCast(final Plan plan) {
 		CastVo cast = new CastVo();
 		int id = plan.getId();
 		int stockId = plan.getStockId();
@@ -124,7 +124,7 @@ public class CastServiceImpl implements CastService {
 	 * @param cast castVo
 	 * @return plan实体
 	 */
-	private Plan convertToPlan(final CastVo cast) {
+	public Plan convertToPlan(final CastVo cast) {
 		Plan plan = new Plan();
 		int id = cast.getCastId();
 		int stockId = cast.getStockId();
