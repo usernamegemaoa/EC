@@ -66,7 +66,8 @@ public interface UserService {
 	
 	/**
 	 * 收藏商品.
-	 * @param favouriteVo 收藏Vo
+	 * @param userId 用户id
+	 * @param goodId 商品id
 	 * @return	0 - 收藏成功
 	 *			1 - 收藏失败	
 	 */
