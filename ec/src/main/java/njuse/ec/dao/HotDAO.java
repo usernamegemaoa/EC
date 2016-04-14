@@ -29,4 +29,13 @@ public interface HotDAO {
 	 * @return 同类热销列表
 	 */
 	List<Hot> getHot(int firstId);
+	
+	/**
+	 * 获取同类热销列表的段.
+	 * @param firstId 第一个商品的id
+	 * @param firstResult 起始值
+	 * @param maxResult 最大值
+	 * @return
+	 */
+	List<Hot> getHot(int firstId, int firstResult, int maxResult);
 }

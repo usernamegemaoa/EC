@@ -43,7 +43,7 @@ public class PictureDAOImpl implements PictureDAO {
 		List<Picture> pics = getPics(goodId);
 		for(int i = 0; i < pics.size(); i++) {
 			Picture pic = pics.get(i);
-			while(pic.getIsMain() == "true") {
+			while(pic.getIsMain().equals("true")) {
 				return pic;
 			}
 		}

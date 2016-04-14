@@ -2,6 +2,11 @@ package njuse.ec.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +21,16 @@ import njuse.ec.model.SubConsult;
  */
 @Repository
 public class SubConsultDAOImpl implements SubConsultDAO {
+	
+	/**
+	 * hibernate session factory.
+	 */
+	@Autowired
+	private SessionFactory sessionFactory;
+
+	public final Session getSession() {
+		return sessionFactory.getCurrentSession();
+	}
 	
 	/**
 	 * baseDao.
@@ -33,9 +48,14 @@ public class SubConsultDAOImpl implements SubConsultDAO {
 		baseDao.delete(subConsult);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public final List<SubConsult> getSubConsult(final int consultId) {
-		return baseDao.findlist(SubConsult.class, "consultId", String.valueOf(consultId));
+	public final List<SubConsult> getSubConsults(final int consultId) {
+		Session session = getSession();
+		Criteria crit = session.createCriteria(SubConsult.class);
+		crit.add(Restrictions.like("consultId", consultId));
+		crit.addOrder(Order.asc("time"));
+		return crit.list();
 	}
 
 }

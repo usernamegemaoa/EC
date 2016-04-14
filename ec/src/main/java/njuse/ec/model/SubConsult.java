@@ -39,13 +39,7 @@ public class SubConsult implements Serializable {
 	private int consultId;
 	
 	/**
-	 * 商品id.
-	 */
-	@Column(name = "good_id")
-	private int goodId;
-	
-	/**
-	 * 顾客id.
+	 * 咨询者id.
 	 */
 	@Column(name = "user_id")
 	private int userId;
@@ -92,22 +86,6 @@ public class SubConsult implements Serializable {
 	 */
 	public final void setConsultId(final int newConsultId) {
 		this.consultId = newConsultId;
-	}
-
-	/**
-	 * 获取商品id.
-	 * @return 商品id
-	 */
-	public final int getGoodId() {
-		return goodId;
-	}
-
-	/**
-	 * 设置商品id.
-	 * @param newGoodId 商品id
-	 */
-	public final void setGoodId(final int newGoodId) {
-		this.goodId = newGoodId;
 	}
 
 	/**

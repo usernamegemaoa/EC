@@ -27,7 +27,7 @@ public class ConsultVo {
 	/**
 	 * 父咨询.
 	 */
-	private ConsultVo fatherConsult;
+	private int fatherId;
 	
 	/**
 	 * 咨询内容.
@@ -91,16 +91,16 @@ public class ConsultVo {
 	 * 获取父咨询.
 	 * @return 父咨询
 	 */
-	public final ConsultVo getFatherConsult() {
-		return fatherConsult;
+	public final int getFatherConsult() {
+		return fatherId;
 	}
 
 	/**
 	 * 设置父咨询.
-	 * @param newFatherConsult 父咨询
+	 * @param newFatherId 父咨询
 	 */
-	public final void setFatherConsult(final ConsultVo newFatherConsult) {
-		this.fatherConsult = newFatherConsult;
+	public final void setFatherConsult(final int newFatherId) {
+		this.fatherId = newFatherId;
 	}
 
 	/**

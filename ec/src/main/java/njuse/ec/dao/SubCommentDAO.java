@@ -3,7 +3,6 @@ package njuse.ec.dao;
 import java.util.List;
 
 import njuse.ec.model.SubComment;
-import njuse.ec.vo.ResultVo;
 
 /**
  * 子评价DAO接口设计.

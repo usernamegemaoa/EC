@@ -28,5 +28,5 @@ public interface SubConsultDAO {
 	 * @param consultId 父咨询id
 	 * @return 子咨询列表
 	 */
-	List<SubConsult> getSubConsult(int consultId);
+	List<SubConsult> getSubConsults(int consultId);
 }

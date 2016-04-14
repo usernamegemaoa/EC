@@ -32,7 +32,7 @@ public class CommentVo {
 	/**
 	 * 父评价.
 	 */
-	private CommentVo fatherComment;
+	private int fatherId;
 	
 	/**
 	 * 评价内容.
@@ -112,16 +112,16 @@ public class CommentVo {
 	 * 获取父评价.
 	 * @return 父评价
 	 */
-	public final CommentVo getFatherComment() {
-		return fatherComment;
+	public final int getFatherComment() {
+		return fatherId;
 	}
 
 	/**
 	 * 设置父评价.
-	 * @param newFatherComment 父评价
+	 * @param newFatherId 父评价
 	 */
-	public final void setFatherComment(final CommentVo newFatherComment) {
-		this.fatherComment = newFatherComment;
+	public final void setFatherComment(final int newFatherId) {
+		this.fatherId = newFatherId;
 	}
 
 	/**

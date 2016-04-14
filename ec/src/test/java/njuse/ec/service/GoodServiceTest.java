@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,7 +39,7 @@ public class GoodServiceTest {
 	 */
 	@Test
 	public final void testGetFatherKind() {
-//		assertEquals("上装", goodService.getFatherKind().get(0).getName());
+//		assertEquals("下装", goodService.getFatherKind().get(1).getName());
 	}
 
 	/**
@@ -45,8 +47,11 @@ public class GoodServiceTest {
 	 */
 	@Test
 	public final void testGetSonKind() {
-//		assertEquals(0, goodService.getSonKind(new KindVo()).size());
-//		assertEquals(null, goodService.getSonKind(null));
+//		KindVo kind = new KindVo();
+//		kind.setKindId(1);
+//		kind.setFatherKind(0);
+//		kind.setName("上装");
+//		assertEquals(1, goodService.getSonKind(kind).size());
 	}
 
 	/**
@@ -54,7 +59,7 @@ public class GoodServiceTest {
 	 */
 	@Test
 	public final void testGetLatestGoodPages() {
-//		assertTrue(goodService.getLatestGoodPages() >= 0);
+//		assertEquals(1, goodService.getLatestGoodPages());
 	}
 
 	/**
@@ -62,8 +67,7 @@ public class GoodServiceTest {
 	 */
 	@Test
 	public final void testGetLatestGood() {
-//		assertEquals(0, goodService.getLatestGood(0).size());
-//		assertEquals(null, goodService.getLatestGood(-1));
+//		assertEquals("短裤", goodService.getLatestGood(0).get(0).getName());
 	}
 
 	/**
@@ -71,8 +75,9 @@ public class GoodServiceTest {
 	 */
 	@Test
 	public final void testGetKindGoodPages() {
-//		assertTrue(goodService.getKindGoodPages(new KindVo()) >= 0);
-//		assertTrue(goodService.getKindGoodPages(null) < 0);
+//		KindVo kind = new KindVo();
+//		kind.setKindId(4);
+//		assertEquals(1, goodService.getKindGoodPages(kind));
 	}
 
 	/**
@@ -80,10 +85,9 @@ public class GoodServiceTest {
 	 */
 	@Test
 	public final void testGetKindGood() {
-//		assertEquals(0, goodService.getKindGood(new KindVo(), 0).size());
-//		assertEquals(null, goodService.getKindGood(null, 0));
-//		assertEquals(null, goodService.getKindGood(new KindVo(), -1));
-//		assertEquals(null, goodService.getKindGood(null, -1));
+//		KindVo kind = new KindVo();
+//		kind.setKindId(4);
+//		assertEquals(2, goodService.getKindGood(kind,0).size());	
 	}
 
 	/**
@@ -91,7 +95,7 @@ public class GoodServiceTest {
 	 */
 	@Test
 	public final void testGetSearchGoodPages() {
-//		assertTrue(goodService.getSearchGoodPages("1") >= 0);
+//		assertEquals(1,goodService.getSearchGoodPages("裤"));
 	}
 
 	/**
@@ -99,8 +103,7 @@ public class GoodServiceTest {
 	 */
 	@Test
 	public final void testGetSearchGood() {
-//		assertEquals(0, goodService.getSearchGood("1", 0).size());
-//		assertEquals(null, goodService.getSearchGood("1", -1));
+//		assertEquals(2, goodService.getSearchGood("裤", 0).size());
 	}
 
 	/**
@@ -108,7 +111,8 @@ public class GoodServiceTest {
 	 */
 	@Test
 	public final void testGetDetailGood() {
-//		assertEquals(0, goodService.getDetailGood(0).getGoodId());
+//		Date date = goodService.getDetailGood(2).getTime();
+//		assertEquals(55, date.getSeconds());
 	}
 
 	/**
@@ -116,7 +120,7 @@ public class GoodServiceTest {
 	 */
 	@Test
 	public final void testGetHotGood() {
-//		assertEquals(0, goodService.getHotGood(0).size());
+//		assertEquals(1, goodService.getHotGood(1).size());
 	}
 
 	/**
@@ -124,14 +128,28 @@ public class GoodServiceTest {
 	 */
 	@Test
 	public final void testAddGood() {
-//		assertEquals(0, goodService.addGood(new GoodVo(), 
-//				new ArrayList<StockVo>()).getResultCode());
-//		assertEquals(1, goodService.addGood(new GoodVo(), 
-//				null).getResultCode());
-//		assertEquals(1, goodService.addGood(null, 
-//				new ArrayList<StockVo>()).getResultCode());
-//		assertEquals(1, goodService.addGood(null, 
-//				null).getResultCode());
+//		GoodVo good = new GoodVo();
+//		StockVo stock1 = new StockVo();
+//		StockVo stock2 = new StockVo();
+//		List<StockVo> stocks = new ArrayList<StockVo>();
+//		good.setKindId(4);
+//		good.setSellerId(276);
+//		good.setName("短裤");
+//		good.setGoodNum("货号");
+//		good.setDescription("商品描述");
+//		good.setPrice(11.99);
+//		good.setDeliverInfo("送货信息");
+//		good.setReturnInfo("退货信息");
+//		good.setTime(new Date());
+//		stock1.setColor("黄色");
+//		stock1.setSize("S");
+//		stock1.setQuantity(30);
+//		stock2.setColor("黄色");
+//		stock2.setSize("M");
+//		stock2.setQuantity(40);
+//		stocks.add(stock1);
+//		stocks.add(stock2);
+//		assertEquals(0, goodService.addGood(good, stocks).getResultCode());
 	}
 
 	/**
@@ -139,9 +157,12 @@ public class GoodServiceTest {
 	 */
 	@Test
 	public final void testAddGoodConsult() {
-//		assertEquals(0, goodService.addGoodConsult(0, 
-//				new ConsultVo()).getResultCode());
-//		assertEquals(1, goodService.addGoodConsult(0, null).getResultCode());
+//		ConsultVo consult = new ConsultVo();
+//		consult.setFatherConsult(1);
+//		consult.setTime(new Date());
+//		consult.setUserId(123);
+//		consult.setConsult("哦哦");
+//		assertEquals(0, goodService.addGoodConsult(0, consult).getResultCode());
 	}
 
 	/**
@@ -149,9 +170,14 @@ public class GoodServiceTest {
 	 */
 	@Test
 	public final void testAddGoodComment() {
-//		assertEquals(0, goodService.addGoodComment(0, 
-//				new CommentVo()).getResultCode());
-//		assertEquals(1, goodService.addGoodComment(0, null).getResultCode());
+//		CommentVo comment = new CommentVo();
+//		comment.setFatherComment(0);
+//		comment.setGoodId(129);
+//		comment.setScore(1);
+//		comment.setUserId(123);
+//		comment.setTime(new Date());
+//		comment.setComment("差评");
+//		assertEquals(0, goodService.addGoodComment(129, comment).getResultCode());
 	}
 
 	/**
@@ -159,7 +185,7 @@ public class GoodServiceTest {
 	 */
 	@Test
 	public final void testGetConsultPages() {
-//		assertTrue(goodService.getConsultPages(0) >= 0);
+//		assertEquals(1, goodService.getConsultPages(1));
 	}
 
 	/**
@@ -167,7 +193,7 @@ public class GoodServiceTest {
 	 */
 	@Test
 	public final void testGetCommentPages() {
-//		assertTrue(goodService.getCommentPages(0) >= 0);
+//		assertEquals(1, goodService.getCommentPages(1));
 	}
 
 	/**
@@ -175,8 +201,7 @@ public class GoodServiceTest {
 	 */
 	@Test
 	public final void testGetConsults() {
-//		assertEquals(0, goodService.getConsults(0, 0).size());
-//		assertEquals(null, goodService.getConsults(0, -1));
+//		assertEquals(1, goodService.getConsults(1, 0).size());
 	}
 
 	/**
@@ -184,8 +209,22 @@ public class GoodServiceTest {
 	 */
 	@Test
 	public final void testGetComments() {
-//		assertEquals(0, goodService.getComments(0, 0).size());
-//		assertEquals(null, goodService.getComments(0, -1));
+//		assertEquals(1, goodService.getComments(2, 0).size());
 	}
-
+	
+	/**
+	 * 获取子评论测试.
+	 */
+	@Test
+	public final void testGetSonComments() {
+//		assertEquals(1 , goodService.getSonComments(1).size());
+	}
+	
+	/**
+	 * 获取子咨询测试.
+	 */
+	@Test
+	public final void testGetSonConsults() {
+//		assertEquals(3 , goodService.getSonConsults(1).size());
+	}
 }

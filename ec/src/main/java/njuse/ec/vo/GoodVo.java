@@ -1,5 +1,6 @@
 package njuse.ec.vo;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -62,7 +63,7 @@ public class GoodVo {
 	/**
 	 * 商品图片.
 	 */
-	private String[] imgs;
+	private ArrayList<String> imgs = new ArrayList<String>();
 	
 	/**
 	 * 商品主图片.
@@ -233,7 +234,7 @@ public class GoodVo {
 	 * 获取商品图片.
 	 * @return 商品图片
 	 */
-	public final String[] getImgs() {
+	public final ArrayList<String> getImgs() {
 		return imgs;
 	}
 
@@ -241,7 +242,7 @@ public class GoodVo {
 	 * 设置商品图片.
 	 * @param newImgs 商品图片
 	 */
-	public final void setImgs(final String[] newImgs) {
+	public final void setImgs(final ArrayList<String> newImgs) {
 		this.imgs = newImgs;
 	}
 

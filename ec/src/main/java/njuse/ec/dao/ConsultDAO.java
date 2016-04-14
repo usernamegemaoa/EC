@@ -24,10 +24,25 @@ public interface ConsultDAO {
 	void deleteConsult(Consult consult);
 	
 	/**
+	 * 获取某件商品咨询列表的个数.
+	 * @param goodId 商品id
+	 * @return 个数
+	 */
+	int getConsultNum(int goodId);
+	
+	/**
 	 * 获取商品咨询.
 	 * @param goodId 商品id
 	 * @return 咨询列表
 	 */
 	List<Consult> getConsults(int goodId);
 	
+	/**
+	 * 获取某一商品咨询的一部分.
+	 * @param goodId 商品id
+	 * @param firstResult 起始值
+	 * @param maxResult 最大值
+	 * @return 咨询列表
+	 */
+	List<Consult> getConsults(int goodId, int firstResult, int maxResult);
 }

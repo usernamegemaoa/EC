@@ -2,6 +2,11 @@ package njuse.ec.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +21,16 @@ import njuse.ec.model.SubComment;
 @Repository
 public class SubCommentDAOImpl implements SubCommentDAO {
 
+	/**
+	 * hibernate session factory.
+	 */
+	@Autowired
+	private SessionFactory sessionFactory;
+
+	public final Session getSession() {
+		return sessionFactory.getCurrentSession();
+	}
+	
 	/**
 	 * baseDao.
 	 */
@@ -32,9 +47,14 @@ public class SubCommentDAOImpl implements SubCommentDAO {
 		baseDao.delete(subComment);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public final List<SubComment> getSubComments(final int commentId) {
-		return baseDao.findlist(SubComment.class, "commentId", String.valueOf(commentId));
+		Session session = getSession();
+		Criteria crit = session.createCriteria(SubComment.class);
+		crit.add(Restrictions.like("commentId", commentId));
+		crit.addOrder(Order.asc("time"));
+		return crit.list();
 	}
 
 }

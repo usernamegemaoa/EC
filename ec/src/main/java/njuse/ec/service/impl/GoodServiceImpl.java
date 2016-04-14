@@ -100,6 +100,11 @@ public class GoodServiceImpl implements GoodService {
 	 * 每页最多显示20个商品.
 	 */
 	private final int perPage = 20;
+	
+	/**
+	 * 每页最多显示10个同类热销.
+	 */
+	private final int perHot = 10;
 
 	@Override
 	public final List<KindVo> getFatherKind() {
@@ -116,39 +121,37 @@ public class GoodServiceImpl implements GoodService {
 	@Override
 	public final List<KindVo> getSonKind(final KindVo kind) {
 		List<KindVo> sonKindVo = new ArrayList<KindVo>();
-		int fatherId = kind.getFatherKind();
+		int fatherId = kind.getKindId();
 		List<Kind> sonKind = kindDao.getSonKinds(fatherId);
-		for (int i = 0; i < sonKind.size(); i++) {
-			Kind k = sonKind.get(i);
-			KindVo kindVo = convertToKindVo(k);
-			sonKindVo.add(kindVo);
+		if (sonKind.size() != 0) {
+			for (int i = 0; i < sonKind.size(); i++) {
+				Kind k = sonKind.get(i);
+				KindVo kindVo = convertToKindVo(k);
+				sonKindVo.add(kindVo);
+			}
+			return sonKindVo;
+		} else {
+			return null;
 		}
-//		if (kind != null) {
-//			return sonKind;
-//		} else {
-//			return null;
-//		}
-		return sonKindVo;
 	}
 
 	@Override
 	public final int getLatestGoodPages() {
-		List<Good> latestGood = goodDao.getLatestGoods();
-		int num = latestGood.size();
-		int pages = 0;
+		int num = goodDao.getLatestGoodNum();
 		if (num % perPage == 0) {
-			pages = num / perPage;
+			return num / perPage;
 		} else {
-			pages = num / perPage + 1;
+			return num / perPage + 1;
 		}
-		return pages;
 	}
 
 	@Override
 	public final List<SimpleGoodVo> getLatestGood(final int page) {
 		List<SimpleGoodVo> latestGoodVo = new ArrayList<SimpleGoodVo>();
-		List<Good> latestGood = goodDao.getLatestGoods();
-		for (int i = (page * perPage); i < ((page + 1) * perPage); i++) {
+		int firstResult = page * perPage;
+		int maxResult = perPage;
+		List<Good> latestGood = goodDao.getLatestGoods(firstResult, maxResult);
+		for (int i = 0; i < latestGood.size(); i++) {
 			Good good = latestGood.get(i);
 			SimpleGoodVo sgVo = convertToSimpleGood(good);
 			latestGoodVo.add(sgVo);
@@ -159,15 +162,12 @@ public class GoodServiceImpl implements GoodService {
 	@Override
 	public final int getKindGoodPages(final KindVo kind) {
 		int kindId = kind.getKindId();
-		List<Good> kindGoods = goodDao.getKindGoods(kindId);
-		int num = kindGoods.size();
-		int pages = 0;
+		int num = goodDao.getKindGoodNum(kindId);
 		if (num % perPage == 0) {
-			pages = num / perPage;
+			return num / perPage;
 		} else {
-			pages = num / perPage + 1;
+			return num / perPage + 1;
 		}
-		return pages;
 	}
 
 	@Override
@@ -175,8 +175,10 @@ public class GoodServiceImpl implements GoodService {
 	getKindGood(final KindVo kind, final int page) {
 		int kindId = kind.getKindId();
 		List<SimpleGoodVo> kindGoodVo = new ArrayList<SimpleGoodVo>();
-		List<Good> kindGoods = goodDao.getKindGoods(kindId);
-		for (int i = (page * perPage); i < ((page + 1) * perPage); i++) {
+		int firstResult = page * perPage;
+		int maxResult = perPage;
+		List<Good> kindGoods = goodDao.getKindGoods(kindId, firstResult, maxResult);
+		for (int i = 0; i < kindGoods.size(); i++) {
 			Good good = kindGoods.get(i);
 			SimpleGoodVo sgVo = convertToSimpleGood(good);
 			kindGoodVo.add(sgVo);
@@ -186,23 +188,22 @@ public class GoodServiceImpl implements GoodService {
 
 	@Override
 	public final int getSearchGoodPages(final String search) {
-		List<Good> searchGoods = goodDao.getNameGoods(search);
-		int num = searchGoods.size();
-		int pages = 0;
+		int num = goodDao.getNameGoodNum(search);
 		if (num % perPage == 0) {
-			pages = num / perPage;
+			return num / perPage;
 		} else {
-			pages = num / perPage + 1;
+			return num / perPage + 1;
 		}
-		return pages;
 	}
 
 	@Override
 	public final List<SimpleGoodVo> 
 		getSearchGood(final String search, final int page) {
 		List<SimpleGoodVo> searchGoodVo = new ArrayList<SimpleGoodVo>();
-		List<Good> searchGoods = goodDao.getNameGoods(search);
-		for (int i = (page * perPage); i < ((page + 1) * perPage); i++) {
+		int firstResult = page * perPage;
+		int maxResult = perPage;
+		List<Good> searchGoods = goodDao.getNameGoods(search, firstResult, maxResult);
+		for (int i = 0; i < searchGoods.size(); i++) {
 			Good good = searchGoods.get(i);
 			SimpleGoodVo sgVo = convertToSimpleGood(good);
 			searchGoodVo.add(sgVo);
@@ -219,8 +220,10 @@ public class GoodServiceImpl implements GoodService {
 	@Override
 	public final List<SimpleGoodVo> getHotGood(final int goodId) {
 		List<SimpleGoodVo> hotGoodVo = new ArrayList<SimpleGoodVo>();
-		List<Hot> hotGood = hotDao.getHot(goodId);
-		for (int i = 0; i < (perPage / 2); i++) {
+		int firstResult = 0;
+		int maxResult = perHot;
+		List<Hot> hotGood = hotDao.getHot(goodId, firstResult, maxResult);
+		for (int i = 0; i < hotGood.size(); i++) {
 			Hot hot = hotGood.get(i);
 			int id = hot.getSecondId();
 			Good good = goodDao.getGood(id);
@@ -233,104 +236,106 @@ public class GoodServiceImpl implements GoodService {
 	@Override
 	public final ResultVo 
 	addGood(final GoodVo goodVo, final List<StockVo> stockVos) {
-		Good good = convertToGood(goodVo);
-		goodDao.addGood(good);
-		List<Picture> pics = convertToPic(goodVo);
-		for (int i = 0; i < pics.size(); i++) {
-			Picture pic = pics.get(i);
-			pictureDao.addPic(pic);
-		}
-		Picture mainPic = convertToMainPic(goodVo);
-		pictureDao.addPic(mainPic);
-		for (int i = 0; i < stockVos.size(); i++) {
-			Stock stock = convertToStock(stockVos.get(i));
-			stockDao.addStock(stock);
-		}
 		ResultVo addGoodResult = new ResultVo();
-//		if ((goodVo != null) && (stockVos != null)) {
-//			addGoodResult.setResultCode(0);
-//			addGoodResult.setResultMessage("商品添加成功！");
-//		} else {
-//			addGoodResult.setResultCode(1);
-//			addGoodResult.setResultMessage("商品添加失败！");
-//		}
-		return addGoodResult;
+		Good good = convertToGood(goodVo);
+		try {
+			int id = goodDao.addGood(good);
+			List<Picture> pics = convertToPic(goodVo);
+			for (int i = 0; i < pics.size(); i++) {
+				Picture pic = pics.get(i);
+				pic.setGoodId(id);
+				pictureDao.addPic(pic);
+			}
+			Picture mainPic = convertToMainPic(goodVo);
+			mainPic.setGoodId(id);
+			pictureDao.addPic(mainPic);
+			for (int i = 0; i < stockVos.size(); i++) {
+				Stock stock = convertToStock(stockVos.get(i));
+				stock.setGoodId(id);
+				stockDao.addStock(stock);
+			}
+			addGoodResult.setResultCode(0);
+			addGoodResult.setResultMessage("商品添加成功！");
+			return addGoodResult;
+		} catch (Exception e) {
+			addGoodResult.setResultCode(1);
+			addGoodResult.setResultMessage("商品添加失败！");
+			return addGoodResult;
+		}
 	}
 
 	@Override
 	public final ResultVo 
 	addGoodConsult(final int goodId, final ConsultVo consultVo) {
-		if (consultVo.getFatherConsult() != null) {
-			SubConsult consult = convertToSubConsult(consultVo);
-			subConsultDao.addSubConsult(consult);
-		} else {
-			Consult consult = convertToConsult(consultVo);
-			consultDao.addConsult(consult);
-		}		
 		ResultVo addGoodConsultResult = new ResultVo();
-//		if (consult != null) {
-//			addGoodConsultResult.setResultCode(0);
-//			addGoodConsultResult.setResultMessage("咨询添加成功！");
-//		} else {
-//			addGoodConsultResult.setResultCode(1);
-//			addGoodConsultResult.setResultMessage("咨询添加失败！");
-//		}
-		return addGoodConsultResult;
+		try {
+			if (consultVo.getFatherConsult() != 0) {
+				SubConsult consult = convertToSubConsult(consultVo);
+				subConsultDao.addSubConsult(consult);
+			} else {
+				Consult consult = convertToConsult(consultVo);
+				consultDao.addConsult(consult);
+			}
+			addGoodConsultResult.setResultCode(0);
+			addGoodConsultResult.setResultMessage("咨询添加成功");
+			return addGoodConsultResult;
+		} catch (Exception e) {
+			addGoodConsultResult.setResultCode(1);
+			addGoodConsultResult.setResultMessage("咨询添加失败");
+			return addGoodConsultResult;
+		}
 	}
 
 	@Override
 	public final ResultVo 
 	addGoodComment(final int goodId, final CommentVo commentVo) {
-		if (commentVo.getFatherComment() != null) {
-			SubComment comment = convertToSubComment(commentVo);
-			subCommentDao.addSubComment(comment);
-		} else {
-			Comment comment = convertToComment(commentVo);
-			commentDao.addComment(comment);
-		}	
 		ResultVo addGoodCommentResult = new ResultVo();
-//		if (comment != null) {
-//			addGoodCommentResult.setResultCode(0);
-//			addGoodCommentResult.setResultMessage("评论添加成功！");
-//		} else {
-//			addGoodCommentResult.setResultCode(1);
-//			addGoodCommentResult.setResultMessage("评论添加失败！");
-//		}
-		return addGoodCommentResult;
+		try {
+			if (commentVo.getFatherComment() != 0) {
+				SubComment comment = convertToSubComment(commentVo);
+				subCommentDao.addSubComment(comment);
+			} else {
+				Comment comment = convertToComment(commentVo);
+				commentDao.addComment(comment);
+			}
+			addGoodCommentResult.setResultCode(0);
+			addGoodCommentResult.setResultMessage("评论添加成功");
+			return addGoodCommentResult;
+		} catch (Exception e) {
+			addGoodCommentResult.setResultCode(1);
+			addGoodCommentResult.setResultMessage("评论添加失败");
+			return addGoodCommentResult;
+		}
 	}
 
 	@Override
 	public final int getConsultPages(final int goodId) {
-		List<Consult> consults = consultDao.getConsults(goodId);
-		int num = consults.size();
-		int pages = 0;
+		int num = consultDao.getConsultNum(goodId);
 		if (num % perPage == 0) {
-			pages = num / perPage;
+			return num / perPage;
 		} else {
-			pages = num / perPage + 1;
+			return num / perPage + 1;
 		}
-		return pages;
 	}
 
 	@Override
 	public final int getCommentPages(final int goodId) {
-		List<Comment> comments = commentDao.getComments(goodId);
-		int num = comments.size();
-		int pages = 0;
+		int num = commentDao.getCommentNum(goodId);
 		if (num % perPage == 0) {
-			pages = num / perPage;
+			return num / perPage;
 		} else {
-			pages = num / perPage + 1;
+			return num / perPage + 1;
 		}
-		return pages;
 	}
 
 	@Override
 	public final List<ConsultVo> 
 	getConsults(final int goodId, final int pages) {
 		List<ConsultVo> consultsVo = new ArrayList<ConsultVo>();
-		List<Consult> consults = consultDao.getConsults(goodId);
-		for (int i = (pages * perPage); i < ((pages + 1) * perPage); i++) {
+		int firstResult = pages * perPage;
+		int maxResult = perPage;
+		List<Consult> consults = consultDao.getConsults(goodId, firstResult, maxResult);
+		for (int i = 0; i < consults.size(); i++) {
 			Consult consult = consults.get(i);
 			ConsultVo consultVo = convertToConsultVo(consult);
 			consultsVo.add(consultVo);
@@ -342,13 +347,39 @@ public class GoodServiceImpl implements GoodService {
 	public final List<CommentVo> 
 	getComments(final int goodId, final int pages) {
 		List<CommentVo> commentsVo = new ArrayList<CommentVo>();
-		List<Comment> comments = commentDao.getComments(goodId);
-		for (int i = (pages * perPage); i < ((pages + 1) * perPage); i++) {
+		int firstResult = pages * perPage;
+		int maxResult = perPage;
+		List<Comment> comments = commentDao.getComments(goodId, firstResult, maxResult);
+		for (int i = 0; i < comments.size(); i++) {
 			Comment comment = comments.get(i);
 			CommentVo commentVo = convertToCommentVo(comment);
 			commentsVo.add(commentVo);
 		}
 		return commentsVo;
+	}
+	
+	@Override
+	public List<CommentVo> getSonComments(int commentId) {
+		List<CommentVo> sonCommentVo = new ArrayList<CommentVo>();
+		List<SubComment> sonComments = subCommentDao.getSubComments(commentId);
+		for(int i = 0; i < sonComments.size(); i++) {
+			SubComment subComment = sonComments.get(i);
+			CommentVo commentVo = convertToCommentVo(subComment);
+			sonCommentVo.add(commentVo);
+		}
+		return sonCommentVo;
+	}
+
+	@Override
+	public List<ConsultVo> getSonConsults(int consultId) {
+		List<ConsultVo> sonConsultVo = new ArrayList<ConsultVo>();
+		List<SubConsult> sonConsults = subConsultDao.getSubConsults(consultId);
+		for(int i = 0; i < sonConsults.size(); i++) {
+			SubConsult subConsult = sonConsults.get(i);
+			ConsultVo consultVo = convertToConsultVo(subConsult);
+			sonConsultVo.add(consultVo);
+		}
+		return sonConsultVo;
 	}
 	
 	/**
@@ -385,10 +416,9 @@ public class GoodServiceImpl implements GoodService {
 		String returnInfo = good.getDeliverInfo();
 		Date date = good.getTime();
 		List<Picture> pics = pictureDao.getPics(id);
-		int num = pics.size();
-		String[] pic = new String[num - 1];
-		for (int i = 0; i < num; i++) {
-			pic[i] = pics.get(i).getFile();
+		ArrayList<String> stpics = new ArrayList<String>();
+		for(int i = 0; i < pics.size(); i++) {
+			stpics.add(pics.get(i).getFile());
 		}
 		String mainPic = pictureDao.getMainPic(id).getFile();
 		goodVo.setGoodId(id);
@@ -401,7 +431,7 @@ public class GoodServiceImpl implements GoodService {
 		goodVo.setDeliverInfo(deliverInfo);
 		goodVo.setReturnInfo(returnInfo);
 		goodVo.setTime(date);
-		goodVo.setImgs(pic);
+		goodVo.setImgs(stpics);
 		goodVo.setMainPic(mainPic);
 		return goodVo;
 	}
@@ -464,12 +494,11 @@ public class GoodServiceImpl implements GoodService {
 	private List<Picture> convertToPic(final GoodVo goodVo) {
 		List<Picture> pics = new ArrayList<Picture>();
 		int goodId = goodVo.getGoodId();
-		String[] imgs = goodVo.getImgs();
-		int num = imgs.length;
-		for (int i = 0; i < num; i++) {
+		ArrayList<String> imgs = goodVo.getImgs();
+		for (int i = 0; i < imgs.size(); i++) {
 			Picture pic = new Picture();
 			pic.setGoodId(goodId);
-			pic.setFile(imgs[i]);
+			pic.setFile(imgs.get(i));
 			pic.setIsMain("false");
 			pics.add(pic);
 		}
@@ -483,8 +512,8 @@ public class GoodServiceImpl implements GoodService {
 	 */
 	private Picture convertToMainPic(final GoodVo goodVo) {
 		Picture pic = new Picture();
-		String mainPic = goodVo.getMainPic();
 		int goodId = goodVo.getGoodId();
+		String mainPic = goodVo.getMainPic();
 		pic.setGoodId(goodId);
 		pic.setFile(mainPic);
 		pic.setIsMain("true");
@@ -522,7 +551,7 @@ public class GoodServiceImpl implements GoodService {
 		int score = comment.getScore();
 		String content = commentVo.getComment();
 		Date time = commentVo.getTime();
-		comment.setGoodId(id);
+		comment.setId(id);
 		comment.setGoodId(goodId);
 		comment.setUserId(userId);
 		comment.setScore(score);
@@ -560,12 +589,10 @@ public class GoodServiceImpl implements GoodService {
 		SubComment subComment = new SubComment();
 		int id = commentVo.getCommentId();
 		int userId = commentVo.getUserId();
-		int goodId = commentVo.getGoodId();
-		int commentId = commentVo.getFatherComment().getCommentId();
+		int commentId = commentVo.getFatherComment();
 		String content = commentVo.getComment();
 		Date time = commentVo.getTime();
-		subComment.setGoodId(id);
-		subComment.setGoodId(goodId);
+		subComment.setId(id);
 		subComment.setUserId(userId);
 		subComment.setCommentId(commentId);
 		subComment.setContent(content);
@@ -582,12 +609,10 @@ public class GoodServiceImpl implements GoodService {
 		SubConsult subConsult = new SubConsult();
 		int id = consultVo.getConsultId();
 		int userId = consultVo.getUserId();
-		int goodId = consultVo.getGoodId();
-		int consultId = consultVo.getFatherConsult().getConsultId();
+		int consultId = consultVo.getFatherConsult();
 		String content = consultVo.getConsult();
 		Date time = consultVo.getTime();
-		subConsult.setGoodId(id);
-		subConsult.setGoodId(goodId);
+		subConsult.setId(id);
 		subConsult.setUserId(userId);
 		subConsult.setConsultId(consultId);
 		subConsult.setContent(content);
@@ -632,6 +657,36 @@ public class GoodServiceImpl implements GoodService {
 		consultVo.setConsultId(id);
 		consultVo.setGoodId(goodId);
 		consultVo.setUserId(userId);
+		consultVo.setConsult(content);
+		consultVo.setTime(time);
+		return consultVo;
+	}
+	
+	private CommentVo convertToCommentVo(final SubComment subComment) {
+		CommentVo commentVo = new CommentVo();
+		int id = subComment.getId();
+		int userId = subComment.getUserId();
+		int fatherId = subComment.getCommentId();
+		String content = subComment.getContent();
+		Date time = subComment.getTime();
+		commentVo.setCommentId(id);
+		commentVo.setUserId(userId);
+		commentVo.setFatherComment(fatherId);
+		commentVo.setComment(content);
+		commentVo.setTime(time);
+		return commentVo;
+	}
+	
+	private ConsultVo convertToConsultVo(final SubConsult subConsult) {
+		ConsultVo consultVo = new ConsultVo();
+		int id = subConsult.getId();
+		int userId = subConsult.getUserId();
+		int fatherId = subConsult.getConsultId();
+		String content = subConsult.getContent();
+		Date time = subConsult.getTime();
+		consultVo.setConsultId(id);
+		consultVo.setUserId(userId);
+		consultVo.setFatherConsult(fatherId);
 		consultVo.setConsult(content);
 		consultVo.setTime(time);
 		return consultVo;

@@ -3558,7 +3558,8 @@ INSERT INTO `plan` (`id`, `stock_id`, `user_id`, `quantity`) VALUES
 INSERT INTO `Picture` (`id`, `good_id`, `file`, `main`) VALUES
 (1, 1, 'files', 'true'),
 (2, 2, 'files2', 'true'),
-(3, 1, 'files3', 'false');
+(3, 1, 'files3', 'false'),
+(4, 123, 'files4', 'true');
 
 INSERT INTO `comment` (`id`, `good_id`, `user_id`, `score`, `content`, `time`) VALUES
 (1, 1, 123, 3, "一般", now()),

@@ -2,6 +2,10 @@ package njuse.ec.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,6 +27,16 @@ public class HotDAOImpl implements HotDAO {
 	@Autowired
 	private BaseDao<Hot> baseDao;
 	
+	/**
+	 * hibernate session factory.
+	 */
+	@Autowired
+	private SessionFactory sessionFactory;
+
+	public final Session getSession() {
+		return sessionFactory.getCurrentSession();
+	}
+	
 	@Override
 	public final void addHot(final Hot hot) {
 		baseDao.save(hot);
@@ -37,4 +51,17 @@ public class HotDAOImpl implements HotDAO {
 	public final List<Hot> getHot(final int firstId) {
 		return baseDao.findlist(Hot.class, "firstId", String.valueOf(firstId));
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Hot> getHot(int firstId, int firstResult, int maxResult) {
+		Session session = getSession();
+		Criteria crit = session.createCriteria(Hot.class);
+		crit.add(Restrictions.like("firstId", firstId));
+		crit.setFirstResult(firstResult);
+		crit.setMaxResults(maxResult);
+		return crit.list();
+	}
+	
+	
 }
