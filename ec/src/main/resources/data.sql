@@ -3514,3 +3514,6 @@ INSERT INTO `place` (`place_code`, `place_name`) VALUES
 (710000, '台湾省'),
 (810000, '香港特别行政区'),
 (820000, '澳门特别行政区');
+
+INSERT INTO `good` (`kind_id`,`shop_id`,`name`,`good_num`,`description`,`price`,`deliver_info`,`return_info`,`time`) VALUES (1,1,"t恤",100,"男士上装",299,"包邮","不可退货","2008-08-08 22:47:11");
+INSERT INTO `cast` (`stock_id`,`user_id`,`good_id`,`color`,`size`,`quantity`) VALUES (1,1,1,"黑色","M",1);
