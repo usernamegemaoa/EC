@@ -16,6 +16,7 @@ public class OrderDetailVo {
 	 * 细节id.
 	 */
 	private int id;
+	
 	/**
 	 * 订单id
 	 */

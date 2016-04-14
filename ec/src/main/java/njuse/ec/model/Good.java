@@ -2,14 +2,16 @@ package njuse.ec.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -33,6 +35,7 @@ public class Good implements Serializable {
 	 */
 	@Id
 	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private int id;
 	
 	/**
@@ -263,7 +266,6 @@ public class Good implements Serializable {
 	public final void setTime(final Date newTime) {
 		this.time = newTime;
 	}
-
 	/**
 	 * 获取收藏本商品的用户列表.
 	 * @return the users

@@ -11,7 +11,11 @@ import org.springframework.stereotype.Repository;
 
 import njuse.ec.dao.CastDAO;
 import njuse.ec.dao.OrderDAO;
+import njuse.ec.dao.PlanDAO;
 import njuse.ec.model.OrderInfo;
+import njuse.ec.model.Plan;
+import njuse.ec.service.CastService;
+import njuse.ec.vo.CastVo;
 import njuse.ec.model.Cast;
 import njuse.ec.model.Order;
 
@@ -30,10 +34,12 @@ public class OrderDAOImpl implements OrderDAO {
 	private SessionFactory sessionFactory;
 
 	/**
-	 * cast dao.
+	 * plan dao.
 	 */
 	@Autowired
-	private CastDAO castDao;
+	private PlanDAO planDao;
+	@Autowired
+	private CastService castService;
 
 	/**
 	 * 获取session.
@@ -47,12 +53,12 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public final boolean creatOrder(
 			final int shopId, 
-			final List<Cast> casts, 
+			final List<CastVo> casts, 
 			final Order order) {
 		// 创建订单
 		// !!!缺少库存数量判断
 		boolean success = true;
-		order.setUser_id(casts.get(0).getUser_id());
+		order.setUser_id(casts.get(0).getUserId());
 		Date now = new Date();
 		order.setTime(now);
 		order.setShop_id(shopId);
@@ -68,14 +74,15 @@ public class OrderDAOImpl implements OrderDAO {
 		}
 		if (success) {
 			List<OrderInfo> orderInfo = new ArrayList<OrderInfo>();
-			for (int i = 0; i < casts.size(); i++) { // 将cast转化为orderinfo
-				Cast cast = casts.get(i);
+			for (int i = 0; i < casts.size(); i++) { // 将castVo转化为orderinfo
+				CastVo cast = casts.get(i);
+				Plan thisPlan=castService.convertToPlan(cast);
 				OrderInfo singleInfo = new OrderInfo();
 				singleInfo.setColor(cast.getColor());
-				singleInfo.setGood_id(cast.getGood_id());
+				singleInfo.setGood_id(cast.getGoodId());
 				singleInfo.setOrder_id(orderId);
-				singleInfo.setPrice(castDao.getPrice(cast));
-				singleInfo.setQuantity(cast.getQuantity());
+				singleInfo.setPrice(planDao.getPrice(thisPlan));
+				singleInfo.setQuantity(cast.getNum());
 				singleInfo.setSize(cast.getSize());
 				orderInfo.add(singleInfo);
 			}

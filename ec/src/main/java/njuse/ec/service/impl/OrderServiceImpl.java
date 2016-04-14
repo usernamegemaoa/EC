@@ -8,9 +8,12 @@ import org.springframework.stereotype.Service;
 
 import njuse.ec.dao.CastDAO;
 import njuse.ec.dao.OrderDAO;
+import njuse.ec.dao.PlanDAO;
 import njuse.ec.model.Cast;
 import njuse.ec.model.Order;
 import njuse.ec.model.OrderInfo;
+import njuse.ec.model.Plan;
+import njuse.ec.service.CastService;
 import njuse.ec.service.OrderService;
 import njuse.ec.vo.CastVo;
 import njuse.ec.vo.OrderDetailVo;
@@ -32,10 +35,13 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private OrderDAO orderDao;
 	/**
-	 * cast dao.
+	 * plan dao.
 	 */
 	@Autowired
-	private CastDAO castDao;
+	private PlanDAO castDao;
+	
+	@Autowired
+	private CastService castService;
 
 	@Override
 	public final ResultVo creatOrder(
@@ -45,17 +51,11 @@ public class OrderServiceImpl implements OrderService {
 		// 订单创建
 		ResultVo result = new ResultVo();
 		CastVo firstCast = casts.get(0);
-		Cast thisCast = firstCast.convertCastVoToCast(firstCast);
-		List<Cast> castList = new ArrayList<Cast>();
-		int shopId = castDao.getShopId(thisCast);
-		for (int i = 0; i < casts.size(); i++) {
-			CastVo castVo = casts.get(i);
-			Cast cast = castVo.convertCastVoToCast(castVo);
-			castList.add(cast);
-		}
+		Plan thisPlan = castService.convertToPlan(firstCast);
+		int shopId = castDao.getShopId(thisPlan);
 		Order thisOrder = order.convertOrderVo(order);
 		// 订单创建是否成功
-		boolean success = orderDao.creatOrder(shopId, castList, thisOrder);
+		boolean success = orderDao.creatOrder(shopId, casts, thisOrder);
 		if (success) {
 			result.setResultCode(0);
 		} else {

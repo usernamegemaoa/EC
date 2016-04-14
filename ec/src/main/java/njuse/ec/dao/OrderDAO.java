@@ -5,6 +5,7 @@ import java.util.List;
 import njuse.ec.model.Cast;
 import njuse.ec.model.Order;
 import njuse.ec.model.OrderInfo;
+import njuse.ec.vo.CastVo;
 
 /**
  * order dao.
@@ -33,7 +34,7 @@ public interface OrderDAO {
 	 * @param order 订单
 	 * @return 是否成功
 	 */
-	boolean creatOrder(int shopId, List<Cast> casts, Order order);
+	boolean creatOrder(int shopId, List<CastVo> casts, Order order);
 
 	/**
 	 * 取消订单.
