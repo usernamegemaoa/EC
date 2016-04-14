@@ -20,26 +20,23 @@ public interface MessageService {
 	
 	/**
 	 * 阅读消息.
-	 * @param userId 用户编号
 	 * @param message 消息
 	 * @return 结果
 	 */
-	ResultVo readMessage(int userId, MessageVo message);
+	ResultVo readMessage(MessageVo message);
 	
 	/**
 	 * 获取未读消息.
 	 * @param userId 用户编号
-	 * @param message 消息
 	 * @return 消息列表
 	 */
-	List<MessageVo> getUnReadMessage(int userId, MessageVo message);
+	List<MessageVo> getUnReadMessage(int userId);
 	
 	/**
 	 * 获取所有消息.
 	 * @param userId 用户编号
-	 * @param message 消息
 	 * @return 消息列表
 	 */
-	List<MessageVo> getAllMessage(int userId, MessageVo message);
+	List<MessageVo> getAllMessage(int userId);
 	
 }
