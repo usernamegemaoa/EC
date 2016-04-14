@@ -30,7 +30,7 @@ public class CastServiceTest {
 	 */
 	@Test
 	public final void testGetMyCast() {
-		assertEquals(0, castService.getMyCast(1).size());
+//		assertEquals(3, castService.getMyCast(276).size());
 	}
 
 	/**
@@ -38,8 +38,13 @@ public class CastServiceTest {
 	 */
 	@Test
 	public final void testAddCast() {
-		assertEquals(0, castService.addCast(1, new CastVo()).getResultCode());
-		assertEquals(1, castService.addCast(1, null).getResultCode());
+//		CastVo cast = new CastVo();
+//		cast.setStockId(4);
+//		cast.setColor("黑色");
+//		cast.setGoodId(2);
+//		cast.setSize("S");
+//		cast.setNum(2);
+//		assertEquals(0, castService.addCast(276, cast).getResultCode());
 	}
 
 	/**
@@ -47,9 +52,14 @@ public class CastServiceTest {
 	 */
 	@Test
 	public final void testDeleteCast() {
-		assertEquals(0, 
-				castService.deleteCast(1, new CastVo()).getResultCode());
-		assertEquals(1, castService.deleteCast(1, null).getResultCode());
+//		CastVo cast = new CastVo();
+//		cast.setCastId(280);
+//		cast.setStockId(4);
+//		cast.setColor("黑色");
+//		cast.setGoodId(2);
+//		cast.setSize("S");
+//		cast.setNum(2);
+//		assertEquals(0, castService.deleteCast(276, cast).getResultCode());
 	}
 
 	/**
@@ -57,9 +67,13 @@ public class CastServiceTest {
 	 */
 	@Test
 	public final void testModifyCast() {
-		assertEquals(0, 
-				castService.modifyCast(1, new CastVo()).getResultCode());
-		assertEquals(1, castService.modifyCast(1, null).getResultCode());
+//		CastVo cast = new CastVo();
+//		cast.setCastId(279);
+//		cast.setStockId(4);
+//		cast.setColor("黑色");
+//		cast.setGoodId(2);
+//		cast.setSize("S");
+//		cast.setNum(1);
+//		assertEquals(0, castService.modifyCast(276, cast).getResultCode());		
 	}
-
 }

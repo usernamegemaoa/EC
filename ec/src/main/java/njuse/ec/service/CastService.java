@@ -2,6 +2,7 @@ package njuse.ec.service;
 
 import java.util.List;
 
+import njuse.ec.model.Plan;
 import njuse.ec.vo.CastVo;
 import njuse.ec.vo.ResultVo;
 
@@ -43,4 +44,16 @@ public interface CastService {
 	 * @return 是否修改成功
 	 */
 	ResultVo modifyCast(int userId, CastVo cast);
+	/**
+	 * 将CastVo转化成Plan实体.
+	 * @param cast castVo
+	 * @return plan实体
+	 */
+	Plan convertToPlan(final CastVo cast);
+	/**
+	 * 将plan实体转化为CastVo.
+	 * @param plan plan实体
+	 * @return CastVo
+	 */
+	CastVo convertToCast(final Plan plan);
 }

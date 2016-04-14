@@ -159,17 +159,5 @@ public class CastVo {
 	public final void setNum(final int newNum) {
 		this.num = newNum;
 	}
-	
-	public Cast convertCastVoToCast(CastVo cast){
-		Cast newCast=new Cast();
-		newCast.setColor(cast.getColor());
-		newCast.setGood_id(cast.getGoodId());
-		newCast.setId(cast.getCastId());
-		newCast.setQuantity(cast.getNum());
-		newCast.setSize(cast.getSize());
-		newCast.setStock_id(cast.getStockId());
-		newCast.setUser_id(cast.getUserId());
-		return newCast;
-	}
-	
+
 }
