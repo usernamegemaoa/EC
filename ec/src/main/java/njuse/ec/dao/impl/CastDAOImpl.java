@@ -12,35 +12,34 @@ import njuse.ec.model.Cast;
 import njuse.ec.model.OrderInfo;
 
 @Repository
-public class CastDAOImpl implements CastDAO{
+public class CastDAOImpl implements CastDAO {
 
 	@Autowired
 	protected SessionFactory sessionFactory;
-	
+
 	public Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
-	
-	@Override
-	public int getShopId(Cast cast) {
-		int good_id=cast.getGood_id();
-		String hql="select shop_id from good where id="+good_id+"";
-		Session session=getSession();
-		List result= session.createSQLQuery(hql).list();
-		int shop_id=(int) result.get(0);
 
-		return shop_id;
-	}
-	
 	@Override
-	public int getPrice(Cast cast){
-		int good_id=cast.getGood_id();
-		String hql="select price from good where id="+good_id+"";
-		Session session=getSession();
-		List result= session.createSQLQuery(hql).list();
-		int price=(int) result.get(0);
+	public final int getShopId(final Cast cast) {
+		int goodId = cast.getGood_id();
+		String hql = "select shop_id from good where id=" + goodId + "";
+		Session session = getSession();
+		List result = session.createSQLQuery(hql).list();
+		int shopId = (int) result.get(0);
+
+		return shopId;
+	}
+
+	@Override
+	public final int getPrice(final Cast cast) {
+		int good_id = cast.getGood_id();
+		String hql = "select price from good where id=" + good_id + "";
+		Session session = getSession();
+		List result = session.createSQLQuery(hql).list();
+		int price = (int) result.get(0);
 		return price;
 	}
-
 
 }
