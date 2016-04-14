@@ -67,7 +67,7 @@ public class GoodVo {
 	/**
 	 * 商品主图片.
 	 */
-	private String mainPic;
+	private String mainPic = "defaultImg";
 
 	/**
 	 * 获取商品id.
