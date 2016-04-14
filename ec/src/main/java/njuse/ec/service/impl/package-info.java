@@ -1,5 +1,5 @@
 /**
-* service层接口包.
+* service层实现.
 *
 * @author 丞
 * @version 1.1

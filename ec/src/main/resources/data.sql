@@ -3517,3 +3517,19 @@ INSERT INTO `place` (`place_code`, `place_name`) VALUES
 
 INSERT INTO `good` (`kind_id`,`shop_id`,`name`,`good_num`,`description`,`price`,`deliver_info`,`return_info`,`time`) VALUES (1,1,"t恤",100,"男士上装",299,"包邮","不可退货","2008-08-08 22:47:11");
 INSERT INTO `cast` (`stock_id`,`user_id`,`good_id`,`color`,`size`,`quantity`) VALUES (1,1,1,"黑色","M",1);
+
+INSERT INTO `rbac_role` (`id`, `name`) VALUES
+(1, '顾客'),
+(2, '商家');
+
+INSERT INTO `rbac_user` (`id`, `account`, `password`, `salt`, `name`) VALUES
+(123, 'TESTFAVOUR@123.COM', 'PASSWORD', 'SALT', 'TESTFAVOUR');
+
+INSERT INTO `rbac_user_role` (`id`, `user_id`, `role_id`) VALUES
+(123, 123, 1);
+
+INSERT INTO `kind` (`id`, `father_id`, `name`) VALUES
+(123, 0, 'testfavour');
+
+INSERT INTO `good` (`id`, `kind_id`, `shop_id`, `name`, `good_num`, `description`, `price`, `deliver_info`, `return_info`, `time`) VALUE
+(123, 123, 123, 'TESTFAVOUR', 'ASDF', 'ASDF', 12, 'ASDF', 'ASDF', now());

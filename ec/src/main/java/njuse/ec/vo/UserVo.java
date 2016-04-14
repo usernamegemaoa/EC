@@ -50,6 +50,7 @@ public class UserVo {
 	 * 地址列表.
 	 */
 	private List<AddressVo> addressVoList;
+	
 	/**
 	 * @return the id
 	 */

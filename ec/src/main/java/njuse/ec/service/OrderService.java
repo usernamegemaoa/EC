@@ -2,7 +2,6 @@ package njuse.ec.service;
 
 import java.util.List;
 
-import njuse.ec.model.Order;
 import njuse.ec.vo.CastVo;
 import njuse.ec.vo.OrderDetailVo;
 import njuse.ec.vo.OrderVo;
@@ -22,7 +21,7 @@ public interface OrderService {
 	 */
 	List<OrderVo> viewOrder(int userId);
 	/**
-	 * 查看订单详情
+	 * 查看订单详情.
 	 * @param userId 用户编号
 	 * @param order 订单
 	 * @return 订单详情列表
@@ -57,10 +56,10 @@ public interface OrderService {
 	 * 订单发货.
 	 * @param storeId 商家编号
 	 * @param order 订单
-	 * @param express_number 快递单号
+	 * @param expressNumber 快递单号
 	 * @return 结果
 	 */
-	ResultVo shipOrder(int storeId, OrderVo order,String express_number);
+	ResultVo shipOrder(int storeId, OrderVo order, String expressNumber);
 	
 	/**
 	 * 订单收货.
