@@ -124,6 +124,15 @@ public class User implements Serializable {
 	private Set<Address> addressSet = new HashSet<Address>();
 
 	/**
+	 * 发布广告列表.
+	 */
+	@OneToMany(
+			cascade = CascadeType.ALL,
+			fetch = FetchType.LAZY,
+			mappedBy = "user")
+	private Set<Ad> ads = new HashSet<Ad>();
+
+	/**
 	 * @return the id
 	 */
 	public final int getId() {
@@ -303,6 +312,20 @@ public class User implements Serializable {
 	 */
 	public final void setCollections(final Set<Good> newCollections) {
 		this.collections = newCollections;
+	}
+
+	/**
+	 * @return the ads
+	 */
+	public final Set<Ad> getAds() {
+		return ads;
+	}
+
+	/**
+	 * @param newAds the ads to set
+	 */
+	public final void setAds(final Set<Ad> newAds) {
+		this.ads = newAds;
 	}
 	
 	

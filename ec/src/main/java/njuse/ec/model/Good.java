@@ -5,11 +5,13 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -93,6 +95,15 @@ public class Good implements Serializable {
 	@ManyToMany(mappedBy = "collections", fetch = FetchType.LAZY)
 	private Set<User> users = new HashSet<User>();
 
+	/**
+	 * 广告列表.
+	 */
+	@OneToMany(
+			cascade = CascadeType.ALL,
+			fetch = FetchType.LAZY,
+			mappedBy = "good")
+	private Set<Ad> ads = new HashSet<Ad>();
+	
 	/**
 	 * 获取用户id.
 	 * @return 用户id.
@@ -267,5 +278,19 @@ public class Good implements Serializable {
 	 */
 	public final void setUsers(final Set<User> newUsers) {
 		this.users = newUsers;
+	}
+
+	/**
+	 * @return the ads
+	 */
+	public final Set<Ad> getAds() {
+		return ads;
+	}
+
+	/**
+	 * @param newAds the ads to set
+	 */
+	public final void setAds(final Set<Ad> newAds) {
+		this.ads = newAds;
 	}
 }

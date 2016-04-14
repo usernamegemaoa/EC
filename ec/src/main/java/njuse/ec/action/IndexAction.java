@@ -3,6 +3,7 @@ package njuse.ec.action;
 import java.util.List;
 
 import njuse.ec.model.Product;
+import njuse.ec.service.FileService;
 import njuse.ec.service.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,23 @@ public class IndexAction extends BaseAction {
 	private ProductService productService;
 	public List<Product> products;
 	
+	private String path;
+	
+	/**
+	 * @return the path
+	 */
+	public final String getPath() {
+		return path;
+	}
+
+	@Autowired
+	private FileService fileService;
+	
 	public String execute() {
 		products = productService.getAllProduct();
+		path = fileService.upload(null).getResultMessage();
 		return SUCCESS;
 	}
+	
 	
 }
