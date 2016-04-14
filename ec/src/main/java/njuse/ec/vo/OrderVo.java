@@ -216,7 +216,7 @@ public class OrderVo {
 		newOrder.setShop_id(order.getShopId());
 		newOrder.setPhone(order.getPhone());
 		newOrder.setPlace_code(order.getPlaceCode());
-		newOrder.setPlace_name(order.getPeopleName());
+		newOrder.setPlace_name(order.getPlaceName());
 		newOrder.setTime(order.getTime());
 		switch(order.getStatus()){//1:未支付，2:代发货,3:待确认,4:待评价,5:申请退款中,6：已退款
 		case Finish:
@@ -238,6 +238,7 @@ public class OrderVo {
 			newOrder.setState(1);
 			break;
 	}
+		System.out.println(newOrder.getId());
 		return newOrder;
 	}
 	

@@ -169,8 +169,8 @@ CREATE TABLE IF NOT EXISTS `cast` (
     `stock_id` INT(11) NOT NULL COMMENT '库存id',
     `user_id` INT(11) NOT NULL COMMENT '用户id',
     `good_id` INt(11) NOT NULL COMMENT '商品id',
-    `color` VARCHAR(11) NOT NULL COMMENT '颜色'
-    `size` VARCHAR(11) NOT NULL　COMMENT '尺寸'
+    `color` VARCHAR(11) NOT NULL COMMENT '颜色',
+    `size` VARCHAR(11) NOT NULL　COMMENT '尺寸',
     `quantity` INT(11) NOT NULL COMMENT '数量',
     PRIMARY KEY (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `rbac_user` (`id`),
@@ -188,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `order` (
     `place_name` VARCHAR(64) NOT NULL COMMENT '地址',
     `people` VARCHAR(64) NOT NULL COMMENT '收件人姓名',
     `phone` VARCHAR(64) NOT NULL COMMENT '收件人电话',
-    `express_number` VARCHAR(64) COMMENT '快递单号'
+    `express_number` VARCHAR(64) COMMENT '快递单号',
     PRIMARY KEY (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `rbac_user` (`id`),
     FOREIGN KEY (`shop_id`) REFERENCES `rbac_user` (`id`)
@@ -196,7 +196,7 @@ CREATE TABLE IF NOT EXISTS `order` (
 
 CREATE TABLE IF NOT EXISTS `order_info` (
     `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '详情id',
-    `order_id` INT(11) NOT NULL COMMENT '订单编号'
+    `order_id` INT(11) NOT NULL COMMENT '订单编号',
     `good_id` INT(11) NOT NULL COMMENT '商品id',
     `size` VARCHAR(11) NOT NULL COMMENT '尺寸',
     `color` VARCHAR(11) NOT NULL COMMENT '颜色',

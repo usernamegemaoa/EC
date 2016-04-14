@@ -13,7 +13,7 @@ public interface OrderDAO {
 	boolean creatOrder(int shop_id, List<Cast> casts,Order order); 
 	boolean cancelOrder(Order order);
 	boolean payOrder(Order order);
-	boolean shipOrder(Order order);
+	boolean shipOrder(Order order, String express_number);
 	boolean receiptOrder(Order order);
 	boolean refundOrder(Order order);
 	boolean refundMoney(Order order);

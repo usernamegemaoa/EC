@@ -27,6 +27,7 @@ import njuse.ec.vo.ResultVo;
 public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private OrderDAO orderDao;
+	@Autowired
 	private CastDAO castDao;
 
 	
@@ -74,6 +75,7 @@ public class OrderServiceImpl implements OrderService {
 			result.setResultMessage("该订单正在申请退款，无法取消");
 		}
 		else{
+			//System.out.println("TEST-------------------");
 			boolean success=orderDao.cancelOrder(newOrder);
 			if(success){
 				result.setResultCode(0);}
@@ -113,7 +115,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public final ResultVo shipOrder(final int storeId, final OrderVo order) {//订单发货
+	public final ResultVo shipOrder(final int storeId, final OrderVo order, final String express_number) {//订单发货
 		ResultVo result = new ResultVo();
 		if(storeId < 0){
 			result.setResultCode(1);
@@ -121,7 +123,7 @@ public class OrderServiceImpl implements OrderService {
 		}
 		else{
 		Order sendOrder=order.convertOrderVo(order);
-		boolean success=orderDao.shipOrder(sendOrder);
+		boolean success=orderDao.shipOrder(sendOrder,express_number);
 		if(success){
 			result.setResultCode(0);
 		}else{

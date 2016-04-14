@@ -57,9 +57,10 @@ public interface OrderService {
 	 * 订单发货.
 	 * @param storeId 商家编号
 	 * @param order 订单
+	 * @param express_number 快递单号
 	 * @return 结果
 	 */
-	ResultVo shipOrder(int storeId, OrderVo order);
+	ResultVo shipOrder(int storeId, OrderVo order,String express_number);
 	
 	/**
 	 * 订单收货.

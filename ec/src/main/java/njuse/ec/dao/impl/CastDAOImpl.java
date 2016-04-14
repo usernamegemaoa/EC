@@ -5,11 +5,13 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import njuse.ec.dao.CastDAO;
 import njuse.ec.model.Cast;
 import njuse.ec.model.OrderInfo;
 
+@Repository
 public class CastDAOImpl implements CastDAO{
 
 	@Autowired
@@ -26,6 +28,7 @@ public class CastDAOImpl implements CastDAO{
 		Session session=getSession();
 		List result= session.createSQLQuery(hql).list();
 		int shop_id=(int) result.get(0);
+
 		return shop_id;
 	}
 	

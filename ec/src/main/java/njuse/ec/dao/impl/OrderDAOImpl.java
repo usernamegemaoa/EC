@@ -8,6 +8,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import njuse.ec.dao.CastDAO;
 import njuse.ec.dao.OrderDAO;
@@ -16,9 +17,12 @@ import njuse.ec.model.Cast;
 import njuse.ec.model.Order;
 import njuse.ec.vo.CastVo;
 
+@Repository
 public class OrderDAOImpl implements OrderDAO {
 	@Autowired
 	protected SessionFactory sessionFactory;
+	
+	@Autowired
 	private CastDAO castDao;
 	
 	public Session getSession() {
@@ -26,7 +30,7 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public boolean creatOrder(int shop_id, List<Cast> casts,Order order) {//创建订单
+	public boolean creatOrder(int shop_id, List<Cast> casts,Order order) {//创建订单 !!!缺少库存数量判断
 		boolean success=true;
 		order.setUser_id(casts.get(0).getUser_id());
 		Date now=new Date();
@@ -60,12 +64,9 @@ public class OrderDAOImpl implements OrderDAO {
 						session.save(orderInfo.get(i));
 						if (i % 20 == 0) {
 							session.flush();
-							session.clear();
 						}
 					}
 					session.flush();
-					session.clear();
-					session.close();
 			 }catch(Exception e){
 				   success=false;//订单创建时出错
 			   }
@@ -75,12 +76,15 @@ public class OrderDAOImpl implements OrderDAO {
 
 	@Override
 	public boolean cancelOrder(Order order) {
-		boolean success=true;
+        boolean success=true;
 		int id=order.getId();
-		String hql="delete from order where id="+id+"";
 		Session session=getSession();
+		
 		 try{
-			   session.createSQLQuery(hql);
+			   //System.out.println("TEST-------------");
+			   order=(Order) session.get(Order.class,id);
+			   session.delete(order);
+			   session.flush();
 		   }catch(Exception e){
 			   success=false;//订单删除时出错
 		   }
@@ -90,11 +94,11 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public boolean payOrder(Order order) {
 		boolean success=true;
-		int id=order.getId();
-		String hql="update order set state=2 where id="+id+"";
+		order.setState(2);
 		Session session=getSession();
 		 try{
-			   session.createSQLQuery(hql);
+			   session.update(order);
+			   session.flush();
 		   }catch(Exception e){
 			   success=false;//修改订单状态时出错
 		   }
@@ -102,14 +106,14 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public boolean shipOrder(Order order) {
+	public boolean shipOrder(Order order, String express_number) {
 		boolean success=true;
-		int id=order.getId();
-		String express_number=order.getExpress_number();
-		String hql="update order set express_number="+express_number+",state=3 where id="+id+"";
+		order.setExpress_number(express_number);
+		order.setState(3);
 		Session session=getSession();
 		try{
-			session.createSQLQuery(hql);
+			session.update(order);
+			session.flush();
 		}catch(Exception e){
 			   success=false;//修改订单状态时出错
 		   }
@@ -119,11 +123,11 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public boolean receiptOrder(Order order) {
 		boolean success=true;
-		int id=order.getId();
-		String hql="update order set state=4 where id="+id+"";
+		order.setState(4);
 		Session session=getSession();
 		try{
-			session.createSQLQuery(hql);
+			session.update(order);
+			session.flush();
 		}catch(Exception e){
 			   success=false;//修改订单状态时出错
 		   }
@@ -133,11 +137,11 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public boolean refundOrder(Order order) {
 		boolean success=true;
-		int id=order.getId();
-		String hql="update order set state=5 where id="+id+"";
+		order.setState(5);
 		Session session=getSession();
 		try{
-			session.createSQLQuery(hql);
+			session.update(order);
+			session.flush();
 		}catch(Exception e){
 			   success=false;//修改订单状态时出错
 		   }
@@ -147,11 +151,11 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public boolean refundMoney(Order order) {
 		boolean success=true;
-		int id=order.getId();
-		String hql="update order set state=6 where id="+id+"";
+		order.setState(6);
 		Session session=getSession();
 		try{
-			session.createSQLQuery(hql);
+			session.update(order);
+			session.flush();
 		}catch(Exception e){
 			   success=false;//修改订单状态时出错
 		   }

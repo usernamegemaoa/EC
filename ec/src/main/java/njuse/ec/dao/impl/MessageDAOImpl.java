@@ -6,11 +6,12 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import njuse.ec.dao.MessageDAO;
 import njuse.ec.model.Message;
-import njuse.ec.vo.MessageVo;
 
+@Repository
 public class MessageDAOImpl implements MessageDAO {
 
 	@Autowired
@@ -38,14 +39,10 @@ public class MessageDAOImpl implements MessageDAO {
 	@Override
 	public boolean addMessage(Message message){
 		   boolean result=true;
-		   int userId=message.getUser_id();   
-		   String content=message.getContent();
-		   boolean is_read=message.getIs_read();
-		   Date time=message.getTime();
-		   String hql="inesrt into message (uer_id,is_read,content,time) values("+userId+","+content+","+is_read+","+time+")";
 		   Session session=getSession();
 		   try{
-			   session.createSQLQuery(hql);
+			   session.save(message);
+			   session.flush();
 		   }catch(Exception e){
 			   result=false;
 		   }
@@ -55,11 +52,11 @@ public class MessageDAOImpl implements MessageDAO {
 	@Override
 	public boolean readMessage(Message message){
 		   boolean result=true;
-		   int id=message.getId();
-		   String hql="update message set is_read=true where id="+id+"";
+		   message.setIs_read(true);
 		   Session session=getSession();
 		   try{
-			   session.createSQLQuery(hql);
+			   session.update(message);
+			   session.flush();
 		   }catch(Exception e){
 			   result=false;
 		   }

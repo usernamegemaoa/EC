@@ -26,7 +26,7 @@ public class Message implements Serializable{
 	private boolean is_read;
 	@Column(name="content")
 	private String content;
-	@Column(name="time")
+	@Column(name="time",columnDefinition = "DATETIME")
 	private Date time;
 	public int getId() {
 		return id;

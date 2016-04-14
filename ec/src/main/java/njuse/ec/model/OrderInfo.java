@@ -21,7 +21,7 @@ public class OrderInfo implements Serializable{
 		private int id;
 		@Column(name="order_id")
 		private int order_id;
-		@Column(name="goodr_id")
+		@Column(name="good_id")
 		private int good_id;
 		@Column(name="size")
 		private String size;

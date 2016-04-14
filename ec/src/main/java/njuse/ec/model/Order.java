@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="order")
+@Table(name="`order`")
 public class Order implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -28,7 +28,7 @@ public class Order implements Serializable{
 	private int state;
 	@Column(name="is_read")
 	private boolean is_read;
-	@Column(name="time")
+	@Column(name="time",columnDefinition = "DATETIME")
 	private Date time;
 	@Column(name="place_code")
 	private int place_code;
