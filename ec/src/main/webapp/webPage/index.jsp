@@ -17,5 +17,6 @@
 <body>
 <h1>hello world EC</h1>
 <h1><s:property value="path"/></h1>
+<a href="webPage/AddGood.jsp">abc</a>
 </body>
 </html>

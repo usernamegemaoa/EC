@@ -11,27 +11,63 @@ import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+/**
+ * 基础Action.
+ * @author 丞
+ *
+ */
 public class BaseAction extends ActionSupport implements SessionAware,
 		ServletRequestAware, ServletResponseAware {
 
 	private static final long serialVersionUID = -7955496034883725815L;
-	public HttpServletRequest request;
-	public HttpServletResponse response;
-	public Map<String, Object> session;
+	/**
+	 * http request.
+	 */
+	private HttpServletRequest request;
+	/**
+	 * http response.
+	 */
+	private HttpServletResponse response;
+	/**
+	 * http session.
+	 */
+	private Map<String, Object> session;
 
-	@Override
-	public void setServletResponse(HttpServletResponse response) {
-		this.response = response;
+	/**
+	 * @return the request
+	 */
+	public final HttpServletRequest getRequest() {
+		return request;
+	}
+
+	/**
+	 * @return the response
+	 */
+	public final HttpServletResponse getResponse() {
+		return response;
+	}
+
+	/**
+	 * @return the session
+	 */
+	public final Map<String, Object> getSession() {
+		return session;
 	}
 
 	@Override
-	public void setServletRequest(HttpServletRequest request) {
-		this.request = request;
+	public final void setServletResponse(
+			final HttpServletResponse newResponse) {
+		this.response = newResponse;
 	}
 
 	@Override
-	public void setSession(Map<String, Object> session) {
-		this.session = session;
+	public final void setServletRequest(final HttpServletRequest newRequest) {
+		this.request = newRequest;
+	}
+
+	@Override
+	public final void setSession(final Map<String, Object> newSession) {
+		this.session = newSession;
 	}
 
 }
