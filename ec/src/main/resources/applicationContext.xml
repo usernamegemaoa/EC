@@ -55,7 +55,8 @@
 	</bean>
 	<bean id="MyOrderAction" class="njuse.ec.action.MyOrderAction">
 	</bean>
-	
+	<bean id="AddGoodAction" class="njuse.ec.action.AddGoodAction">
+	</bean>
 	
 	<!-- 定义 Autowired 自动注入 bean -->
 	<bean
