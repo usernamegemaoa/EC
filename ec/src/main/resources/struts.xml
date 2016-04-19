@@ -12,6 +12,9 @@
 		<action name="MyOrder" class="MyOrderAction">
 			<result name="ViewOrderSuccess">/webPage/ViewOrder/jsp</result>
 			</action>
+		<action name="Category" class="CategoryAction">
+			<result name="success">/webPage/category.jsp</result>
+		</action>
 	</package>
 </struts>
 
