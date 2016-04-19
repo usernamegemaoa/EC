@@ -154,4 +154,11 @@ public interface GoodService {
 	 * @return 子咨询列表
 	 */
 	List<ConsultVo> getSonConsults(int consultId);
+
+	/**
+	 * 获取商家所有商品.
+	 * @param shopId 商家id
+	 * @return 商品列表
+	 */
+	List<GoodVo> getShopGood(int shopId);
 }

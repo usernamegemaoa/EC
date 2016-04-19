@@ -2,11 +2,13 @@ package njuse.ec.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import njuse.ec.dao.BaseDao;
 import njuse.ec.dao.CommentDAO;
 import njuse.ec.dao.ConsultDAO;
 import njuse.ec.dao.GoodDAO;
@@ -95,6 +97,18 @@ public class GoodServiceImpl implements GoodService {
 	 */
 	@Autowired
 	private StockDAO stockDao;
+	
+	/**
+	 * good base dao.
+	 */
+	@Autowired
+	private BaseDao<Good> goodBaseDao;
+	
+	/**
+	 * stock base dao.
+	 */
+	@Autowired
+	private BaseDao<Stock> stockBaseDao;
 	
 	/**
 	 * 每页最多显示20个商品.
@@ -214,7 +228,18 @@ public class GoodServiceImpl implements GoodService {
 	@Override
 	public final GoodVo getDetailGood(final int goodId) {
 		Good good = goodDao.getGood(goodId);
-		return convertToGoodVo(good);
+		GoodVo vo = convertToGoodVo(good);
+		List<Stock> stocks = stockBaseDao.findlist(
+				Stock.class, 
+				"goodId", 
+				String.valueOf(good.getId()));
+		vo.setStocks(new ArrayList<StockVo>());
+		Iterator<Stock> si = stocks.iterator();
+		while (si.hasNext()) {
+			Stock s = si.next();
+			vo.getStocks().add(convertToStockVo(s));
+		}
+		return vo;
 	}
 
 	@Override
@@ -539,6 +564,21 @@ public class GoodServiceImpl implements GoodService {
 	}
 	
 	/**
+	 * stock -> stockVo.
+	 * @param stock stock
+	 * @return stockVo
+	 */
+	private StockVo convertToStockVo(final Stock stock) {
+		StockVo stockVo = new StockVo();
+		stockVo.setColor(stock.getColor());
+		stockVo.setGoodId(stock.getGoodId());
+		stockVo.setId(stock.getId());
+		stockVo.setQuantity(stock.getQuantity());
+		stockVo.setSize(stock.getSize());
+		return stockVo;
+	}
+	
+	/**
 	 * 将commentVo转化为comment实体.
 	 * @param commentVo commentVo
 	 * @return comment实体
@@ -690,5 +730,31 @@ public class GoodServiceImpl implements GoodService {
 		consultVo.setConsult(content);
 		consultVo.setTime(time);
 		return consultVo;
+	}
+
+	@Override
+	public final List<GoodVo> getShopGood(final int shopId) {
+		List<Good> goods = goodBaseDao.findlist(
+				Good.class, 
+				"shopId", 
+				String.valueOf(shopId));
+		List<GoodVo> goodVos = new ArrayList<GoodVo>();
+		Iterator<Good> i = goods.iterator();
+		while (i.hasNext()) {
+			Good good = i.next();
+			GoodVo vo = convertToGoodVo(good);
+			List<Stock> stocks = stockBaseDao.findlist(
+					Stock.class, 
+					"goodId", 
+					String.valueOf(good.getId()));
+			vo.setStocks(new ArrayList<StockVo>());
+			Iterator<Stock> si = stocks.iterator();
+			while (si.hasNext()) {
+				Stock s = si.next();
+				vo.getStocks().add(convertToStockVo(s));
+			}
+			goodVos.add(vo);
+		}
+		return goodVos;
 	}
 }

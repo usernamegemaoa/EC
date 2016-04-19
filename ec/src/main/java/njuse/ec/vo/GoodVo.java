@@ -2,6 +2,7 @@ package njuse.ec.vo;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 商品vo.
@@ -69,6 +70,11 @@ public class GoodVo {
 	 * 商品主图片.
 	 */
 	private String mainPic = "defaultImg";
+	
+	/**
+	 * 库存列表.
+	 */
+	private List<StockVo> stocks;
 
 	/**
 	 * 获取商品id.
@@ -260,5 +266,19 @@ public class GoodVo {
 	 */
 	public final void setMainPic(final String newMainPic) {
 		this.mainPic = newMainPic;
+	}
+
+	/**
+	 * @return the stocks
+	 */
+	public final List<StockVo> getStocks() {
+		return stocks;
+	}
+
+	/**
+	 * @param newStocks the stocks to set
+	 */
+	public final void setStocks(final List<StockVo> newStocks) {
+		this.stocks = newStocks;
 	}
 }

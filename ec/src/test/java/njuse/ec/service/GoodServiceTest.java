@@ -111,8 +111,8 @@ public class GoodServiceTest {
 	 */
 	@Test
 	public final void testGetDetailGood() {
-//		Date date = goodService.getDetailGood(2).getTime();
-//		assertEquals(55, date.getSeconds());
+		GoodVo vo = goodService.getDetailGood(2);
+		assertEquals(vo.getStocks().size(), 2);
 	}
 
 	/**
@@ -226,5 +226,15 @@ public class GoodServiceTest {
 	@Test
 	public final void testGetSonConsults() {
 //		assertEquals(3 , goodService.getSonConsults(1).size());
+	}
+	
+	/**
+	 * 测试获取商家所有商品.
+	 */
+	@Test
+	public final void testGetShopGood() {
+		List<GoodVo> goods = goodService.getShopGood(276);
+		assertEquals(2, goods.size());
+		assertEquals(2, goods.get(0).getStocks().size());
 	}
 }
