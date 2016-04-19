@@ -237,4 +237,17 @@ public class GoodServiceTest {
 		assertEquals(2, goods.size());
 		assertEquals(2, goods.get(0).getStocks().size());
 	}
+	
+	/**
+	 * 测试修改商品属性.
+	 */
+	@Test
+	public final void testModifyGood() {
+		GoodVo vo = goodService.getDetailGood(123);
+		assertEquals("ASDF", vo.getGoodNum());
+		vo.setGoodNum("testmodify");
+		goodService.modifyGood(vo);
+		vo = goodService.getDetailGood(123);
+		assertEquals("testmodify", vo.getGoodNum());
+	}
 }

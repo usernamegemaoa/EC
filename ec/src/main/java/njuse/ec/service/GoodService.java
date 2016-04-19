@@ -161,4 +161,11 @@ public interface GoodService {
 	 * @return 商品列表
 	 */
 	List<GoodVo> getShopGood(int shopId);
+	
+	/**
+	 * 修改商品信息.
+	 * @param goodVo vo
+	 * @return 修改结果，0成功，1失败
+	 */
+	ResultVo modifyGood(GoodVo goodVo);
 }

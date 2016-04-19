@@ -757,4 +757,20 @@ public class GoodServiceImpl implements GoodService {
 		}
 		return goodVos;
 	}
+
+	@Override
+	public final ResultVo modifyGood(final GoodVo goodVo) {
+		ResultVo result = new ResultVo();
+		try {
+			Good good = convertToGood(goodVo);
+			goodBaseDao.update(good);	
+			result.setResultCode(0);
+			result.setResultMessage("修改成功");
+		} catch (Exception e) {
+			result.setResultCode(1);
+			result.setResultMessage("修改失败");
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
