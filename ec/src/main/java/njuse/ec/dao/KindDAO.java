@@ -22,6 +22,13 @@ public interface KindDAO {
 	 * @param kind 商品种类
 	 */
 	void deleteKind(Kind kind);
+	
+	/**
+	 * 根据id获取商品种类.
+	 * @param kindId 种类id
+	 * @return 种类
+	 */
+	Kind getKind(int kindId);
 
 	/**
 	 * 返回第一级种类列表.

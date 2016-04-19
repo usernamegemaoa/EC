@@ -17,5 +17,6 @@
 <body>
 <h1>hello world EC</h1>
 <h1><s:property value="path"/></h1>
+<h1><a href="Category?kindId=1&page=0">上装</a></h1>
 </body>
 </html>
