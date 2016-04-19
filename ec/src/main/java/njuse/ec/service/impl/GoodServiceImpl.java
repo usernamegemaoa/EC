@@ -132,6 +132,7 @@ public class GoodServiceImpl implements GoodService {
 			}
 			return fatherKindVo;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return fatherKindVo;
 		}
 	}
@@ -149,6 +150,7 @@ public class GoodServiceImpl implements GoodService {
 			}
 			return sonKindVo;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return sonKindVo;
 		}
 	}
@@ -177,6 +179,7 @@ public class GoodServiceImpl implements GoodService {
 			}
 			return latestGoodVo;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return latestGoodVo;
 		}
 	}
@@ -208,6 +211,7 @@ public class GoodServiceImpl implements GoodService {
 			}
 			return kindGoodVo;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return kindGoodVo;
 		}
 	}
@@ -237,6 +241,7 @@ public class GoodServiceImpl implements GoodService {
 			}
 			return searchGoodVo;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return searchGoodVo;
 		}
 	}
@@ -280,6 +285,7 @@ public class GoodServiceImpl implements GoodService {
 			}
 			return hotGoodVo;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return hotGoodVo;
 		}
 	}
@@ -309,6 +315,7 @@ public class GoodServiceImpl implements GoodService {
 			addGoodResult.setResultMessage("商品添加成功！");
 			return addGoodResult;
 		} catch (Exception e) {
+			e.printStackTrace();
 			addGoodResult.setResultCode(1);
 			addGoodResult.setResultMessage("商品添加失败！");
 			return addGoodResult;
@@ -331,6 +338,7 @@ public class GoodServiceImpl implements GoodService {
 			addGoodConsultResult.setResultMessage("咨询添加成功");
 			return addGoodConsultResult;
 		} catch (Exception e) {
+			e.printStackTrace();
 			addGoodConsultResult.setResultCode(1);
 			addGoodConsultResult.setResultMessage("咨询添加失败");
 			return addGoodConsultResult;
@@ -353,6 +361,7 @@ public class GoodServiceImpl implements GoodService {
 			addGoodCommentResult.setResultMessage("评论添加成功");
 			return addGoodCommentResult;
 		} catch (Exception e) {
+			e.printStackTrace();
 			addGoodCommentResult.setResultCode(1);
 			addGoodCommentResult.setResultMessage("评论添加失败");
 			return addGoodCommentResult;
@@ -394,6 +403,7 @@ public class GoodServiceImpl implements GoodService {
 			}
 			return consultsVo;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return consultsVo;
 		}
 	}
@@ -413,6 +423,7 @@ public class GoodServiceImpl implements GoodService {
 			}
 			return commentsVo;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return commentsVo;
 		}
 	}
@@ -429,6 +440,7 @@ public class GoodServiceImpl implements GoodService {
 			}
 			return sonCommentVo;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return sonCommentVo;
 		}
 	}
@@ -445,6 +457,7 @@ public class GoodServiceImpl implements GoodService {
 			}
 			return sonConsultVo;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return sonConsultVo;
 		}
 	}
@@ -458,7 +471,8 @@ public class GoodServiceImpl implements GoodService {
 			kindVo = convertToKindVo(kind);
 			return kindVo;
 		} catch (Exception e) {
-			return kindVo;
+			e.printStackTrace();
+			return null;
 		}	
 	}
 	
