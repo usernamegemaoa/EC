@@ -97,4 +97,5 @@ public interface UserService {
 	 * 			1 - 取消失败
 	 */
 	ResultVo unFavour(int userId, int goodId);
+	
 }

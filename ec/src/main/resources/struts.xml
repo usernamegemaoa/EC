@@ -4,16 +4,30 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-	<constant name="struts.multipart.maxSize" value="10485760"/>
+	<constant name="struts.multipart.maxSize" value="10485760" />
 	<package name="webpage" namespace="/" extends="struts-default">
 		<action name="" class="IndexAction">
 			<result name="success">/webPage/index.jsp</result>
 		</action>
 		<action name="MyOrder" class="MyOrderAction">
 			<result name="ViewOrderSuccess">/webPage/ViewOrder/jsp</result>
-			</action>
+		</action>
 		<action name="Category" class="CategoryAction">
 			<result name="success">/webPage/category.jsp</result>
+		</action>
+		<action name="AddGood" class="AddGoodAction">
+			<result name="success">/webPage/AddGood.jsp</result>
+		</action>
+		<action name="AddGoodForm" class="AddGoodAction" method="addInfo">
+			<result name="success">/webPage/AddGood.jsp</result>
+		</action>
+	</package>
+
+	<package name="json" namespace="/json" extends="struts-default, json-default">
+		<action name="getSon" class="AddGoodAction" method="getSon">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
 		</action>
 	</package>
 </struts>

@@ -14,8 +14,9 @@ public interface FileService {
 	/**
 	 * 上传图片到服务器.
 	 * @param file 图片文件
+	 * @param fileName 文件名
 	 * @return 上传结果
 	 */
-	ResultVo upload(File file);
+	ResultVo upload(File file, String fileName);
 
 }

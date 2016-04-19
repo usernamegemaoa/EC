@@ -161,4 +161,18 @@ public interface GoodService {
 	 * @return 种类vo
 	 */
 	KindVo getKind(int kindId);
+
+	/**
+	 * 获取商家所有商品.
+	 * @param shopId 商家id
+	 * @return 商品列表
+	 */
+	List<GoodVo> getShopGood(int shopId);
+	
+	/**
+	 * 修改商品信息.
+	 * @param goodVo vo
+	 * @return 修改结果，0成功，1失败
+	 */
+	ResultVo modifyGood(GoodVo goodVo);
 }

@@ -1,5 +1,6 @@
 package njuse.ec.service;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
@@ -28,7 +29,7 @@ public class PlaceServiceTest {
 	 */
 	@Test
 	public final void testGetProvince() {
-		assertNotNull(placeService.getProvince().size());
+		assertEquals(34, placeService.getProvince().size());
 	}
 
 	/**
@@ -36,7 +37,7 @@ public class PlaceServiceTest {
 	 */
 	@Test
 	public final void testGetCity() {
-		assertNotNull(placeService.getCity(0).size());
+		assertEquals(2, placeService.getCity(110000).size());
 	}
 
 	/**
@@ -44,7 +45,7 @@ public class PlaceServiceTest {
 	 */
 	@Test
 	public final void testGetDistrict() {
-		assertNotNull(placeService.getDistrict(0).size());
+		assertEquals(14, placeService.getDistrict(110100).size());
 	}
 
 }
