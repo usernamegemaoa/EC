@@ -111,6 +111,12 @@ public class GoodServiceImpl implements GoodService {
 	private BaseDao<Stock> stockBaseDao;
 	
 	/**
+	 * picture base dao.
+	 */
+	@Autowired
+	private BaseDao<Picture> pictureBaseDao;
+	
+	/**
 	 * 每页最多显示20个商品.
 	 */
 	private final int perPage = 20;
@@ -191,7 +197,8 @@ public class GoodServiceImpl implements GoodService {
 		List<SimpleGoodVo> kindGoodVo = new ArrayList<SimpleGoodVo>();
 		int firstResult = page * perPage;
 		int maxResult = perPage;
-		List<Good> kindGoods = goodDao.getKindGoods(kindId, firstResult, maxResult);
+		List<Good> kindGoods = 
+				goodDao.getKindGoods(kindId, firstResult, maxResult);
 		for (int i = 0; i < kindGoods.size(); i++) {
 			Good good = kindGoods.get(i);
 			SimpleGoodVo sgVo = convertToSimpleGood(good);
@@ -216,7 +223,8 @@ public class GoodServiceImpl implements GoodService {
 		List<SimpleGoodVo> searchGoodVo = new ArrayList<SimpleGoodVo>();
 		int firstResult = page * perPage;
 		int maxResult = perPage;
-		List<Good> searchGoods = goodDao.getNameGoods(search, firstResult, maxResult);
+		List<Good> searchGoods = 
+				goodDao.getNameGoods(search, firstResult, maxResult);
 		for (int i = 0; i < searchGoods.size(); i++) {
 			Good good = searchGoods.get(i);
 			SimpleGoodVo sgVo = convertToSimpleGood(good);
@@ -359,7 +367,8 @@ public class GoodServiceImpl implements GoodService {
 		List<ConsultVo> consultsVo = new ArrayList<ConsultVo>();
 		int firstResult = pages * perPage;
 		int maxResult = perPage;
-		List<Consult> consults = consultDao.getConsults(goodId, firstResult, maxResult);
+		List<Consult> consults = 
+				consultDao.getConsults(goodId, firstResult, maxResult);
 		for (int i = 0; i < consults.size(); i++) {
 			Consult consult = consults.get(i);
 			ConsultVo consultVo = convertToConsultVo(consult);
@@ -374,7 +383,8 @@ public class GoodServiceImpl implements GoodService {
 		List<CommentVo> commentsVo = new ArrayList<CommentVo>();
 		int firstResult = pages * perPage;
 		int maxResult = perPage;
-		List<Comment> comments = commentDao.getComments(goodId, firstResult, maxResult);
+		List<Comment> comments = 
+				commentDao.getComments(goodId, firstResult, maxResult);
 		for (int i = 0; i < comments.size(); i++) {
 			Comment comment = comments.get(i);
 			CommentVo commentVo = convertToCommentVo(comment);
@@ -384,10 +394,10 @@ public class GoodServiceImpl implements GoodService {
 	}
 	
 	@Override
-	public List<CommentVo> getSonComments(int commentId) {
+	public final List<CommentVo> getSonComments(final int commentId) {
 		List<CommentVo> sonCommentVo = new ArrayList<CommentVo>();
 		List<SubComment> sonComments = subCommentDao.getSubComments(commentId);
-		for(int i = 0; i < sonComments.size(); i++) {
+		for (int i = 0; i < sonComments.size(); i++) {
 			SubComment subComment = sonComments.get(i);
 			CommentVo commentVo = convertToCommentVo(subComment);
 			sonCommentVo.add(commentVo);
@@ -396,10 +406,10 @@ public class GoodServiceImpl implements GoodService {
 	}
 
 	@Override
-	public List<ConsultVo> getSonConsults(int consultId) {
+	public final List<ConsultVo> getSonConsults(final int consultId) {
 		List<ConsultVo> sonConsultVo = new ArrayList<ConsultVo>();
 		List<SubConsult> sonConsults = subConsultDao.getSubConsults(consultId);
-		for(int i = 0; i < sonConsults.size(); i++) {
+		for (int i = 0; i < sonConsults.size(); i++) {
 			SubConsult subConsult = sonConsults.get(i);
 			ConsultVo consultVo = convertToConsultVo(subConsult);
 			sonConsultVo.add(consultVo);
@@ -442,7 +452,7 @@ public class GoodServiceImpl implements GoodService {
 		Date date = good.getTime();
 		List<Picture> pics = pictureDao.getPics(id);
 		ArrayList<String> stpics = new ArrayList<String>();
-		for(int i = 0; i < pics.size(); i++) {
+		for (int i = 0; i < pics.size(); i++) {
 			stpics.add(pics.get(i).getFile());
 		}
 		String mainPic = pictureDao.getMainPic(id).getFile();
@@ -702,6 +712,11 @@ public class GoodServiceImpl implements GoodService {
 		return consultVo;
 	}
 	
+	/**
+	 * model to vo.
+	 * @param subComment model
+	 * @return vo
+	 */
 	private CommentVo convertToCommentVo(final SubComment subComment) {
 		CommentVo commentVo = new CommentVo();
 		int id = subComment.getId();
@@ -717,6 +732,11 @@ public class GoodServiceImpl implements GoodService {
 		return commentVo;
 	}
 	
+	/**
+	 * model to vo.
+	 * @param subConsult model
+	 * @return vo
+	 */
 	private ConsultVo convertToConsultVo(final SubConsult subConsult) {
 		ConsultVo consultVo = new ConsultVo();
 		int id = subConsult.getId();
@@ -763,7 +783,38 @@ public class GoodServiceImpl implements GoodService {
 		ResultVo result = new ResultVo();
 		try {
 			Good good = convertToGood(goodVo);
-			goodBaseDao.update(good);	
+			goodBaseDao.update(good);
+			Iterator<StockVo> i = goodVo.getStocks().iterator();
+			while (i.hasNext()) {
+				StockVo vo = i.next();
+				Stock stock = stockBaseDao.load(Stock.class, vo.getId());
+				if (stock == null) {
+					stock = new Stock();
+					stock.setColor(vo.getColor());
+					stock.setGoodId(goodVo.getGoodId());
+					stock.setQuantity(vo.getQuantity());
+					stock.setSize(vo.getSize());
+					stockBaseDao.save(stock);
+				} else {
+					stock.setColor(vo.getColor());
+					stock.setQuantity(vo.getQuantity());
+					stock.setSize(vo.getSize());
+					stockBaseDao.update(stock);
+				}
+			}
+			for (String pic:goodVo.getImgs()) {
+				Picture picture = pictureBaseDao.find(
+						Picture.class, 
+						"name", 
+						pic);
+				if (picture == null) {
+					picture = new Picture();
+					picture.setFile(pic);
+					picture.setGoodId(goodVo.getGoodId());
+					picture.setIsMain("false");
+					pictureDao.addPic(picture);
+				}
+			}
 			result.setResultCode(0);
 			result.setResultMessage("修改成功");
 		} catch (Exception e) {
