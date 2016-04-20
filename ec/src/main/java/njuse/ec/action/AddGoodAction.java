@@ -47,6 +47,9 @@ public class AddGoodAction extends BaseAction {
 	private List<File> uploads = new ArrayList<File>();
 	private List<String> uploadFileNames = new ArrayList<String>();
 	private List<String> uploadContentTypes = new ArrayList<String>();
+	private File mainpic;
+	private String mainpicFileName;
+	private String mainpicContentType;
 	private String description;
 	private String deliverInfo;
 	private String returnInfo;
@@ -94,11 +97,11 @@ public class AddGoodAction extends BaseAction {
 				System.out.println("AddGoodAction");
 				System.out.println(result.getResultMessage());
 			}
-		}		
-		if (!imgs.isEmpty()) {
-			goodVo.setMainPic(imgs.get(0));
 		}
 		goodVo.setImgs(imgs);
+		ResultVo mainResult = fileService.upload(mainpic, mainpicFileName); 
+		String mainPath = mainResult.getResultMessage();
+		goodVo.setMainPic(mainPath);
 		
 		List<StockVo> stocks = new ArrayList<StockVo>();
 		for (int i = 0; i < size.size(); i++) {
@@ -256,6 +259,27 @@ public class AddGoodAction extends BaseAction {
 	 */
 	public final List<KindVo> getSonKind() {
 		return sonKind;
+	}
+
+	/**
+	 * @param mainpic the mainpic to set
+	 */
+	public final void setMainpic(File mainpic) {
+		this.mainpic = mainpic;
+	}
+
+	/**
+	 * @param mainpicFileName the mainpicFileName to set
+	 */
+	public final void setMainpicFileName(String mainpicFileName) {
+		this.mainpicFileName = mainpicFileName;
+	}
+
+	/**
+	 * @param mainpicContentType the mainpicContentType to set
+	 */
+	public final void setMainpicContentType(String mainpicContentType) {
+		this.mainpicContentType = mainpicContentType;
 	}
 
 }
