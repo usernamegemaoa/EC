@@ -18,10 +18,18 @@
 		<action name="AddGoodForm" class="AddGoodAction" method="addInfo">
 			<result name="success">/webPage/AddGood.jsp</result>
 		</action>
+		<action name="regiest" class="LogAction" method="regiest">
+			<result name="success">/webPage/regiest.jsp</result>
+		</action>
 	</package>
 	
 	<package name="json" namespace="/json" extends="struts-default, json-default">
 		<action name="getSon" class="AddGoodAction" method="getSon">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="regiest" class="LogAction" method="regiestUser">
 			<result type="json">
 				<param name="root">jsonResult</param>
 			</result>

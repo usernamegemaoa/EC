@@ -18,5 +18,6 @@
 <h1>hello world EC</h1>
 <h1><s:property value="path"/></h1>
 <a href="webPage/AddGood.jsp">abc</a>
+<a href="regiest">regiest</a>
 </body>
 </html>

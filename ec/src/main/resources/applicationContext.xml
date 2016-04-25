@@ -57,6 +57,8 @@
 	</bean>
 	<bean id="AddGoodAction" class="njuse.ec.action.AddGoodAction">
 	</bean>
+	<bean id="LogAction" class="njuse.ec.action.LogAction">
+	</bean>
 	
 	<!-- 定义 Autowired 自动注入 bean -->
 	<bean
