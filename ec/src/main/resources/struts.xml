@@ -32,7 +32,10 @@
 		</action>
 		<action name="Search" class="SearchAction">
 			<result name="success">/webPage/search.jsp</result>
-			<result name="homepage" type="chain">Category</result>
+			<result name="homepage" type="chain">Homepage</result>
+		</action>
+		<action name="Homepage" class="HomepageAction">
+			<result name="success">/webPage/homepage.jsp</result>
 		</action>
 	</package>
 

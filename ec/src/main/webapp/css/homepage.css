@@ -65,8 +65,9 @@
     height: 400px;
 }
 .page-list{
-    margin-left: 300px; 
+    margin: auto; 
     overflow: auto;
+    width: 500px;
 }
 .page-list li{
     border: 1px solid #DDDDDD;
@@ -90,9 +91,14 @@
 .item-link{
 	text-align: center;
 }
-.search-list{
-	width: 1040px;
+.search-div{
+	width: 1300px;
+	margin: auto;
+	text-align: center;
 	float: left;
+}
+.search-list{
+	overflow: auto;
 }
 .search-list li{
 	width: 200px;
