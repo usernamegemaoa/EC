@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Test;
@@ -246,8 +247,19 @@ public class GoodServiceTest {
 		GoodVo vo = goodService.getDetailGood(123);
 		assertEquals("ASDF", vo.getGoodNum());
 		vo.setGoodNum("testmodify");
+		Iterator<StockVo> i = vo.getStocks().iterator();
+		while (i.hasNext()) {
+			StockVo stock = i.next();
+			stock.setQuantity(0);
+		}
+		StockVo newvo = new StockVo();
+		newvo.setColor("testmodify");
+		newvo.setQuantity(0);
+		newvo.setSize("testmodify");
+		vo.getStocks().add(newvo);
 		goodService.modifyGood(vo);
 		vo = goodService.getDetailGood(123);
 		assertEquals("testmodify", vo.getGoodNum());
+		assertEquals(0, vo.getStocks().get(0).getQuantity());
 	}
 }
