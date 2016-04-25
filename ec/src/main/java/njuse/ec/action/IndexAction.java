@@ -26,13 +26,10 @@ public class IndexAction extends BaseAction {
 	public final String getPath() {
 		return path;
 	}
-
-	@Autowired
-	private FileService fileService;
 	
-	public String execute() {
+	@Override
+	public final String execute() {
 		products = productService.getAllProduct();
-		path = fileService.upload(null).getResultMessage();
 		return SUCCESS;
 	}
 	
