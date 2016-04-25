@@ -55,7 +55,7 @@ public class PlanDAOImpl implements PlanDAO {
 	@Override
 	public final int getShopId(final Plan plan) {
 		int stockId = plan.getStockId();
-		String hql = "select shop_id from good,stock where id=" + stockId + " and good.id=stock.good_id";
+		String hql = "select shop_id from good,stock where stock.id=" + stockId + " and good.id=stock.good_id";
 		Session session = getSession();
 		List result = session.createSQLQuery(hql).list();
 		int shopId = (int) result.get(0);
@@ -64,12 +64,12 @@ public class PlanDAOImpl implements PlanDAO {
 	}
 
 	@Override
-	public final int getPrice(final Plan plan) {
+	public final double getPrice(final Plan plan) {
 		int stockId = plan.getStockId();
-		String hql = "select price from good where id=" + stockId + " and good.id=stock.good_id";
+		String hql = "select price from good,stock where stock.id=" + stockId + " and good.id=stock.good_id";
 		Session session = getSession();
 		List result = session.createSQLQuery(hql).list();
-		int price = (int) result.get(0);
+		double price = (int) result.get(0);
 		return price;
 	}
 }

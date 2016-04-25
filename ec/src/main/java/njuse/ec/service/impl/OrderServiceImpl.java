@@ -236,5 +236,74 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return result;
 	}
+	
+	@Override
+	public final List<OrderVo> getWaitPayOrder(
+			final int userId) {
+		//查看待支付订单
+		List<OrderVo> result = new ArrayList<OrderVo>();
+		if (userId > 0) {
+			OrderVo order = new OrderVo();
+			List<Order> allOrder = new ArrayList<Order>();
+			allOrder = orderDao.getWaitPayOrder(userId);
+			for (int i = 0; i < allOrder.size(); i++) {
+				Order thisOrder = allOrder.get(i);
+				OrderVo thisOrderVo = order.convertOrder(thisOrder);
+				result.add(thisOrderVo);
+			}
+		}
+		return result;
 
+	}
+
+	@Override
+	public final List<OrderVo> getWaitSendOrder(final int userId) {
+		// TODO Auto-generated method stub
+		List<OrderVo> result = new ArrayList<OrderVo>();
+		if (userId > 0) {
+			OrderVo order = new OrderVo();
+			List<Order> allOrder = new ArrayList<Order>();
+			allOrder = orderDao.getWaitSendOrder(userId);
+			for (int i = 0; i < allOrder.size(); i++) {
+				Order thisOrder = allOrder.get(i);
+				OrderVo thisOrderVo = order.convertOrder(thisOrder);
+				result.add(thisOrderVo);
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public List<OrderVo> getWaitConfirm(int userId) {
+		List<OrderVo> result = new ArrayList<OrderVo>();
+		if (userId > 0) {
+			OrderVo order = new OrderVo();
+			List<Order> allOrder = new ArrayList<Order>();
+			allOrder = orderDao.getWaitConfirmOrder(userId);
+			for (int i = 0; i < allOrder.size(); i++) {
+				Order thisOrder = allOrder.get(i);
+				OrderVo thisOrderVo = order.convertOrder(thisOrder);
+				result.add(thisOrderVo);
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public List<OrderVo> getrefundOrder(int userId) {
+		List<OrderVo> result = new ArrayList<OrderVo>();
+		if (userId > 0) {
+			OrderVo order = new OrderVo();
+			List<Order> allOrder = new ArrayList<Order>();
+			allOrder = orderDao.getrefundOrder(userId);
+			for (int i = 0; i < allOrder.size(); i++) {
+				Order thisOrder = allOrder.get(i);
+				OrderVo thisOrderVo = order.convertOrder(thisOrder);
+				result.add(thisOrderVo);
+			}
+		}
+		return result;
+	}
+	
+	
 }

@@ -3536,7 +3536,6 @@ INSERT INTO `kind` (`id`, `father_id`, `kind_name`) VALUES
 (18, 3, '短裤/七分裤'),
 (19, 3, '裤子');
 
-
 INSERT INTO `rbac_role` (`id`, `name`) VALUES
 (1, '顾客'),
 (2, '商家');
@@ -3572,10 +3571,10 @@ INSERT INTO `plan` (`id`, `stock_id`, `user_id`, `quantity`) VALUES
 (3, 3, 276, 1);
 
 INSERT INTO `Picture` (`id`, `good_id`, `file`, `main`) VALUES
-(1, 1, 'files', 'true'),
-(2, 2, 'files2', 'true'),
-(3, 1, 'files3', 'false'),
-(4, 123, 'files4', 'true');
+(1, 1, 'img/ad2.jpg', 'true'),
+(2, 2, 'img/ad2.jpg', 'true'),
+(3, 1, 'img/ad2.jpg', 'false'),
+(4, 123, 'img/ad2.jpg', 'true');
 
 INSERT INTO `comment` (`id`, `good_id`, `user_id`, `score`, `content`, `time`) VALUES
 (1, 1, 123, 3, "一般", now()),

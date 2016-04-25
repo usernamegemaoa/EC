@@ -207,4 +207,33 @@ public class OrderDAOImpl implements OrderDAO {
 		return session.createSQLQuery(hql).list();
 	}
 
+	@Override
+	public final List<Order> getWaitPayOrder(final int userId) {
+		// TODO Auto-generated method stub
+		String hql = "select * from order where user_id=" + userId + " and state=1";
+		Session session = getSession();
+		return session.createSQLQuery(hql).list();
+	}
+
+	@Override
+	public final List<Order> getWaitSendOrder(final int userId) {
+		String hql = "select * from order where user_id=" + userId + " and state=2";
+		Session session = getSession();
+		return session.createSQLQuery(hql).list();
+	}
+
+	@Override
+	public final List<Order> getWaitConfirmOrder(final int userId) {
+		String hql = "select * from order where user_id=" + userId + " and state=3";
+		Session session = getSession();
+		return session.createSQLQuery(hql).list();
+	}
+
+	@Override
+	public final List<Order> getrefundOrder(final int userId) {
+		String hql = "select * from order where user_id=" + userId + " and state=5";
+		Session session = getSession();
+		return session.createSQLQuery(hql).list();
+	}
+
 }

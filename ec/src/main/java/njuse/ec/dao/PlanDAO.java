@@ -47,5 +47,5 @@ public interface PlanDAO {
 	 * @param plan 进货单
 	 * @return 价格
 	 */
-	int getPrice(Plan plan);
+	double getPrice(Plan plan);
 }
