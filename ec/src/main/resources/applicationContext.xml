@@ -59,6 +59,8 @@
 	</bean>
 	<bean id="AddGoodAction" class="njuse.ec.action.AddGoodAction">
 	</bean>
+	<bean id="SearchAction" class="njuse.ec.action.SearchAction">
+	</bean>
 	
 	<!-- 定义 Autowired 自动注入 bean -->
 	<bean

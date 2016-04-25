@@ -29,9 +29,9 @@
 
 <body>
 	<div class="search">
-		<form action="" method="get" style="float: right;">
-			<input name="" type="text" style="margin: 0px;" /> 
-			<input name="search" type="button" value="搜索" style="margin: 0px;" />
+		<form action="Search" method="post" style="float: right;">
+			<input name="search" type="text" style="margin: 0px;" /> 
+			<input type="submit" value="搜索" style="margin: 0px;" />
 		</form>
 	</div>
 	<div class="menu" style="height: 30px;">
@@ -45,6 +45,8 @@
 			<li><a href="">常见问题</a></li>
 		</ul>
 		<ul class="right-list">
+			<li><s:property value="fatherKind.kindId" /></li>
+			
 			<li><a href="">用户id</a></li>
 			<li><a href="">退出</a></li>
 			<li><a href="">我的订单</a></li>
@@ -63,7 +65,12 @@
 				<li><a href='Category?kindId=<s:property value="#each_father.kindId"/>&page=0'><s:property value="#each_father.name" /></a></li>
 				<s:if test="#each_father.kindId==fatherId">
 					<s:iterator value="sonKinds" id="each_son">
+						<s:if test="#each_son.kindId==sonKind.kindId">
 						<li class="son-kind" style="padding-left: 30px;"><a href='Category?kindId=<s:property value="#each_son.kindId"/>&page=0'><s:property value="#each_son.name" /></a></li>
+						</s:if>
+						<s:else>
+						<li class="son-kind" style="padding-left: 30px;"><a href='Category?kindId=<s:property value="#each_son.kindId"/>&page=0'><s:property value="#each_son.name" /></a></li>
+						</s:else>
 					</s:iterator>
 				</s:if>
 			</s:iterator>
@@ -73,12 +80,16 @@
 	 	<h2>今日上新</h2>
     	<hr style="margin: 10px;height:0.5px;border:none;border-top:2px solid #4B4B4B;">
     	<ul class="item-list">
-      		<li><img src="img/ad0.jpg" />商品描述</li>
-      		<li><img src="img/ad0.jpg" />商品描述</li>
-      		<li><img src="img/ad0.jpg" />商品描述</li>
-      		<li><img src="img/ad0.jpg" />商品描述</li>
-      		<li><img src="img/ad0.jpg" />商品描述</li>
-      		<li><img src="img/ad0.jpg" />商品描述</li>
+    		<s:iterator value="goodsList" id="good">
+    			<li>
+    			<div class="main-pic">
+    			<img src=<s:property value="#good.img" /> />
+    			</div>
+    			<div class="item-link">
+    			<a href=""><s:property value="#good.name" /></a>
+    			</div>
+    			</li>
+    		</s:iterator>
     	</ul>
 
 

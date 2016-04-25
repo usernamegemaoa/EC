@@ -21,6 +21,10 @@
 		<action name="AddGoodForm" class="AddGoodAction" method="addInfo">
 			<result name="success">/webPage/AddGood.jsp</result>
 		</action>
+		<action name="Search" class="SearchAction">
+			<result name="success">/webPage/search.jsp</result>
+			<result name="homepage" type="chain">Category</result>
+		</action>
 	</package>
 
 	<package name="json" namespace="/json" extends="struts-default, json-default">

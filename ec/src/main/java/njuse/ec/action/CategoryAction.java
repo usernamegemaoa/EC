@@ -36,7 +36,7 @@ public class CategoryAction extends BaseAction {
 	
 	private int fatherId;
 	
-	private int totalPage = 10;
+	private int totalPage;
 
 	public String execute(){	
 		fatherKind = goodService.getKind(kindId);
@@ -49,8 +49,9 @@ public class CategoryAction extends BaseAction {
 		fatherKinds = goodService.getFatherKind();
 		sonKinds = goodService.getSonKind(fatherKind);
 		goodsList = goodService.getKindGood(sonKind, page);
+//		System.out.print(goodsList.get(0).getMainPic());
 		fatherId = fatherKind.getKindId();
-//		totalPage = goodService.getKindGoodPages(sonKind);
+		totalPage = goodService.getKindGoodPages(sonKind);
 		return "success";
 	}
 	
