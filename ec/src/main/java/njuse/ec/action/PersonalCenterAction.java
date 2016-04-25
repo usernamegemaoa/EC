@@ -35,7 +35,7 @@ public class PersonalCenterAction extends BaseAction {
     }
     
     private void getUser(){
-    	userId=(int) session.get(userId);
+    	userId=(int) getSession().get(userId);
     }
 
 	public String getName() {
