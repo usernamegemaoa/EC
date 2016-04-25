@@ -40,7 +40,7 @@ public class OrderDetailVo {
 	/**
 	 * 单价.
 	 */
-	private int price;
+	private double price;
 	
 	/**
 	 * @return the id
@@ -117,13 +117,13 @@ public class OrderDetailVo {
 	/**
 	 * @return the price
 	 */
-	public final int getPrice() {
+	public final double getPrice() {
 		return price;
 	}
 	/**
 	 * @param newPrice the price to set
 	 */
-	public final void setPrice(final int newPrice) {
+	public final void setPrice(final double newPrice) {
 		this.price = newPrice;
 	}
 	

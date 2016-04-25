@@ -34,4 +34,6 @@ public interface StockDAO {
 	 * @return 库存列表
 	 */
 	Stock getStock(int stockId);
+	
+	
 }

@@ -9,9 +9,21 @@
 		<action name="" class="IndexAction">
 			<result name="success">/webPage/index.jsp</result>
 		</action>
-		<action name="MyOrder" class="MyOrderAction">
-			<result name="ViewOrderSuccess">/webPage/ViewOrder/jsp</result>
+		<action name="getOrder" class="MyOrderAction">
+			<result name="success">/webPage/test.jsp</result>
 			</action>
+		<action name="personalCenter" class="PersonalCenterAction">
+			<result name="success">/webPage/PersonalCenter.jsp</result>
+			</action>
+		<action name="jumpChangePassword" class="UserAction">
+			<result name="success">/webPage/changePassword.jsp</result>
+			</action>
+	</package>
+	
+	<package name="json" namespace="/json" extends="struts-default,json-default">
+	<action name="changePassword" class="UserAction" method="changePassword">
+			<result type="json"><param name="root">jsonResult</param></result>
+	</action>
 	</package>
 </struts>
 

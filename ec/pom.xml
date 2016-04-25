@@ -81,6 +81,12 @@
 			<artifactId>struts2-spring-plugin</artifactId>
 			<version>${org.strutsframework-version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-json-plugin</artifactId>
+			<version>${org.strutsframework-version}</version>
+		</dependency>
 
 		<!-- Dependencies for Hibernate ORM framework -->
 		<dependency>
