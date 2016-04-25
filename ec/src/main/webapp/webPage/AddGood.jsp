@@ -65,6 +65,11 @@
 						</select>
 					</div>
 					<div class="form-group">
+						<label for="mainphoto">封面图片</label> <input type="file"
+							id="mainphoto" name="mainpic" aria-describedby="mainhelp"> <span
+							id="mainhelp" class="help-block">可以一次上传多个文件</span>
+					</div>
+					<div class="form-group">
 						<label for="photos">图片列表</label> <input type="file" multiple
 							id="photos" name="upload" aria-describedby="photohelp"> <span
 							id="photohelp" class="help-block">可以一次上传多个文件</span>
