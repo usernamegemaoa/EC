@@ -1,6 +1,7 @@
 package njuse.ec.action;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -8,65 +9,59 @@ import org.springframework.stereotype.Repository;
 import njuse.ec.model.Stock;
 import njuse.ec.service.GoodService;
 import njuse.ec.vo.GoodVo;
+import njuse.ec.vo.SimpleGoodVo;
 import njuse.ec.vo.StockVo;
 
 @Repository
-public class GoodInfoAction extends BaseAction{
+public class GoodInfoAction extends BaseAction {
 
 	private static final long serialVersionUID = -9164312800576735203L;
-	
+
 	@Autowired
 	private GoodService goodService;
-	
 	private GoodVo goodVo;
 	private ArrayList<String> imgs;
+	private String mainPic;
+	private List<StockVo> stocks;
+	private List<SimpleGoodVo> hotGood;// 同类热销
+	private String hotPic;
+	private String hotName;
 	private String name;
 	private double price;
 	private String description;
 	private String return_info;
 	private String deliver_info;
-	private Stock stock;
 	private String color;
-	
- 
-	private final String getGoodInfo(int goodId){
-		goodVo=goodService.getDetailGood(goodId);
-		return "GetGoodInfoSuccess";
+	private int goodId;
+
+	public final String execute() {
+		return SUCCESS;
 	}
-	
-	private final String getGoodImgs(){
-		imgs=goodVo.getImgs();
-		return "GetGoodImgsSuccess";
+
+	public final String getGoodInfo() {
+
+		System.out.print("==========================");
+		goodVo = goodService.getDetailGood(goodId);
+		List<SimpleGoodVo> allHotGood = goodService.getHotGood(goodId);
+		int k = allHotGood.size();
+		if (k > 2) {
+			k = 2;
+		}
+		hotGood = new ArrayList<SimpleGoodVo>();
+		for (int i = 0; i < k; i++) {
+			hotGood.add(allHotGood.get(i));
+		}
+		stocks = goodVo.getStocks();
+		imgs = goodVo.getImgs();
+		mainPic = goodVo.getMainPic();
+		description = goodVo.getDescription();
+		return_info = goodVo.getReturnInfo();
+		deliver_info = goodVo.getDeliverInfo();
+		price = goodVo.getPrice();
+		System.out.print(mainPic);
+		return SUCCESS;
 	}
-	
-	private final String getGoodName(){
-		name=goodVo.getName();
-		return "GetGoodNameSuccess";
-	}
-	
-	private final String getGoodPrice(){
-		price=goodVo.getPrice();
-		return "GetGoodPriceSuccess";
-	}
-	
-	private final String getGoodDescription(){
-		description=goodVo.getDescription();
-		return "GetGoodDescriptionSuccess";
-	}
-	
-	private final String getReturnInfo(){
-		return_info=goodVo.getReturnInfo();
-		return "GetGoodReturnInfoSuccess";
-	}
-	
-	private final String getdeliverInfo(){
-		deliver_info=goodVo.getDeliverInfo();
-		return "GetGooddeliverInfoSuccess";
-	}
-	
-	private final String getStock(int goodId){
-		return "Success1";
-	}
+
 	public GoodVo getGoodVo() {
 		return goodVo;
 	}
@@ -78,6 +73,7 @@ public class GoodInfoAction extends BaseAction{
 	public ArrayList<String> getImgs() {
 		return imgs;
 	}
+
 	public void setImgs(ArrayList<String> imgs) {
 		this.imgs = imgs;
 	}
@@ -93,6 +89,7 @@ public class GoodInfoAction extends BaseAction{
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -128,4 +125,61 @@ public class GoodInfoAction extends BaseAction{
 	public void setDeliver_info(String deliver_info) {
 		this.deliver_info = deliver_info;
 	}
+
+	public int getGoodId() {
+		return goodId;
+	}
+
+	public void setGoodId(int goodId) {
+		this.goodId = goodId;
+	}
+
+	public List<StockVo> getStocks() {
+		return stocks;
+	}
+
+	public void setStocks(List<StockVo> stocks) {
+		this.stocks = stocks;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public String getMainPic() {
+		return mainPic;
+	}
+
+	public void setMainPic(String mainPic) {
+		this.mainPic = mainPic;
+	}
+
+	public List<SimpleGoodVo> getHotGood() {
+		return hotGood;
+	}
+
+	public void setHotGood(List<SimpleGoodVo> hotGood) {
+		this.hotGood = hotGood;
+	}
+
+	public String getHotName() {
+		return hotName;
+	}
+
+	public void setHotName(String hotName) {
+		this.hotName = hotName;
+	}
+
+	public String getHotPic() {
+		return hotPic;
+	}
+
+	public void setHotPic(String hotPic) {
+		this.hotPic = hotPic;
+	}
+
 }

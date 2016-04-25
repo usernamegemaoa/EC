@@ -18,12 +18,16 @@
 		<action name="jumpChangePassword" class="UserAction">
 			<result name="success">/webPage/changePassword.jsp</result>
 		</action>
+		<action name="getGoodInfo" class="GoodInfoAction" method="getGoodInfo">
+			<result name="success">/webPage/GoodInfo.jsp</result>
+		</action>
 		<action name="AddGood" class="AddGoodAction">
 			<result name="success">/webPage/AddGood.jsp</result>
 		</action>
 		<action name="AddGoodForm" class="AddGoodAction" method="addInfo">
 			<result name="success">/webPage/AddGood.jsp</result>
 		</action>
+		
 	</package>
 	<package name="json" namespace="/json" extends="struts-default,json-default">
 		<action name="changePassword" class="UserAction" method="changePassword">

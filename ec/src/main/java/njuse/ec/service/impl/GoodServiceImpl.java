@@ -245,16 +245,20 @@ public class GoodServiceImpl implements GoodService {
 	@Override
 	public final List<SimpleGoodVo> getHotGood(final int goodId) {
 		List<SimpleGoodVo> hotGoodVo = new ArrayList<SimpleGoodVo>();
-		int firstResult = 0;
-		int maxResult = perHot;
-		List<Hot> hotGood = hotDao.getHot(goodId, firstResult, maxResult);
-		for (int i = 0; i < hotGood.size(); i++) {
-			Hot hot = hotGood.get(i);
-			int id = hot.getSecondId();
-			Good good = goodDao.getGood(id);
-			SimpleGoodVo sgVo = convertToSimpleGood(good);
-			hotGoodVo.add(sgVo);
-		}
+//		int firstResult = 0;
+//		int maxResult = perHot;
+//		List<Hot> hotGood = hotDao.getHot(goodId, firstResult, maxResult);
+//		for (int i = 0; i < hotGood.size(); i++) {
+//			Hot hot = hotGood.get(i);
+//			int id = hot.getSecondId();
+//			Good good = goodDao.getGood(id);
+//			SimpleGoodVo sgVo = convertToSimpleGood(good);
+//			hotGoodVo.add(sgVo);
+//		}
+		Good good = goodDao.getGood(goodId);
+		KindVo vo = new KindVo();
+		vo.setKindId(good.getKindId());
+		hotGoodVo.addAll(getKindGood(vo, 0));
 		return hotGoodVo;
 	}
 

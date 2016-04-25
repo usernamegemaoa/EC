@@ -62,7 +62,7 @@
     </style>
     
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>OrderView</title>
+<title>GoodInfo</title>
 </head>
 <body onload="showPicture();">
     <div class="path">
@@ -72,12 +72,16 @@
     <div class="row">
             <div class="col-sm-5">
                 <div class="bigpic" >
-                    <img class="img-responsive" src="" alt="a" />
+                    <img class="img-responsive" id="bigPicture" src="<s:property value="mainPic"/>" alt="a" />
                 </div>
                 <div id="smallPicture" class="smailpic" >
+                <!--
                 <s:iterator  value="imgs" var="each_pic">
-                <img class="img" src='<s:property value="#each_pic"/>' onclick="changePicture('#each_pic')">
+                <img class="img" src='<s:property value="#each_pic"/>' onclick="changePicture('<s:property value="#each_pic"/>')">
                 </s:iterator>
+                -->
+                <img class="img" src="C:/Users/user/Desktop/img.jpeg" onclick="changePicture('C:/Users/user/Desktop/img.jpeg')">
+                <img class="img" src="C:/Users/user/Desktop/img.jpeg" onclick="changePicture('C:/Users/user/Desktop/img.jpeg')">
                 </div>
             </div>
              <div class="col-sm-7">
@@ -85,67 +89,73 @@
                 <p class="money"><s:property value="price"/></p>
                 <hr>
                 <div class="smailpic">
-                    <img src="./1.jpg" alt="a" />
+                    <img src="<s:property value="mainPic"/>" alt="a" />
                 </div>
-                <table class="number">
-                    <thead>
-                        <th>尺码</th>
-                        <th>价格</th>
-                        <th>库存</th>
-                        <th>购买量</th>
+                <table class="number" >
+                    <thead >
+                        <th style="font-size: 18px">尺码</th>
+                        <th style="font-size: 18px">价格</th>
+                        <th style="font-size: 18px">库存</th>
+                        <th style="font-size: 18px">购买量</th>
+                        <th style="font-size: 18px">总价</th>
                     </thead>
                     <tbody>
-                    <s:iterator  value="stock">      
+                    <s:iterator  value="stocks" var="stock">      
                         <tr>
-                            <td><s:property value="size"/></td>
-                            <td><s:property value="price"/></td>
-                            <td><s:property value="quantity"/></td>
+                            <td><s:property value="#stock.size"/></td>
+                            <td>￥<s:property value="price"/></td>
+                            <td><s:property value="#stock.quantity"/></td>
                             <td>
-                                <button onclick="deleteGood()">-</button> 0
-                                <button onclick="addGood()">+</button>
+                                <div class="btn-group" role="group" aria-label="...">
+  									<button type="button"  class="glyphicon glyphicon-minus" style="background-color:transparent" onclick="deleteGood('<s:property value="#stock.size"/>','<s:property value="price"/>')"></button>
+ 									<span id="<s:property value="#stock.size"/>">0</span>
+  									<button type="button" class="glyphicon glyphicon-plus" style="background-color:transparent" onclick="addGood('<s:property value="#stock.size"/>','<s:property value="price"/>','<s:property value="#stock.quantity"/>')"></button>
+								</div>
                             </td>
                         </tr>
                          </s:iterator>
                         
-                        <tr>
-                            <td id="totelGood"></td>
-                            <td id="totelMoney">0</td>
+                        <tr style="font-size:25px">
+                        	<td>总计</td>
+                        	<td></td>
+                        	<td></td>
+                            <td ><span id="totalGood">0</span>件</td>
+                            <td >￥<span id="totalMoney">0</span></td>
                         </tr>
                     </tbody>
                 </table>
                 <div style="padding: 10px;">
-                    <button style="float:left;">收藏</button>
-                    <button style="float:right;">立即购买</button>
-                    <button style="float:right;">加入进货单</button>
+                	<button type="button" class="btn btn-default glyphicon glyphicon-heart" style="float:left" onclick="favourt()">收藏</button>
+                    <div class="btn-group" role="group" aria-label="..." style="float:right">
+ 						<button type="button" class="btn btn-default">加入购物车</button>
+  						<button type="button" class="btn btn-default">立刻购买</button>
+					</div>
                 </div>
             </div>
         </div>
         <div class="row" style="padding-top:20px">
             <div class="col-sm-3">
                 <h5>同类热销</h5>
-                <img class="img-responsive" src="./1.jpg" alt="a" />
-                <p>女士圆领爱心毛衣纯棉线衫直筒毛衫韩版</p>
-                <img class="img-responsive" src="./1.jpg" alt="a" />
-                <p>女士圆领爱心毛衣纯棉线衫直筒毛衫韩版</p>
-                <img class="img-responsive" src="./1.jpg" alt="a" />
-                <p>女士圆领爱心毛衣纯棉线衫直筒毛衫韩版</p>
+                <s:iterator value="hotGood" var="each_good">
+                <a href="getGoodInfo?goodId=<s:property value='#each_good.goodId'/>"><img class="img-responsive" src="<s:property value='#each_good.img'/>" alt="a"/></a>
+                <p><s:property value="#each_good.name"/></p>
+                </s:iterator>
             </div>
             <div class="col-sm-9">
             <!-- Nav tabs -->
   				<ul class="nav nav-tabs" role="tablist">
-    					<li role="presentation" class="active"><a href="description" aria-controls="description" role="tab" data-toggle="tab">商品详情</a></li>
-    					<li role="presentation"><a href="deliver_info" aria-controls="deliver_info" role="tab" data-toggle="tab">发货信息</a></li>
-    					<li role="presentation"><a href="return_info" aria-controls="return_info" role="tab" data-toggle="tab">退货信息</a></li>
+    					<li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">商品详情</a></li>
+    					<li role="presentation"><a href="#deliver_info" aria-controls="deliver_info" role="tab" data-toggle="tab">发货信息</a></li>
+    					<li role="presentation"><a href="#return_info" aria-controls="return_info" role="tab" data-toggle="tab">退货信息</a></li>
   						</ul>
             
                 <div class="tab-content">
   					<div role="tabpanel" class="tab-pane active" id="description"><s:property value="description"/></div>
   					<div role="tabpanel" class="tab-pane " id="deliver_info"><s:property value="deliver_info"/></div>
   					<div role="tabpanel" class="tab-pane " id="return_info"><s:property value="return_info"/></div>
-				</div>
-                <div>马璐璐，和铃兰，服务态度很好，也很亲切。说句实在话，森马的客服员，比其他我所遇到的客服员好很多。有的客服员难怪卖不出去东西。我也很喜欢在森马买东西，价格实惠，商品质量也很不错。大爱。
-                </div>
+
             </div>
+        </div>
         </div>
         </div>
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
@@ -156,31 +166,36 @@
 var quantity=0;
 
 function changePicture(img){
-	$('#img-responsive').attr('src', img);
+	$('#bigPicture').attr('src', img);
 }
 
-function deleteGood(thisSize){
-	var 
-}
-function addGood(){
-	
+function deleteGood(thisSize,price){
+	var numOfThisSize=$('#'+thisSize+'').text();
+	var totalNum=$('#totalGood').text();
+	if(numOfThisSize!=0){
+	numOfThisSize--;
+	totalNum--;
+	var totalMoney=totalNum*price;
+	$('#'+thisSize+'').text(numOfThisSize);
+	$('#totalGood').text(totalNum);
+	$('#totalMoney').text(totalMoney);
+	}
 }
 
-$('#description').click(function (e) {
-	  e.preventDefault();
-	  $(this).tab('show');
-	})
-	
-	
-$('#deliver_info').click(function (e) {
-	  e.preventDefault();
-	  $(this).tab('show');
-	})
-	
-$('#return_info').click(function (e) {
-	  e.preventDefault();
-	  $(this).tab('show');
-})
+function addGood(thisSize,price,quantity){
+	var numOfThisSize=$('#'+thisSize+'').text();
+	var totalNum=$('#totalGood').text();
+	if((numOfThisSize-quantity)<0){
+	numOfThisSize++;
+	totalNum++;
+	var totalMoney=totalNum*price;
+	$('#'+thisSize+'').text(numOfThisSize);
+	$('#totalGood').text(totalNum);
+	$('#totalMoney').text(totalMoney);
+	}
+}
+
+
 	</script>
 </body>
 </html>
