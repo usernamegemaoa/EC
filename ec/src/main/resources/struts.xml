@@ -33,6 +33,12 @@
 		<action name="regiest" class="LogAction" method="regiest">
 			<result name="success">/webPage/regiest.jsp</result>
 		</action>
+		<action name="login" class="LogAction" method="login">
+			<result name="success">/webPage/login.jsp</result>
+		</action>
+		<action name="logout" class="LogAction" method="logout">
+			<result name="success" type="redirect">/</result>
+		</action>
 		<action name="Search" class="SearchAction">
 			<result name="success">/webPage/search.jsp</result>
 			<result name="homepage" type="chain">Homepage</result>
@@ -54,6 +60,11 @@
 			</result>
 		</action>
 		<action name="regiest" class="LogAction" method="regiestUser">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="login" class="LogAction" method="loginUser">
 			<result type="json">
 				<param name="root">jsonResult</param>
 			</result>
