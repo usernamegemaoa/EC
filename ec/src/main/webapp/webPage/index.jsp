@@ -20,5 +20,7 @@
 <h1><a href="Category?kindId=1&page=0">上装</a></h1>
 <a href="Search">搜索</a>
 <a href="AddGood">AddGood</a>
+<a href="personalCenter">个人中心</a>
+<a href="AddGood">添加商品</a>
 </body>
 </html>

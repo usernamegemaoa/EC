@@ -53,9 +53,13 @@
 	</bean>
 	<bean id="IndexAction" class="njuse.ec.action.IndexAction">
 	</bean>
+	<bean id="PersonalCenterAction" class="njuse.ec.action.PersonalCenterAction">
+	</bean>
 	<bean id="MyOrderAction" class="njuse.ec.action.MyOrderAction">
 	</bean>
 	<bean id="CategoryAction" class="njuse.ec.action.CategoryAction">
+	</bean>
+	<bean id="UserAction" class="njuse.ec.action.UserAction">
 	</bean>
 	<bean id="AddGoodAction" class="njuse.ec.action.AddGoodAction">
 	</bean>

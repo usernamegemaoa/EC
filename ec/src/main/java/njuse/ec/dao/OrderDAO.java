@@ -78,4 +78,31 @@ public interface OrderDAO {
 	 * @return 是否成功
 	 */
 	boolean refundMoney(Order order);
+	
+	/**
+	 * 查看待付款订单
+	 * @param userId
+	 * @return 订单列表
+	 */
+	List<Order> getWaitPayOrder(int userId);
+	
+	/**
+	 * 查看待发货订单
+	 * @param userId
+	 * @return 订单列表
+	 */
+	List<Order> getWaitSendOrder(int userId);
+	/**
+	 * 查看待确认收货订单
+	 * @param userId
+	 * @return 订单列表
+	 */
+	List<Order> getWaitConfirmOrder(int userId);
+	
+	/**
+	 * 查看退款中的订单
+	 * @param userId
+	 * @return 订单列表
+	 */
+	List<Order> getrefundOrder(int userId);
 }
