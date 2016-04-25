@@ -17,6 +17,7 @@
 <body>
 <h1>hello world EC</h1>
 <h1><s:property value="path"/></h1>
-<a href="webPage/AddGood.jsp">abc</a>
+<a href="personalCenter">个人中心</a>
+<a href="AddGood">添加商品</a>
 </body>
 </html>

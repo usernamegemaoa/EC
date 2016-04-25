@@ -20,6 +20,7 @@ public interface OrderService {
 	 * @return 订单列表
 	 */
 	List<OrderVo> viewOrder(int userId);
+	
 	/**
 	 * 查看订单详情.
 	 * @param userId 用户编号
@@ -85,4 +86,34 @@ public interface OrderService {
 	 */
 	ResultVo refundMoney(int userId, OrderVo order);
 
-}
+	/**
+	 * 获得待付款订单
+	 * @param userId
+	 * @return 订单列表
+	 */
+	List<OrderVo> getWaitPayOrder(int userId); 
+	/**
+	 * 获得待发货订单
+	 * @param userId
+	 * @return 订单列表
+	 */
+	List<OrderVo> getWaitSendOrder(int userId);
+	
+	
+	/**
+	 * 获得待确认收货订单
+	 * @param userId
+	 * @return 订单列表
+	 */
+	List<OrderVo> getWaitConfirm(int userId);
+	
+
+
+	/**
+	 * 获得可以申请退款的订单
+	 * @param userId
+	 * @return
+	 */
+	List<OrderVo> getrefundOrder(int userId);
+	}
+

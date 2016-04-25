@@ -3536,7 +3536,6 @@ INSERT INTO `kind` (`id`, `father_id`, `kind_name`) VALUES
 (18, 3, '短裤/七分裤'),
 (19, 3, '裤子');
 
-
 INSERT INTO `rbac_role` (`id`, `name`) VALUES
 (1, '顾客'),
 (2, '商家');
