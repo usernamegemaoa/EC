@@ -4,10 +4,16 @@
 "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-	<constant name="struts.multipart.maxSize" value="10485760"/>
+	<constant name="struts.multipart.maxSize" value="10485760" />
 	<package name="webpage" namespace="/" extends="struts-default">
 		<action name="" class="IndexAction">
 			<result name="success">/webPage/index.jsp</result>
+		</action>
+		<action name="MyOrder" class="MyOrderAction">
+			<result name="ViewOrderSuccess">/webPage/ViewOrder/jsp</result>
+		</action>
+		<action name="Category" class="CategoryAction">
+			<result name="success">/webPage/category.jsp</result>
 		</action>
 		<action name="getOrder" class="MyOrderAction">
 			<result name="success">/webPage/test.jsp</result>
@@ -27,8 +33,24 @@
 		<action name="AddGoodForm" class="AddGoodAction" method="addInfo">
 			<result name="success">/webPage/AddGood.jsp</result>
 		</action>
-		
+		<action name="regiest" class="LogAction" method="regiest">
+			<result name="success">/webPage/regiest.jsp</result>
+		</action>
+		<action name="login" class="LogAction" method="login">
+			<result name="success">/webPage/login.jsp</result>
+		</action>
+		<action name="logout" class="LogAction" method="logout">
+			<result name="success" type="redirect">/</result>
+		</action>
+		<action name="Search" class="SearchAction">
+			<result name="success">/webPage/search.jsp</result>
+			<result name="homepage" type="chain">Homepage</result>
+		</action>
+		<action name="Homepage" class="HomepageAction">
+			<result name="success">/webPage/homepage.jsp</result>
+		</action>
 	</package>
+
 	<package name="json" namespace="/json" extends="struts-default,json-default">
 		<action name="changePassword" class="UserAction" method="changePassword">
 			<result type="json">
@@ -36,6 +58,16 @@
 			</result>
 		</action>
 		<action name="getSon" class="AddGoodAction" method="getSon">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="regiest" class="LogAction" method="regiestUser">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="login" class="LogAction" method="loginUser">
 			<result type="json">
 				<param name="root">jsonResult</param>
 			</result>

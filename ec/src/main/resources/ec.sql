@@ -43,7 +43,9 @@ CREATE TABLE IF NOT EXISTS `rbac_user_role` (
     `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '用户角色关联id',
     `user_id` INT(11) NOT NULL,
     `role_id` INT(11) NOT NULL,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES `rbac_user` (`id`),
+    FOREIGN KEY (`role_id`) REFERENCES `rbac_role` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色关联表' AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `rbac_path` (
@@ -57,7 +59,9 @@ CREATE TABLE IF NOT EXISTS `rbac_role_path` (
     `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '角色路径关联id',
     `role_id` INT(11) NOT NULL,
     `path_id` INT(11) NOT NULL,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`role_id`) REFERENCES `rbac_role` (`id`),
+    FOREIGN KEY (`path_id`) REFERENCES `rbac_path` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色路径关联表' AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `address` (
@@ -67,7 +71,8 @@ CREATE TABLE IF NOT EXISTS `address` (
     `place_name` VARCHAR(64) NOT NULL COMMENT '地址',
     `people` VARCHAR(64) NOT NULL COMMENT '收件人姓名',
     `phone` VARCHAR(64) NOT NULL COMMENT '收件人电话',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES `rbac_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='地址信息' AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `kind` (
@@ -87,8 +92,10 @@ CREATE TABLE IF NOT EXISTS `good` (
     `price` INT(11) NOT NULL COMMENT '价格',
     `deliver_info` TEXT NOT NULL COMMENT '送货信息',
     `return_info` TEXT NOT NULL COMMENT '退款相关',
-    `time` DATETIME NOT NULL COMMENT '上架时间',
-    PRIMARY KEY (`id`)
+    `time` TIMESTAMP NOT NULL COMMENT '上架时间',
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`kind_id`) REFERENCES `kind` (`id`),
+    FOREIGN KEY (`shop_id`) REFERENCES `rbac_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品信息' AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `stock` (
@@ -97,7 +104,8 @@ CREATE TABLE IF NOT EXISTS `stock` (
     `size` VARCHAR(11) NOT NULL COMMENT '尺寸',
     `color` VARCHAR(11) NOT NULL COMMENT '颜色',
     `quantity` INT(11) NOT NULL COMMENT '数量',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`good_id`) REFERENCES `good` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='库存信息' AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `picture` (
@@ -116,7 +124,9 @@ CREATE TABLE IF NOT EXISTS `comment` (
     `score` INT(11) NOT NULL COMMENT '好中差评',
     `content` TEXT NOT NULL COMMENT '评价内容',
     `time` TIMESTAMP NOT NULL COMMENT '评论时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`good_id`) REFERENCES `good` (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES `rbac_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评价' AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `sub_comment` (
@@ -125,7 +135,9 @@ CREATE TABLE IF NOT EXISTS `sub_comment` (
     `user_id` INT(11) NOT NULL COMMENT '用户id',
     `content` TEXT NOT NULL COMMENT '评价内容',
     `time` TIMESTAMP NOT NULL COMMENT '评论时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES `rbac_user` (`id`),
+    FOREIGN KEY (`comment_id`) REFERENCES `comment` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评价回复' AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `consult` (
@@ -134,7 +146,9 @@ CREATE TABLE IF NOT EXISTS `consult` (
     `user_id` INT(11) NOT NULL COMMENT '顾客id',
     `content` TEXT NOT NULL COMMENT '评价内容',
     `time` TIMESTAMP NOT NULL COMMENT '评论时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`good_id`) REFERENCES `good` (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES `rbac_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='咨询' AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `sub_consult` (
@@ -143,7 +157,9 @@ CREATE TABLE IF NOT EXISTS `sub_consult` (
     `user_id` INT(11) NOT NULL COMMENT '用户id',
     `content` TEXT NOT NULL COMMENT '咨询内容',
     `time` TIMESTAMP NOT NULL COMMENT '咨询时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES `rbac_user` (`id`),
+    FOREIGN KEY (`consult_id`) REFERENCES `consult` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='咨询回复' AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `message` (
@@ -159,41 +175,9 @@ CREATE TABLE IF NOT EXISTS `collect` (
     `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '收藏id',
     `good_id` INT(11) NOT NULL COMMENT '商品id',
     `user_id` INT(11) NOT NULL COMMENT '用户id',
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='收藏' AUTO_INCREMENT=1 ;
-
-CREATE TABLE IF NOT EXISTS `consult` (
-    `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '评价id',
-    `good_id` INT(11) NOT NULL COMMENT '商品id',
-    `user_id` INT(11) NOT NULL COMMENT '顾客id',
-    `content` TEXT NOT NULL COMMENT '评价内容',
-    `time` TIMESTAMP NOT NULL COMMENT '评论时间',
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='咨询' AUTO_INCREMENT=1 ;
-
-CREATE TABLE IF NOT EXISTS `sub_consult` (
-    `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '咨询id',
-    `consult_id` INT(11) NOT NULL COMMENT '父咨询id',
-    `user_id` INT(11) NOT NULL COMMENT '用户id',
-    `content` TEXT NOT NULL COMMENT '咨询内容',
-    `time` TIMESTAMP NOT NULL COMMENT '咨询时间',
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='咨询回复' AUTO_INCREMENT=1 ;
-
-CREATE TABLE IF NOT EXISTS `message` (
-    `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '消息id',
-    `user_id` INT(11) NOT NULL COMMENT '用户id',
-    `is_read` BOOLEAN NOT NULL COMMENT '已读标签',
-    `content` TEXT NOT NULL COMMENT '消息内容',
-    `time` DATETIME NOT NULL COMMENT '时间',
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='消息' AUTO_INCREMENT=1 ;
-
-CREATE TABLE IF NOT EXISTS `collect` (
-    `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '收藏id',
-    `good_id` INT(11) NOT NULL COMMENT '商品id',
-    `user_id` INT(11) NOT NULL COMMENT '用户id',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES `rbac_user` (`id`),
+    FOREIGN KEY (`good_id`) REFERENCES `good` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='收藏' AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `plan` (
@@ -201,7 +185,9 @@ CREATE TABLE IF NOT EXISTS `plan` (
     `stock_id` INT(11) NOT NULL COMMENT '库存id',
     `user_id` INT(11) NOT NULL COMMENT '用户id',
     `quantity` INT(11) NOT NULL COMMENT '数量',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES `rbac_user` (`id`),
+    FOREIGN KEY (`stock_id`) REFERENCES `stock` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='进货单' AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `order` (
@@ -209,25 +195,26 @@ CREATE TABLE IF NOT EXISTS `order` (
     `user_id` INT(11) NOT NULL COMMENT '用户id',
     `shop_id` INT(11) NOT NULL COMMENT '店主id',
     `state` INT(11) NOT NULL COMMENT '订单状态',
-    `is_read` BOOLEAN NOT NULL COMMENT '已读标签',
-    `time` DATETIME NOT NULL COMMENT '时间',
+    `is_read` INT(11) NOT NULL COMMENT '已读标签',
+    `time` TIMESTAMP NOT NULL COMMENT '时间',
     `place_code` INT(11) NOT NULL COMMENT '邮编',
     `place_name` VARCHAR(64) NOT NULL COMMENT '地址',
     `people` VARCHAR(64) NOT NULL COMMENT '收件人姓名',
     `phone` VARCHAR(64) NOT NULL COMMENT '收件人电话',
-    `express_number` VARCHAR(64) COMMENT '快递单号',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES `rbac_user` (`id`),
+    FOREIGN KEY (`shop_id`) REFERENCES `rbac_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单' AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `order_info` (
     `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '详情id',
-    `order_id` INT(11) NOT NULL COMMENT '订单编号',
     `good_id` INT(11) NOT NULL COMMENT '商品id',
     `size` VARCHAR(11) NOT NULL COMMENT '尺寸',
     `color` VARCHAR(11) NOT NULL COMMENT '颜色',
     `quantity` INT(11) NOT NULL COMMENT '数量',
     `price` INT(11) NOT NULL COMMENT '单价',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`good_id`) REFERENCES `good` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单详情' AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `place` (

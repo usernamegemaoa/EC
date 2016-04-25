@@ -45,4 +45,9 @@ public class KindDaoImpl implements KindDAO {
 		return baseDao.findlist(Kind.class, "fatherId", String.valueOf(fatherId));
 	}
 
+	@Override
+	public Kind getKind(int kindId) {
+		return baseDao.find(Kind.class, "id", String.valueOf(kindId));
+	}
+
 }

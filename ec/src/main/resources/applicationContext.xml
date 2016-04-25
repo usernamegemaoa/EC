@@ -57,11 +57,19 @@
 	</bean>
 	<bean id="MyOrderAction" class="njuse.ec.action.MyOrderAction">
 	</bean>
+	<bean id="CategoryAction" class="njuse.ec.action.CategoryAction">
+	</bean>
 	<bean id="UserAction" class="njuse.ec.action.UserAction">
 	</bean>
 	<bean id="AddGoodAction" class="njuse.ec.action.AddGoodAction">
 	</bean>
 	<bean id="GoodInfoAction" class="njuse.ec.action.GoodInfoAction">
+		</bean>
+	<bean id="LogAction" class="njuse.ec.action.LogAction">
+	</bean>
+	<bean id="SearchAction" class="njuse.ec.action.SearchAction">
+	</bean>
+	<bean id="HomepageAction" class="njuse.ec.action.HomepageAction">
 	</bean>
 	
 	<!-- 定义 Autowired 自动注入 bean -->
