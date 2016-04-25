@@ -67,6 +67,8 @@
 	</bean>
 	<bean id="SearchAction" class="njuse.ec.action.SearchAction">
 	</bean>
+	<bean id="HomepageAction" class="njuse.ec.action.HomepageAction">
+	</bean>
 	
 	<!-- 定义 Autowired 自动注入 bean -->
 	<bean

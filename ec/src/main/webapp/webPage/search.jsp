@@ -54,8 +54,8 @@
 		</ul>
 	</div>
 	<s:if test="goodList.size() > 0">
-		<div class="search-list">
-			<ul style="overflow: auto;">
+		<div class="search-div">
+			<ul class="search-list">
 				<s:iterator value="goodList" id="good">
 					<li>
 	    			<div class="main-pic">
@@ -72,6 +72,5 @@
 	<s:else>
 		未找到搜索结果
 	</s:else>
-This is search!
 </body>
 </html>
