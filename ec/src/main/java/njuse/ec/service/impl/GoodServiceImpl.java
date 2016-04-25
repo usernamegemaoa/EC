@@ -123,29 +123,35 @@ public class GoodServiceImpl implements GoodService {
 	@Override
 	public final List<KindVo> getFatherKind() {
 		List<KindVo> fatherKindVo = new ArrayList<KindVo>();
-		List<Kind> fatherKind = kindDao.getFatherKinds();
-		for (int i = 0; i < fatherKind.size(); i++) {
-			Kind kind = fatherKind.get(i);
-			KindVo kindVo = convertToKindVo(kind);
-			fatherKindVo.add(kindVo);
+		try {
+			List<Kind> fatherKind = kindDao.getFatherKinds();
+			for (int i = 0; i < fatherKind.size(); i++) {
+				Kind kind = fatherKind.get(i);
+				KindVo kindVo = convertToKindVo(kind);
+				fatherKindVo.add(kindVo);
+			}
+			return fatherKindVo;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return fatherKindVo;
 		}
-		return fatherKindVo;
 	}
 
 	@Override
 	public final List<KindVo> getSonKind(final KindVo kind) {
 		List<KindVo> sonKindVo = new ArrayList<KindVo>();
 		int fatherId = kind.getKindId();
-		List<Kind> sonKind = kindDao.getSonKinds(fatherId);
-		if (sonKind.size() != 0) {
+		try {
+			List<Kind> sonKind = kindDao.getSonKinds(fatherId);
 			for (int i = 0; i < sonKind.size(); i++) {
 				Kind k = sonKind.get(i);
 				KindVo kindVo = convertToKindVo(k);
 				sonKindVo.add(kindVo);
 			}
 			return sonKindVo;
-		} else {
-			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return sonKindVo;
 		}
 	}
 
@@ -164,13 +170,18 @@ public class GoodServiceImpl implements GoodService {
 		List<SimpleGoodVo> latestGoodVo = new ArrayList<SimpleGoodVo>();
 		int firstResult = page * perPage;
 		int maxResult = perPage;
-		List<Good> latestGood = goodDao.getLatestGoods(firstResult, maxResult);
-		for (int i = 0; i < latestGood.size(); i++) {
-			Good good = latestGood.get(i);
-			SimpleGoodVo sgVo = convertToSimpleGood(good);
-			latestGoodVo.add(sgVo);
+		try {
+			List<Good> latestGood = goodDao.getLatestGoods(firstResult, maxResult);
+			for (int i = 0; i < latestGood.size(); i++) {
+				Good good = latestGood.get(i);
+				SimpleGoodVo sgVo = convertToSimpleGood(good);
+				latestGoodVo.add(sgVo);
+			}
+			return latestGoodVo;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return latestGoodVo;
 		}
-		return latestGoodVo;
 	}
 
 	@Override
@@ -191,13 +202,18 @@ public class GoodServiceImpl implements GoodService {
 		List<SimpleGoodVo> kindGoodVo = new ArrayList<SimpleGoodVo>();
 		int firstResult = page * perPage;
 		int maxResult = perPage;
-		List<Good> kindGoods = goodDao.getKindGoods(kindId, firstResult, maxResult);
-		for (int i = 0; i < kindGoods.size(); i++) {
-			Good good = kindGoods.get(i);
-			SimpleGoodVo sgVo = convertToSimpleGood(good);
-			kindGoodVo.add(sgVo);
+		try {
+			List<Good> kindGoods = goodDao.getKindGoods(kindId, firstResult, maxResult);
+			for (int i = 0; i < kindGoods.size(); i++) {
+				Good good = kindGoods.get(i);
+				SimpleGoodVo sgVo = convertToSimpleGood(good);
+				kindGoodVo.add(sgVo);
+			}
+			return kindGoodVo;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return kindGoodVo;
 		}
-		return kindGoodVo;
 	}
 
 	@Override
@@ -216,30 +232,41 @@ public class GoodServiceImpl implements GoodService {
 		List<SimpleGoodVo> searchGoodVo = new ArrayList<SimpleGoodVo>();
 		int firstResult = page * perPage;
 		int maxResult = perPage;
-		List<Good> searchGoods = goodDao.getNameGoods(search, firstResult, maxResult);
-		for (int i = 0; i < searchGoods.size(); i++) {
-			Good good = searchGoods.get(i);
-			SimpleGoodVo sgVo = convertToSimpleGood(good);
-			searchGoodVo.add(sgVo);
+		try {
+			List<Good> searchGoods = goodDao.getNameGoods(search, firstResult, maxResult);
+			for (int i = 0; i < searchGoods.size(); i++) {
+				Good good = searchGoods.get(i);
+				SimpleGoodVo sgVo = convertToSimpleGood(good);
+				searchGoodVo.add(sgVo);
+			}
+			return searchGoodVo;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return searchGoodVo;
 		}
-		return searchGoodVo;
 	}
 
 	@Override
 	public final GoodVo getDetailGood(final int goodId) {
-		Good good = goodDao.getGood(goodId);
-		GoodVo vo = convertToGoodVo(good);
+		GoodVo goodVo = new GoodVo();
+		Good good;
+		try {
+			good = goodDao.getGood(goodId);
+			goodVo = convertToGoodVo(good);
+		} catch (Exception e) {
+			return null;
+		}
 		List<Stock> stocks = stockBaseDao.findlist(
 				Stock.class, 
 				"goodId", 
 				String.valueOf(good.getId()));
-		vo.setStocks(new ArrayList<StockVo>());
+		goodVo.setStocks(new ArrayList<StockVo>());
 		Iterator<Stock> si = stocks.iterator();
 		while (si.hasNext()) {
 			Stock s = si.next();
-			vo.getStocks().add(convertToStockVo(s));
+			goodVo.getStocks().add(convertToStockVo(s));
 		}
-		return vo;
+		return goodVo;
 	}
 
 	@Override
@@ -247,15 +274,20 @@ public class GoodServiceImpl implements GoodService {
 		List<SimpleGoodVo> hotGoodVo = new ArrayList<SimpleGoodVo>();
 		int firstResult = 0;
 		int maxResult = perHot;
-		List<Hot> hotGood = hotDao.getHot(goodId, firstResult, maxResult);
-		for (int i = 0; i < hotGood.size(); i++) {
-			Hot hot = hotGood.get(i);
-			int id = hot.getSecondId();
-			Good good = goodDao.getGood(id);
-			SimpleGoodVo sgVo = convertToSimpleGood(good);
-			hotGoodVo.add(sgVo);
+		try {
+			List<Hot> hotGood = hotDao.getHot(goodId, firstResult, maxResult);
+			for (int i = 0; i < hotGood.size(); i++) {
+				Hot hot = hotGood.get(i);
+				int id = hot.getSecondId();
+				Good good = goodDao.getGood(id);
+				SimpleGoodVo sgVo = convertToSimpleGood(good);
+				hotGoodVo.add(sgVo);
+			}
+			return hotGoodVo;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return hotGoodVo;
 		}
-		return hotGoodVo;
 	}
 
 	@Override
@@ -283,6 +315,7 @@ public class GoodServiceImpl implements GoodService {
 			addGoodResult.setResultMessage("商品添加成功！");
 			return addGoodResult;
 		} catch (Exception e) {
+			e.printStackTrace();
 			addGoodResult.setResultCode(1);
 			addGoodResult.setResultMessage("商品添加失败！");
 			return addGoodResult;
@@ -305,6 +338,7 @@ public class GoodServiceImpl implements GoodService {
 			addGoodConsultResult.setResultMessage("咨询添加成功");
 			return addGoodConsultResult;
 		} catch (Exception e) {
+			e.printStackTrace();
 			addGoodConsultResult.setResultCode(1);
 			addGoodConsultResult.setResultMessage("咨询添加失败");
 			return addGoodConsultResult;
@@ -327,6 +361,7 @@ public class GoodServiceImpl implements GoodService {
 			addGoodCommentResult.setResultMessage("评论添加成功");
 			return addGoodCommentResult;
 		} catch (Exception e) {
+			e.printStackTrace();
 			addGoodCommentResult.setResultCode(1);
 			addGoodCommentResult.setResultMessage("评论添加失败");
 			return addGoodCommentResult;
@@ -359,13 +394,18 @@ public class GoodServiceImpl implements GoodService {
 		List<ConsultVo> consultsVo = new ArrayList<ConsultVo>();
 		int firstResult = pages * perPage;
 		int maxResult = perPage;
-		List<Consult> consults = consultDao.getConsults(goodId, firstResult, maxResult);
-		for (int i = 0; i < consults.size(); i++) {
-			Consult consult = consults.get(i);
-			ConsultVo consultVo = convertToConsultVo(consult);
-			consultsVo.add(consultVo);
+		try {
+			List<Consult> consults = consultDao.getConsults(goodId, firstResult, maxResult);
+			for (int i = 0; i < consults.size(); i++) {
+				Consult consult = consults.get(i);
+				ConsultVo consultVo = convertToConsultVo(consult);
+				consultsVo.add(consultVo);
+			}
+			return consultsVo;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return consultsVo;
 		}
-		return consultsVo;
 	}
 
 	@Override
@@ -374,37 +414,66 @@ public class GoodServiceImpl implements GoodService {
 		List<CommentVo> commentsVo = new ArrayList<CommentVo>();
 		int firstResult = pages * perPage;
 		int maxResult = perPage;
-		List<Comment> comments = commentDao.getComments(goodId, firstResult, maxResult);
-		for (int i = 0; i < comments.size(); i++) {
-			Comment comment = comments.get(i);
-			CommentVo commentVo = convertToCommentVo(comment);
-			commentsVo.add(commentVo);
+		try {
+			List<Comment> comments = commentDao.getComments(goodId, firstResult, maxResult);
+			for (int i = 0; i < comments.size(); i++) {
+				Comment comment = comments.get(i);
+				CommentVo commentVo = convertToCommentVo(comment);
+				commentsVo.add(commentVo);
+			}
+			return commentsVo;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return commentsVo;
 		}
-		return commentsVo;
 	}
 	
 	@Override
 	public List<CommentVo> getSonComments(int commentId) {
 		List<CommentVo> sonCommentVo = new ArrayList<CommentVo>();
-		List<SubComment> sonComments = subCommentDao.getSubComments(commentId);
-		for(int i = 0; i < sonComments.size(); i++) {
-			SubComment subComment = sonComments.get(i);
-			CommentVo commentVo = convertToCommentVo(subComment);
-			sonCommentVo.add(commentVo);
+		try {
+			List<SubComment> sonComments = subCommentDao.getSubComments(commentId);
+			for(int i = 0; i < sonComments.size(); i++) {
+				SubComment subComment = sonComments.get(i);
+				CommentVo commentVo = convertToCommentVo(subComment);
+				sonCommentVo.add(commentVo);
+			}
+			return sonCommentVo;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return sonCommentVo;
 		}
-		return sonCommentVo;
 	}
 
 	@Override
 	public List<ConsultVo> getSonConsults(int consultId) {
 		List<ConsultVo> sonConsultVo = new ArrayList<ConsultVo>();
-		List<SubConsult> sonConsults = subConsultDao.getSubConsults(consultId);
-		for(int i = 0; i < sonConsults.size(); i++) {
-			SubConsult subConsult = sonConsults.get(i);
-			ConsultVo consultVo = convertToConsultVo(subConsult);
-			sonConsultVo.add(consultVo);
+		try {
+			List<SubConsult> sonConsults = subConsultDao.getSubConsults(consultId);
+			for(int i = 0; i < sonConsults.size(); i++) {
+				SubConsult subConsult = sonConsults.get(i);
+				ConsultVo consultVo = convertToConsultVo(subConsult);
+				sonConsultVo.add(consultVo);
+			}
+			return sonConsultVo;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return sonConsultVo;
 		}
-		return sonConsultVo;
+	}
+	
+	@Override
+	public KindVo getKind(int kindId) {
+		KindVo kindVo = new KindVo();
+		Kind kind = new Kind();
+		try {
+			kind = kindDao.getKind(kindId);
+			kindVo = convertToKindVo(kind);
+			return kindVo;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}	
 	}
 	
 	/**

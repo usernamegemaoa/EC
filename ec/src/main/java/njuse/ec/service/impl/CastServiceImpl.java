@@ -37,13 +37,18 @@ public class CastServiceImpl implements CastService {
 	@Override
 	public final List<CastVo> getMyCast(final int userId) {
 		List<CastVo> myCast = new ArrayList<CastVo>();
-		List<Plan> plans = planDao.getPlan(userId);
-		for (int i = 0; i < plans.size(); i++) {
-			Plan plan = plans.get(i);
-			CastVo cast = convertToCast(plan);
-			myCast.add(cast);
+		try {
+			List<Plan> plans = planDao.getPlan(userId);
+			for (int i = 0; i < plans.size(); i++) {
+				Plan plan = plans.get(i);
+				CastVo cast = convertToCast(plan);
+				myCast.add(cast);
+			}
+			return myCast;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return myCast;
 		}
-		return myCast;
 	}
 
 	@Override
@@ -56,6 +61,7 @@ public class CastServiceImpl implements CastService {
 			addCastResult.setResultCode(0);
 			addCastResult.setResultMessage("订单添加成功");
 		} catch (Exception e) {
+			e.printStackTrace();
 			addCastResult.setResultCode(1);
 			addCastResult.setResultMessage("订单添加失败");
 		}
@@ -72,6 +78,7 @@ public class CastServiceImpl implements CastService {
 			deleteCastResult.setResultCode(0);
 			deleteCastResult.setResultMessage("订单删除成功");
 		} catch (Exception e) {
+			e.printStackTrace();
 			deleteCastResult.setResultCode(1);
 			deleteCastResult.setResultMessage("订单删除失败");
 		}
@@ -88,6 +95,7 @@ public class CastServiceImpl implements CastService {
 			modifyCastResult.setResultCode(0);
 			modifyCastResult.setResultMessage("订单修改成功");
 		} catch (Exception e) {
+			e.printStackTrace();
 			modifyCastResult.setResultCode(1);
 			modifyCastResult.setResultMessage("订单修改失败");
 		}
