@@ -438,7 +438,7 @@ public class GoodServiceImpl implements GoodService {
 		String description = good.getDescription();
 		double price = good.getPrice();
 		String deliverInfo = good.getDeliverInfo();
-		String returnInfo = good.getDeliverInfo();
+		String returnInfo = good.getReturnInfo();
 		Date date = good.getTime();
 		List<Picture> pics = pictureDao.getPics(id);
 		ArrayList<String> stpics = new ArrayList<String>();
