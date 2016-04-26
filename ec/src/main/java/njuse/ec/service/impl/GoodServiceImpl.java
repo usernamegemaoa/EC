@@ -280,12 +280,13 @@ public class GoodServiceImpl implements GoodService {
 	@Override
 	public final List<SimpleGoodVo> getHotGood(final int goodId) {
 		List<SimpleGoodVo> hotGoodVo = new ArrayList<SimpleGoodVo>();
-		/*Good good = goodDao.getGood(goodId);
+		Good good = goodDao.getGood(goodId);
 		KindVo vo = new KindVo();
 		vo.setKindId(good.getKindId());
-		hotGoodVo.addAll(getKindGood(vo, 0));*/
+		hotGoodVo.addAll(getKindGood(vo, 0));
+		return hotGoodVo;
 
-		int firstResult = 0;
+		/*int firstResult = 0;
 		int maxResult = perHot;
 		try {
 			List<Hot> hotGood = hotDao.getHot(goodId, firstResult, maxResult);
@@ -300,7 +301,7 @@ public class GoodServiceImpl implements GoodService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return hotGoodVo;
-		}
+		}*/
 	}
 
 	@Override

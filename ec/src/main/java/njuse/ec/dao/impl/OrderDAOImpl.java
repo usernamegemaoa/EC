@@ -9,10 +9,12 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import njuse.ec.dao.BaseDao;
 import njuse.ec.dao.CastDAO;
 import njuse.ec.dao.OrderDAO;
 import njuse.ec.dao.PlanDAO;
 import njuse.ec.model.OrderInfo;
+import njuse.ec.model.Picture;
 import njuse.ec.model.Plan;
 import njuse.ec.service.CastService;
 import njuse.ec.vo.CastVo;
@@ -33,6 +35,8 @@ public class OrderDAOImpl implements OrderDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	@Autowired
+	private BaseDao<Order> baseDao;
 	/**
 	 * plan dao.
 	 */
@@ -62,7 +66,7 @@ public class OrderDAOImpl implements OrderDAO {
 		Date now = new Date();
 		order.setTime(now);
 		order.setShop_id(shopId);
-		order.setIs_read(false);
+		order.setIs_read(1);
 		order.setState(1);
 		order.setExpress_number(null);
 		Session session = getSession();
@@ -190,48 +194,43 @@ public class OrderDAOImpl implements OrderDAO {
 		return success;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public final List<Order> viewOrder(final int userId) {
-		String hql = "select * from order where user_id=" + userId + "";
-		Session session = getSession();
-		return session.createSQLQuery(hql).list();
+		return baseDao.findlist(Order.class, "user_id", String.valueOf(userId));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public final List<OrderInfo> getOrderInfo(final Order order) {
 		int id = order.getId();
-		String hql = "select * from order where order_id=" + id + "";
+		String hql = "select * from `orderInfo` where order_id=" + id + "";
 		Session session = getSession();
 		return session.createSQLQuery(hql).list();
 	}
 
 	@Override
 	public final List<Order> getWaitPayOrder(final int userId) {
-		// TODO Auto-generated method stub
-		String hql = "select * from order where user_id=" + userId + " and state=1";
-		Session session = getSession();
-		return session.createSQLQuery(hql).list();
+		
+		return baseDao.findlist(Order.class, "user_id", String.valueOf(userId));
 	}
 
 	@Override
 	public final List<Order> getWaitSendOrder(final int userId) {
-		String hql = "select * from order where user_id=" + userId + " and state=2";
+		String hql = "select * from `order` where user_id=" + userId + " and state=2";
 		Session session = getSession();
 		return session.createSQLQuery(hql).list();
 	}
 
 	@Override
 	public final List<Order> getWaitConfirmOrder(final int userId) {
-		String hql = "select * from order where user_id=" + userId + " and state=3";
+		String hql = "select * from `order` where user_id=" + userId + " and state=3";
 		Session session = getSession();
 		return session.createSQLQuery(hql).list();
 	}
 
 	@Override
 	public final List<Order> getrefundOrder(final int userId) {
-		String hql = "select * from order where user_id=" + userId + " and state=5";
+		String hql = "select * from `order` where user_id=" + userId + " and state=5";
 		Session session = getSession();
 		return session.createSQLQuery(hql).list();
 	}

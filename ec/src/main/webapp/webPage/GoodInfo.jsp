@@ -49,6 +49,7 @@
         
         .money {
             color: #c40000;
+            font-size:25px;
         }
         
         .number {
@@ -64,7 +65,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>GoodInfo</title>
 </head>
-<body onload="showPicture();">
+<body>
     <div class="path">
         <a href="#">首页</a> / <a href="#">上装</a> / <a href="#">毛衣</a>
     </div>
@@ -75,33 +76,31 @@
                     <img class="img-responsive" id="bigPicture" src="<s:property value="mainPic"/>" alt="a" />
                 </div>
                 <div id="smallPicture" class="smailpic" >
-                <!--
+                
                 <s:iterator  value="imgs" var="each_pic">
                 <img class="img" src='<s:property value="#each_pic"/>' onclick="changePicture('<s:property value="#each_pic"/>')">
                 </s:iterator>
-                -->
-                <img class="img" src="C:/Users/user/Desktop/img.jpeg" onclick="changePicture('C:/Users/user/Desktop/img.jpeg')">
-                <img class="img" src="C:/Users/user/Desktop/img.jpeg" onclick="changePicture('C:/Users/user/Desktop/img.jpeg')">
+        
                 </div>
             </div>
              <div class="col-sm-7">
                 <p><strong><s:property value="name"/></strong></p>
-                <p class="money"><s:property value="price"/></p>
+                <p class="money">￥<s:property value="price"/></p>
                 <hr>
                 <div class="smailpic">
                     <img src="<s:property value="mainPic"/>" alt="a" />
                 </div>
-                <table class="number" >
+                <table class="number">
                     <thead >
-                        <th style="font-size: 18px">尺码</th>
+                        <th style="font-size: 18px" id="tsize">尺码</th>
                         <th style="font-size: 18px">价格</th>
                         <th style="font-size: 18px">库存</th>
-                        <th style="font-size: 18px">购买量</th>
+                        <th style="font-size: 18px" id="tnumber">购买量</th>
                         <th style="font-size: 18px">总价</th>
                     </thead>
                     <tbody>
                     <s:iterator  value="stocks" var="stock">      
-                        <tr>
+                        <tr id="<s:property value="#stock.id"/>">
                             <td><s:property value="#stock.size"/></td>
                             <td>￥<s:property value="price"/></td>
                             <td><s:property value="#stock.quantity"/></td>
@@ -125,9 +124,9 @@
                     </tbody>
                 </table>
                 <div style="padding: 10px;">
-                	<button type="button" class="btn btn-default glyphicon glyphicon-heart" style="float:left" onclick="favourt()">收藏</button>
+                	<button type="button" class="btn btn-default glyphicon glyphicon-heart" style="float:left" onclick="favourite()">收藏</button>
                     <div class="btn-group" role="group" aria-label="..." style="float:right">
- 						<button type="button" class="btn btn-default">加入购物车</button>
+ 						<button type="button" class="btn btn-default" onclick="addPlan()">加入购物车</button>
   						<button type="button" class="btn btn-default">立刻购买</button>
 					</div>
                 </div>
@@ -136,10 +135,12 @@
         <div class="row" style="padding-top:20px">
             <div class="col-sm-3">
                 <h5>同类热销</h5>
-                <s:iterator value="hotGood" var="each_good">
+               <!--   
+               <s:iterator value="hotGood" var="each_good">
                 <a href="getGoodInfo?goodId=<s:property value='#each_good.goodId'/>"><img class="img-responsive" src="<s:property value='#each_good.img'/>" alt="a"/></a>
                 <p><s:property value="#each_good.name"/></p>
                 </s:iterator>
+                -->
             </div>
             <div class="col-sm-9">
             <!-- Nav tabs -->
@@ -163,8 +164,8 @@
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script>
-var quantity=0;
-
+var stockId='';
+var numArray='';
 function changePicture(img){
 	$('#bigPicture').attr('src', img);
 }
@@ -193,6 +194,28 @@ function addGood(thisSize,price,quantity){
 	$('#totalGood').text(totalNum);
 	$('#totalMoney').text(totalMoney);
 	}
+}
+
+function favourite(){
+	$.post("json/favourite",
+            function (data,status) {
+                alert(data.resultMessage);
+})
+}
+
+function addPlan(){
+	stockId='';
+	numArray='';
+	$(".number tbody").find("tr").find("td:eq(3)").find("span").each(function(){
+		numArray+=($(this).text())+',';
+	});
+	$(".number tbody").find("tr").each(function(){
+		stockId+=(($(this)).attr("id"))+',';
+	});
+	$.post("json/addPlan",{stockIdList:stockId,numList:numArray},
+            function (data,status) {
+                alert(data.resultMessage.ResultMessage)
+})
 }
 
 
