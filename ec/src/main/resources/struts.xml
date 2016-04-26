@@ -52,6 +52,9 @@
 		<action name="Homepage" class="HomepageAction">
 			<result name="success">/webPage/homepage.jsp</result>
 		</action>
+		<action name="getAddress" class="AddressAction">
+			<result name="success">/webPage/AddressCenter.jsp</result>
+		</action>
 	</package>
 
 	<package name="json" namespace="/json" extends="struts-default,json-default">

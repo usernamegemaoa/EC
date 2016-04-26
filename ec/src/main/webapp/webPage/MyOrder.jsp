@@ -22,6 +22,14 @@
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>MyOrder</title>
+
+<script>
+function show(i){
+	 document.getElementById(i).style.display='';
+	
+}
+
+</script>
 </head>
 <body>
 <div>
@@ -40,43 +48,47 @@
   		<div class="tab-content">
   			<div role="tabpanel" class="tab-pane active" id="allOrder">
   				<div>
-  				<s:iterator value="allOrderList" var="each_order">
+  				<s:iterator value="allOrderList" var="allordereach" >
+  				
+  						
   					<div class="leftdiv">
-  						<img style="width:100px;height:200px" src="C:/Users/user/Desktop/img.jpeg" />
-  						<div style="margin-left:20px;"><span><s:property value="name"/></span></div>
+  						<img style="width:80px;height:80px" src="C:\Users\user\Desktop\img.jpeg" />
+  						<div style="margin-left:20px;"><span><s:property value="#eachr_orderDetail.goodId"/></span></div>
   					</div>
   					<div class="rightdiv">
+  					
   						<div class="panel panel-default">
-  							<div class="panel-heading"><span><s:property value="goodId"/></span></div>
+  						
+  							<div class="panel-heading"><span><s:property value="#eachr_orderDetail.id"/></span></div>
 
  								 <!-- Table -->
   							<table class="table" border=1>
-  							<tr> 
-        						<th>颜色</th> 
-        						<th>尺码</th> 
-        						<th>库存</th> 
-        						<th>选购数</th> 
-        						<th>单价(元)</th> 
-        						<th>金额(元)</th>
+  							<tr width="1000px"> 
+        						<th width="20%">颜色</th> 
+        						<th width="20%">尺码</th>  
+        						<th width="20%">选购数</th> 
+        						<th width="20%">单价(元)</th> 
+        						<th width="20%">金额(元)</th>
    							 </tr>
-   							 <s:iterator value="orderDetailList" id="eachr_orderDetail">
-   							 		<s:if test="#each_order.id==#orderDetail.orderId"> 
-   							 	<tr>
-   							 		<th><s:property value="#orderDetail.color"/></th>
-   							 		<th><s:property value="#orderDetail.size"/></th>
-   							 		<th><s:property value="#orderDetail.color"/></th>
-   							 		<th><s:property value="#orderDetail.quantity"/></th>
-   							 		<th><s:property value="#orderDetail.prize"/></th>
-   							 		<th><s:property value="#each_order.status"/></th>
+   							 <s:iterator value="allOrderDetailList" id="eachr_orderDetail" status="status">
+   							 		<s:if test="#allordereach.id==#eachr_orderDetail.orderId"> 
+   							 <tr>
+   							 		<th><s:property value="#eachr_orderDetail.color"/></th>
+   							 		<th><s:property value="#eachr_orderDetail.size"/></th>
+   							 		<th><s:property value="#eachr_orderDetail.quantity"/></th>
+   							 		<th><s:property value="#eachr_orderDetail.price"/></th>
+   							 		<th><s:property value="#eachr_orderDetail.price"/></th>
    							 	</tr>
-   							 		</s:if>
-   							 </s:iterator>
-   							 </s:iterator>
-   							 </table>
+   							 	</s:if>
+   					</s:iterator>
+   					</table>
 						</div>
   					</div>
+  					 
+  				</s:iterator>
   			</div>
   		</div>
+  		
   		
     	<div role="tabpanel" class="tab-pane" id="waitPay">
     		<div>
@@ -93,7 +105,6 @@
   							<tr> 
         						<th>颜色</th> 
         						<th>尺码</th> 
-        						<th>库存</th> 
         						<th>选购数</th> 
         						<th>单价(元)</th> 
         						<th>金额(元)</th>
@@ -117,7 +128,6 @@
   							<tr> 
         						<th>颜色</th> 
         						<th>尺码</th> 
-        						<th>库存</th> 
         						<th>选购数</th> 
         						<th>单价(元)</th> 
         						<th>金额(元)</th>
@@ -140,8 +150,7 @@
   							<table class="table" border=1>
   							<tr> 
         						<th>颜色</th> 
-        						<th>尺码</th> 
-        						<th>库存</th> 
+        						<th>尺码</th>  
         						<th>选购数</th> 
         						<th>单价(元)</th> 
         						<th>金额(元)</th>
@@ -164,8 +173,7 @@
   							<table class="table" border=1>
   							<tr> 
         						<th>颜色</th> 
-        						<th>尺码</th> 
-        						<th>库存</th> 
+        						<th>尺码</th>  
         						<th>选购数</th> 
         						<th>单价(元)</th> 
         						<th>金额(元)</th>

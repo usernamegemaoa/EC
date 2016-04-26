@@ -46,7 +46,7 @@
 							</a>
 						</li>
 						<li >
-							<a href="#" target="i">订单中心</a>
+							<a href="" target="i">订单中心</a>
 						</li>
 						<li style="margin-left:15px">
 							<a href="myOrder" id="myOrder" name="orderCenter" target="i">我的订单</a>
@@ -69,7 +69,7 @@
 							<a href="webPage/myInfo.jsp" id="myInfo" name="Information" target="i">我的资料</a>
 						</li >
 						<li style="margin-left:15px">
-							<a href="webPage/myFavourite.jsp" id="myFavourite" name="Information" target="i">收藏货物</a>
+							<a href="getAddress" id="address" name="Information" target="i">收货地址</a>
 						</li >
 						<li style="margin-left:15px">
 							<a href="jumpChangePassword" id="changeCode" name="Information" target="i">修改密码</a>
