@@ -252,8 +252,8 @@ public class OrderServiceImpl implements OrderService {
 		//查看待支付订单
 		
 		List<OrderVo> result = new ArrayList<OrderVo>();
-		List<Order> waitOrder = orderBaseDao.findlist(Order.class, "user_id", String.valueOf(userId));
-		Iterator<Order> i = waitOrder.iterator();
+		List<Order> waitPayOrder = orderBaseDao.findlist(Order.class, "user_id", String.valueOf(userId));
+		Iterator<Order> i = waitPayOrder.iterator();
 		while (i.hasNext()) {
 			Order order = i.next();
 			if (order.getState() == OrderStatus.WaitPay.getCode() + 1) {
@@ -267,50 +267,49 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public final List<OrderVo> getWaitSendOrder(final int userId) {
-		// TODO Auto-generated method stub
 		List<OrderVo> result = new ArrayList<OrderVo>();
-		if (userId > 0) {
-			OrderVo order = new OrderVo();
-			List<Order> allOrder = new ArrayList<Order>();
-			allOrder = orderDao.getWaitSendOrder(userId);
-			for (int i = 0; i < allOrder.size(); i++) {
-				Order thisOrder = allOrder.get(i);
-				OrderVo thisOrderVo = order.convertOrder(thisOrder);
+		List<Order> waitSendOrder = orderBaseDao.findlist(Order.class, "user_id", String.valueOf(userId));
+		Iterator<Order> i = waitSendOrder.iterator();
+		while (i.hasNext()) {
+			Order order = i.next();
+			if (order.getState() == OrderStatus.WaitSend.getCode() + 1) {
+				OrderVo thisOrderVo = (new OrderVo()).convertOrder(order);
 				result.add(thisOrderVo);
 			}
 		}
+		
 		return result;
 	}
 
 	@Override
 	public List<OrderVo> getWaitConfirm(int userId) {
 		List<OrderVo> result = new ArrayList<OrderVo>();
-		if (userId > 0) {
-			OrderVo order = new OrderVo();
-			List<Order> allOrder = new ArrayList<Order>();
-			allOrder = orderDao.getWaitConfirmOrder(userId);
-			for (int i = 0; i < allOrder.size(); i++) {
-				Order thisOrder = allOrder.get(i);
-				OrderVo thisOrderVo = order.convertOrder(thisOrder);
+		List<Order> waitConfirmOrder = orderBaseDao.findlist(Order.class, "user_id", String.valueOf(userId));
+		Iterator<Order> i = waitConfirmOrder.iterator();
+		while (i.hasNext()) {
+			Order order = i.next();
+			if (order.getState() == OrderStatus.WaitConfirm.getCode() + 1) {
+				OrderVo thisOrderVo = (new OrderVo()).convertOrder(order);
 				result.add(thisOrderVo);
 			}
 		}
+		
 		return result;
 	}
 
 	@Override
 	public List<OrderVo> getrefundOrder(int userId) {
 		List<OrderVo> result = new ArrayList<OrderVo>();
-		if (userId > 0) {
-			OrderVo order = new OrderVo();
-			List<Order> allOrder = new ArrayList<Order>();
-			allOrder = orderDao.getrefundOrder(userId);
-			for (int i = 0; i < allOrder.size(); i++) {
-				Order thisOrder = allOrder.get(i);
-				OrderVo thisOrderVo = order.convertOrder(thisOrder);
+		List<Order> waitRefundOrder = orderBaseDao.findlist(Order.class, "user_id", String.valueOf(userId));
+		Iterator<Order> i = waitRefundOrder.iterator();
+		while (i.hasNext()) {
+			Order order = i.next();
+			if (order.getState() == OrderStatus.Refund.getCode() + 1) {
+				OrderVo thisOrderVo = (new OrderVo()).convertOrder(order);
 				result.add(thisOrderVo);
 			}
 		}
+		
 		return result;
 	}
 	

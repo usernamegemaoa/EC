@@ -36,7 +36,9 @@ public class OrderDAOImpl implements OrderDAO {
 	private SessionFactory sessionFactory;
 
 	@Autowired
-	private BaseDao<Order> baseDao;
+	private BaseDao<Order> orderBaseDao;
+	@Autowired
+	private BaseDao<OrderInfo> orderInfoBaseDao;
 	/**
 	 * plan dao.
 	 */
@@ -196,43 +198,14 @@ public class OrderDAOImpl implements OrderDAO {
 
 	@Override
 	public final List<Order> viewOrder(final int userId) {
-		return baseDao.findlist(Order.class, "user_id", String.valueOf(userId));
+		return orderBaseDao.findlist(Order.class, "user_id", String.valueOf(userId));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public final List<OrderInfo> getOrderInfo(final Order order) {
 		int id = order.getId();
-		String hql = "select * from `orderInfo` where order_id=" + id + "";
-		Session session = getSession();
-		return session.createSQLQuery(hql).list();
-	}
-
-	@Override
-	public final List<Order> getWaitPayOrder(final int userId) {
-		
-		return baseDao.findlist(Order.class, "user_id", String.valueOf(userId));
-	}
-
-	@Override
-	public final List<Order> getWaitSendOrder(final int userId) {
-		String hql = "select * from `order` where user_id=" + userId + " and state=2";
-		Session session = getSession();
-		return session.createSQLQuery(hql).list();
-	}
-
-	@Override
-	public final List<Order> getWaitConfirmOrder(final int userId) {
-		String hql = "select * from `order` where user_id=" + userId + " and state=3";
-		Session session = getSession();
-		return session.createSQLQuery(hql).list();
-	}
-
-	@Override
-	public final List<Order> getrefundOrder(final int userId) {
-		String hql = "select * from `order` where user_id=" + userId + " and state=5";
-		Session session = getSession();
-		return session.createSQLQuery(hql).list();
+		return orderInfoBaseDao.findlist(OrderInfo.class, "order_id", String.valueOf(id));
 	}
 
 }

@@ -93,6 +93,7 @@
                 <table class="number">
                     <thead >
                         <th style="font-size: 18px" id="tsize">尺码</th>
+                        <th style="font-size: 18px">颜色</th>
                         <th style="font-size: 18px">价格</th>
                         <th style="font-size: 18px">库存</th>
                         <th style="font-size: 18px" id="tnumber">购买量</th>
@@ -102,6 +103,7 @@
                     <s:iterator  value="stocks" var="stock">      
                         <tr id="<s:property value="#stock.id"/>">
                             <td><s:property value="#stock.size"/></td>
+                            <td><s:property value="#stock.color"/></td>
                             <td>￥<s:property value="price"/></td>
                             <td><s:property value="#stock.quantity"/></td>
                             <td>
@@ -116,6 +118,7 @@
                         
                         <tr style="font-size:25px">
                         	<td>总计</td>
+                        	<td></td>
                         	<td></td>
                         	<td></td>
                             <td ><span id="totalGood">0</span>件</td>
@@ -206,7 +209,7 @@ function favourite(){
 function addPlan(){
 	stockId='';
 	numArray='';
-	$(".number tbody").find("tr").find("td:eq(3)").find("span").each(function(){
+	$(".number tbody").find("tr").find("td:eq(4)").find("span").each(function(){
 		numArray+=($(this).text())+',';
 	});
 	$(".number tbody").find("tr").each(function(){
