@@ -140,4 +140,39 @@ public interface GoodService {
 	 * @return 指定页的评论列表
 	 */
 	List<CommentVo> getComments(int goodId, int pages);
+	
+	/**
+	 * 获取子评论列表.
+	 * @param commentId 父评论id
+	 * @return 子评论列表
+	 */
+	List<CommentVo> getSonComments(int commentId);
+	
+	/**
+	 * 获取子咨询列表.
+	 * @param consultId 父咨询id
+	 * @return 子咨询列表
+	 */
+	List<ConsultVo> getSonConsults(int consultId);
+	
+	/**
+	 * 根据id获取种类vo.
+	 * @param kindId 种类id
+	 * @return 种类vo
+	 */
+	KindVo getKind(int kindId);
+
+	/**
+	 * 获取商家所有商品.
+	 * @param shopId 商家id
+	 * @return 商品列表
+	 */
+	List<GoodVo> getShopGood(int shopId);
+	
+	/**
+	 * 修改商品信息.
+	 * @param goodVo vo
+	 * @return 修改结果，0成功，1失败
+	 */
+	ResultVo modifyGood(GoodVo goodVo);
 }

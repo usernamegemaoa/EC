@@ -1,16 +1,26 @@
 package njuse.ec.vo;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import njuse.ec.model.OrderInfo;
+
 /**
  * 订单详情.
  * @author 丞
  *
  */
-public class OrderDetilVo {
+public class OrderDetailVo {
 
 	/**
 	 * 细节id.
 	 */
 	private int id;
+	
+	/**
+	 * 订单id
+	 */
+	private int orderId;
 	/**
 	 * 商品id.
 	 */
@@ -30,7 +40,7 @@ public class OrderDetilVo {
 	/**
 	 * 单价.
 	 */
-	private int price;
+	private double price;
 	
 	/**
 	 * @return the id
@@ -43,6 +53,18 @@ public class OrderDetilVo {
 	 */
 	public final void setId(final int newId) {
 		this.id = newId;
+	}
+	/**
+	 * @return the OrderId
+	 */
+	public final int getOrderId() {
+		return orderId;
+	}
+	/**
+	 * @param newOrderId the id to set
+	 */
+	public final void setOrderId(final int newOrderId) {
+		this.orderId = newOrderId;
 	}
 	/**
 	 * @return the goodId
@@ -95,13 +117,30 @@ public class OrderDetilVo {
 	/**
 	 * @return the price
 	 */
-	public final int getPrice() {
+	public final double getPrice() {
 		return price;
 	}
 	/**
 	 * @param newPrice the price to set
 	 */
-	public final void setPrice(final int newPrice) {
+	public final void setPrice(final double newPrice) {
 		this.price = newPrice;
+	}
+	
+	public List<OrderDetailVo> convert(List<OrderInfo> orderInfoList){
+		List<OrderDetailVo> result=new ArrayList<OrderDetailVo>();
+		for(int i=0;i<orderInfoList.size();i++){
+			OrderInfo orderInfo=orderInfoList.get(i);
+			OrderDetailVo orderDetail=new OrderDetailVo();
+			orderDetail.setId(orderInfo.getId());
+			orderDetail.setColor(orderInfo.getColor());
+			orderDetail.setGoodId(orderInfo.getGood_id());
+			orderDetail.setOrderId(orderInfo.getOrder_id());
+			orderDetail.setPrice(orderInfo.getPrice());
+			orderDetail.setQuantity(orderInfo.getQuantity());
+			orderDetail.setSize(orderInfo.getSize());
+			result.add(orderDetail);
+		}
+		return result;
 	}
 }

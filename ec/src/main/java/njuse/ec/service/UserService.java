@@ -2,6 +2,7 @@ package njuse.ec.service;
 
 import java.util.List;
 
+import njuse.ec.vo.AddressVo;
 import njuse.ec.vo.FavouriteVo;
 import njuse.ec.vo.ResultVo;
 import njuse.ec.vo.UserVo;
@@ -66,11 +67,12 @@ public interface UserService {
 	
 	/**
 	 * 收藏商品.
-	 * @param favouriteVo 收藏Vo
+	 * @param userId 用户id
+	 * @param goodId 商品id
 	 * @return	0 - 收藏成功
 	 *			1 - 收藏失败	
 	 */
-	ResultVo favour(FavouriteVo favouriteVo);
+	ResultVo favour(int userId, int goodId);
 	
 	/**
 	 * 获取收藏列表.
@@ -87,4 +89,29 @@ public interface UserService {
 	 *			1 - 否
 	 */
 	ResultVo isFavour(int userId, int goodId);
+	
+	/**
+	 * 取消收藏.
+	 * @param userId 用户id
+	 * @param goodId 商品id
+	 * @return  0 - 取消成功
+	 * 			1 - 取消失败
+	 */
+	ResultVo unFavour(int userId, int goodId);
+	
+	/**
+	 * 添加地址.
+	 * @param userId 用户id
+	 * @param addressVo 地址vo
+	 * @return 添加结果
+	 */
+	ResultVo addAddress(int userId, AddressVo addressVo);
+
+	/**
+	 * 删除地址.
+	 * @param userId 用户id
+	 * @param addressId 地址id
+	 * @return 删除结果
+	 */
+	ResultVo delAddress(int userId, int addressId);
 }

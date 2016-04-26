@@ -1,5 +1,9 @@
 package njuse.ec.vo;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 /**
  * 商品vo.
  * @author 阳
@@ -30,7 +34,7 @@ public class GoodVo {
 	/**
 	 * 商品货号.
 	 */
-	private int goodNum;
+	private String goodNum;
 	
 	/**
 	 * 商品描述.
@@ -55,12 +59,22 @@ public class GoodVo {
 	/**
 	 * 上架时间.
 	 */
-	private String time;
+	private Date time;
 	
 	/**
 	 * 商品图片.
 	 */
-	private String[] imgs;
+	private ArrayList<String> imgs = new ArrayList<String>();
+	
+	/**
+	 * 商品主图片.
+	 */
+	private String mainPic = "defaultImg";
+	
+	/**
+	 * 库存列表.
+	 */
+	private List<StockVo> stocks;
 
 	/**
 	 * 获取商品id.
@@ -130,7 +144,7 @@ public class GoodVo {
 	 * 获取商品货号.
 	 * @return 商品货号
 	 */
-	public final int getGoodNum() {
+	public final String getGoodNum() {
 		return goodNum;
 	}
 
@@ -138,7 +152,7 @@ public class GoodVo {
 	 * 设置商品货号.
 	 * @param newGoodNum 商品货号
 	 */
-	public final void setGoodNum(final int newGoodNum) {
+	public final void setGoodNum(final String newGoodNum) {
 		this.goodNum = newGoodNum;
 	}
 
@@ -210,7 +224,7 @@ public class GoodVo {
 	 * 获取上架时间.
 	 * @return 上架时间
 	 */
-	public final String getTime() {
+	public final Date getTime() {
 		return time;
 	}
 
@@ -218,7 +232,7 @@ public class GoodVo {
 	 * 设置上架时间.
 	 * @param newTime 上架时间
 	 */
-	public final void setTime(final String newTime) {
+	public final void setTime(final Date newTime) {
 		this.time = newTime;
 	}
 
@@ -226,7 +240,7 @@ public class GoodVo {
 	 * 获取商品图片.
 	 * @return 商品图片
 	 */
-	public final String[] getImgs() {
+	public final ArrayList<String> getImgs() {
 		return imgs;
 	}
 
@@ -234,8 +248,37 @@ public class GoodVo {
 	 * 设置商品图片.
 	 * @param newImgs 商品图片
 	 */
-	public final void setImgs(final String[] newImgs) {
+	public final void setImgs(final ArrayList<String> newImgs) {
 		this.imgs = newImgs;
 	}
-	
+
+	/**
+	 * 获取商品主图片.
+	 * @return 主图片
+	 */
+	public final String getMainPic() {
+		return mainPic;
+	}
+
+	/**
+	 * 设置商品主图片.
+	 * @param newMainPic 主图片
+	 */
+	public final void setMainPic(final String newMainPic) {
+		this.mainPic = newMainPic;
+	}
+
+	/**
+	 * @return the stocks
+	 */
+	public final List<StockVo> getStocks() {
+		return stocks;
+	}
+
+	/**
+	 * @param newStocks the stocks to set
+	 */
+	public final void setStocks(final List<StockVo> newStocks) {
+		this.stocks = newStocks;
+	}
 }
