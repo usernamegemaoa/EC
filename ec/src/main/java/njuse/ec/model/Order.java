@@ -27,7 +27,7 @@ public class Order implements Serializable{
 	@Column(name="state")//1:未支付，2:代发货,3:待确认,4:待评价,5:申请退款中,6：已退款
 	private int state;
 	@Column(name="is_read")
-	private boolean is_read;
+	private int is_read;
 	@Column(name="time",columnDefinition = "DATETIME")
 	private Date time;
 	@Column(name="place_code")
@@ -66,10 +66,10 @@ public class Order implements Serializable{
 	public void setState(int state) {
 		this.state = state;
 	}
-	public boolean isIs_read() {
+	public int isIs_read() {
 		return is_read;
 	}
-	public void setIs_read(boolean is_read) {
+	public void setIs_read(int is_read) {
 		this.is_read = is_read;
 	}
 	public Date getTime() {

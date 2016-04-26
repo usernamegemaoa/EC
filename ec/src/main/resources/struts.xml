@@ -9,8 +9,8 @@
 		<action name="" class="IndexAction">
 			<result name="success">/webPage/index.jsp</result>
 		</action>
-		<action name="MyOrder" class="MyOrderAction">
-			<result name="ViewOrderSuccess">/webPage/ViewOrder/jsp</result>
+		<action name="myOrder" class="MyOrderAction">
+			<result name="success">/webPage/MyOrder.jsp</result>
 		</action>
 		<action name="Category" class="CategoryAction">
 			<result name="success">/webPage/category.jsp</result>
@@ -21,8 +21,14 @@
 		<action name="personalCenter" class="PersonalCenterAction">
 			<result name="success">/webPage/PersonalCenter.jsp</result>
 		</action>
+		<action name="getUserInfo" class="PersonalCenterAction" method="getUserInfo">
+			<result name="success">/webPage/thisPerson.jsp</result>
+		</action>
 		<action name="jumpChangePassword" class="UserAction">
 			<result name="success">/webPage/changePassword.jsp</result>
+		</action>
+		<action name="getGoodInfo" class="GoodInfoAction" method="getGoodInfo">
+			<result name="success">/webPage/GoodInfo.jsp</result>
 		</action>
 		<action name="AddGood" class="AddGoodAction">
 			<result name="success">/webPage/AddGood.jsp</result>
@@ -60,6 +66,16 @@
 			</result>
 		</action>
 		<action name="regiest" class="LogAction" method="regiestUser">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="favourite" class="GoodInfoAction" method="favourite">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="addPlan" class="GoodInfoAction" method="addPlan">
 			<result type="json">
 				<param name="root">jsonResult</param>
 			</result>
