@@ -42,14 +42,14 @@
 				<div class="col-sm-3 col-md-2 sidebar"style="font-family: 'Microsoft Yahei', Tahoma, Arial, Helvetica, Simsun, STHeiti">
 					<ul class="nav nav-sidebar">
 						<li class="active">
-							<a href="webPage/thisPerson.jsp" id="thisPerson" name="thisPerson" target="i">个人中心<span class="sr-only">(current)</span>
+							<a href="getUserInfo" id="thisPerson" name="thisPerson" target="i">个人中心<span class="sr-only">(current)</span>
 							</a>
 						</li>
 						<li >
 							<a href="#" target="i">订单中心</a>
 						</li>
 						<li style="margin-left:15px">
-							<a href="getMyOrder!getMyOrder.do" id="myOrder" name="orderCenter" target="i">我的订单</a>
+							<a href="myOrder" id="myOrder" name="orderCenter" target="i">我的订单</a>
 						</li>
 						<li style="margin-left:15px">
 							<a href="webPage/cancelOrder.jsp" id="cancelOrder" name="orderCenter" target="i">取消订单</a>
@@ -82,7 +82,7 @@
 						</li>
 					</ul>
 				</div>
-			<iframe src="" id="iframe" name="i" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"
+			<iframe src="getUserInfo" id="iframe" name="i" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"
 			 style="height:700px;width: 70%;margin-left: 150px;margin-top:10px" frameborder="0" scrolling="yes">
 				
 				</iframe>	

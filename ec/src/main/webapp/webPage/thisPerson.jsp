@@ -24,20 +24,20 @@
 			border-radius:50px; } 	
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>ThisPersonalCenter</title>
+<title>UserInfo</title>
 </head>
 <body>
 
 <div id="personInfo" >
 	<div style="text-align:center">个人资料</div>
 		<div class="infoTable" id="infoTable" style="margin-left:auto;margin-right:auto">
-			<div><span class="content1-picture"> <img class="image" src="C:/Users/user/Desktop/img.jpeg" /> </span> </div>
+			<div><span class="content1-picture"> <img class="image" src="<s:property value="icon"/>" /> </span> </div>
 			<ul class="list-group">
   				<li class="list-group-item"><span class="badge"><s:property value="name"/> </span>昵称</li>
  				<li class="list-group-item"><span class="badge"><s:property value="sex"/></span>性别</li>
   				<li class="list-group-item"><span class="badge"><s:property value="score"/></span>积分</li>
   				<li class="list-group-item"><span class="badge"><s:property value="birthday"/></span>生日</li>
-  				<li class="list-group-item"><span class="badge"><s:property value="male"/></span>邮箱</li>
+  				<li class="list-group-item"><span class="badge"><s:property value="email"/></span>邮箱</li>
 			</ul>
 		</div>
 </div>

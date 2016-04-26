@@ -25,5 +25,6 @@
 <a href="AddGood">添加商品</a>
 <a href="personalCenter">个人中心</a>
 <a href="AddGood">添加商品</a>
+<a href="getGoodInfo?goodId=126">商品详情</a>
 </body>
 </html>

@@ -51,7 +51,7 @@ public class OrderVo {
 	/**
 	 * 已读标签.
 	 */
-	private boolean read;
+	private int read;
 	/**
 	 * 时间.
 	 */
@@ -172,13 +172,13 @@ public class OrderVo {
 	/**
 	 * @return the read
 	 */
-	public final boolean isRead() {
+	public final int isRead() {
 		return read;
 	}
 	/**
 	 * @param newRead the read to set
 	 */
-	public final void setRead(final boolean newRead) {
+	public final void setRead(final int newRead) {
 		this.read = newRead;
 	}
 	/**

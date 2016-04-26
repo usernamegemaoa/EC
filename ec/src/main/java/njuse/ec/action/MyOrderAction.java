@@ -35,7 +35,7 @@ public class MyOrderAction extends BaseAction{
 	private ArrayList<String> pictureList;
 	
 	
-	public String excute(){
+	public String execute(){
 		getAllOrder();
 		getWaitPayOrder();
 		getWaitSendOrder();
@@ -47,32 +47,32 @@ public class MyOrderAction extends BaseAction{
 	
 	public String getAllOrder(){
 		System.out.println("-------------------");
-		int userId=123;
+		userId=282;
 		//userId=(int) session.get(userId);
 		allOrderList=orderService.viewOrder(userId);
 		for(int i=0;i<allOrderList.size();i++){
 			int orderId=allOrderList.get(i).getId();
-			allOrderDetailList=getOrderDetail(allOrderList);
+			setAllOrderDetailList(getOrderDetail(allOrderList));
 		}
-		return "ViewOrderSuccess";
+		return SUCCESS;
 		}
 	
 	public String getWaitPayOrder(){
 		waitPayOrderList=orderService.getWaitPayOrder(userId);
 		for(int i=0;i<waitPayOrderList.size();i++){
 			int orderId=waitPayOrderList.get(i).getId();
-			waitPayOrderDetailList=getOrderDetail(waitPayOrderList);
+			setWaitPayOrderDetailList(getOrderDetail(waitPayOrderList));
 		}
-		return "getWaitPayOrderSuccess";
+		return SUCCESS;
 		}
 	
 	public String getWaitSendOrder(){
 		waitSendOrderList=orderService.getWaitPayOrder(userId);
 		for(int i=0;i<waitSendOrderList.size();i++){
 			int orderId=waitSendOrderList.get(i).getId();
-			waitSendOrderDetailList=getOrderDetail(waitSendOrderList);
+			setWaitSendOrderDetailList(getOrderDetail(waitSendOrderList));
 		}
-		return "getWaitSendOrderSuccess";
+		return SUCCESS;
 		}
 	
 	
@@ -80,24 +80,20 @@ public class MyOrderAction extends BaseAction{
 		waitConfirmOrderList=orderService.getWaitPayOrder(userId);
 		for(int i=0;i<waitConfirmOrderList.size();i++){
 			int orderId=waitConfirmOrderList.get(i).getId();
-			waitConfirmOrderDetailList=getOrderDetail(waitConfirmOrderList);
+			setWaitConfirmOrderDetailList(getOrderDetail(waitConfirmOrderList));
 		}
-		return "getWaitConfirmOrderSuccess";
+		return SUCCESS;
 		}
 	
 	public String getrefundOrder(){
 		refundOrderList=orderService.getrefundOrder(userId);
 		for(int i=0;i<refundOrderList.size();i++){
 			int orderId=refundOrderList.get(i).getId();
-			refundOrderDetailList=getOrderDetail(refundOrderList);
+			setRefundOrderDetailList(getOrderDetail(refundOrderList));
 		}
-		return "getrefundOrderSuccess";
+		return SUCCESS;
 		}
 	
-	public void getPictureList(){
-			
-			
-		}
 	
 	
 	public List<OrderDetailVo> getOrderDetail(List<OrderVo> orderList){
@@ -108,6 +104,66 @@ public class MyOrderAction extends BaseAction{
 		orderDetailList.addAll(thisorderDetailList);
 		}
 		return orderDetailList;
+	}
+
+
+	public List<OrderDetailVo> getAllOrderDetailList() {
+		return allOrderDetailList;
+	}
+
+
+	public void setAllOrderDetailList(List<OrderDetailVo> allOrderDetailList) {
+		this.allOrderDetailList = allOrderDetailList;
+	}
+
+
+	public List<OrderDetailVo> getWaitSendOrderDetailList() {
+		return waitSendOrderDetailList;
+	}
+
+
+	public void setWaitSendOrderDetailList(List<OrderDetailVo> waitSendOrderDetailList) {
+		this.waitSendOrderDetailList = waitSendOrderDetailList;
+	}
+
+
+	public List<OrderDetailVo> getWaitConfirmOrderDetailList() {
+		return waitConfirmOrderDetailList;
+	}
+
+
+	public void setWaitConfirmOrderDetailList(List<OrderDetailVo> waitConfirmOrderDetailList) {
+		this.waitConfirmOrderDetailList = waitConfirmOrderDetailList;
+	}
+
+
+	public List<OrderDetailVo> getWaitPayOrderDetailList() {
+		return waitPayOrderDetailList;
+	}
+
+
+	public void setWaitPayOrderDetailList(List<OrderDetailVo> waitPayOrderDetailList) {
+		this.waitPayOrderDetailList = waitPayOrderDetailList;
+	}
+
+
+	public List<OrderDetailVo> getRefundOrderDetailList() {
+		return refundOrderDetailList;
+	}
+
+
+	public void setRefundOrderDetailList(List<OrderDetailVo> refundOrderDetailList) {
+		this.refundOrderDetailList = refundOrderDetailList;
+	}
+
+
+	public ArrayList<String> getPictureList() {
+		return pictureList;
+	}
+
+
+	public void setPictureList(ArrayList<String> pictureList) {
+		this.pictureList = pictureList;
 	}
 	
 	
