@@ -108,9 +108,9 @@
                             <td><s:property value="#stock.quantity"/></td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="...">
-  									<button type="button"  class="glyphicon glyphicon-minus" style="background-color:transparent" onclick="deleteGood('<s:property value="#stock.size"/>','<s:property value="price"/>')"></button>
- 									<span id="<s:property value="#stock.size"/>">0</span>
-  									<button type="button" class="glyphicon glyphicon-plus" style="background-color:transparent" onclick="addGood('<s:property value="#stock.size"/>','<s:property value="price"/>','<s:property value="#stock.quantity"/>')"></button>
+  									<button type="button"  class="glyphicon glyphicon-minus" style="background-color:transparent" onclick="deleteGood('<s:property value="#stock.size"/><s:property value="#stock.color"/>','<s:property value="price"/>')"></button>
+ 									<span id="<s:property value="#stock.size"/><s:property value="#stock.color"/>">0</span>
+  									<button type="button" class="glyphicon glyphicon-plus" style="background-color:transparent" onclick="addGood('<s:property value="#stock.size"/><s:property value="#stock.color"/>','<s:property value="price"/>','<s:property value="#stock.quantity"/>')"></button>
 								</div>
                             </td>
                         </tr>
@@ -217,7 +217,7 @@ function addPlan(){
 	});
 	$.post("json/addPlan",{stockIdList:stockId,numList:numArray},
             function (data,status) {
-                alert(data.resultMessage.ResultMessage)
+                alert(data.resultMessage.resultMessage)
 })
 }
 

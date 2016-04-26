@@ -274,6 +274,10 @@ public class GoodInfoAction extends BaseAction {
 		this.numList = numList;
 	}
 
+	public Map<String, Object> getJsonResult() {
+		return jsonResult;
+	}
+
 
 
 }
