@@ -373,6 +373,7 @@ public class OrderServiceImpl implements OrderService {
 			HashMap<String, ColorElement> colorMap = 
 					new HashMap<String, ColorElement>();
 			// 逐个遍历详情
+			double totalPrice = 0;
 			while (iInfo.hasNext()) {
 				//筛选相同颜色订单
 				OrderInfo info = iInfo.next();
@@ -388,13 +389,15 @@ public class OrderServiceImpl implements OrderService {
 				detailElement.setNum(info.getQuantity());
 				detailElement.setSize(info.getSize());
 				detailElement.setUnitPrice(goodVo.getPrice());
-				detailElement.setTotalPrice(
-						detailElement.getUnitPrice() * detailElement.getNum());
+				double singleTotal = goodVo.getPrice() * info.getQuantity();
+				detailElement.setTotalPrice(singleTotal);
+				totalPrice += singleTotal;
 				colorElement.getDetailList().add(detailElement);
 			}
 			
 			element.setColorList(
 					new ArrayList<ColorElement>(colorMap.values()));
+			element.setTotalPrice(totalPrice);
 			
 			elements.add(element);
 		}
