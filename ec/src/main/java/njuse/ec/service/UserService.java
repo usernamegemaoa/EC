@@ -2,6 +2,7 @@ package njuse.ec.service;
 
 import java.util.List;
 
+import njuse.ec.vo.AddressVo;
 import njuse.ec.vo.FavouriteVo;
 import njuse.ec.vo.ResultVo;
 import njuse.ec.vo.UserVo;
@@ -98,4 +99,19 @@ public interface UserService {
 	 */
 	ResultVo unFavour(int userId, int goodId);
 	
+	/**
+	 * 添加地址.
+	 * @param userId 用户id
+	 * @param addressVo 地址vo
+	 * @return 添加结果
+	 */
+	ResultVo addAddress(int userId, AddressVo addressVo);
+
+	/**
+	 * 删除地址.
+	 * @param userId 用户id
+	 * @param addressId 地址id
+	 * @return 删除结果
+	 */
+	ResultVo delAddress(int userId, int addressId);
 }
