@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import njuse.ec.model.Order;
 import njuse.ec.service.OrderService;
 import njuse.ec.vo.OrderDetailVo;
+import njuse.ec.vo.OrderElement;
 import njuse.ec.vo.OrderVo;
 
 @Repository
@@ -21,16 +22,11 @@ public class MyOrderAction extends BaseAction{
 	
 	@Autowired
 	private OrderService orderService;
-	private List<OrderVo> allOrderList;
-	private List<OrderVo> waitPayOrderList;
-	private List<OrderVo> waitSendOrderList;
-	private List<OrderVo> waitConfirmOrderList;
-	private List<OrderVo> refundOrderList;
-	private List<OrderDetailVo> allOrderDetailList;
-	private List<OrderDetailVo> waitPayOrderDetailList;
-	private List<OrderDetailVo> waitSendOrderDetailList;
-	private List<OrderDetailVo> waitConfirmOrderDetailList;
-	private List<OrderDetailVo> refundOrderDetailList;
+	private List<OrderElement> allOrderList;
+	private List<OrderElement> waitPayOrderList;
+	private List<OrderElement> waitSendOrderList;
+	private List<OrderElement> waitConfirmOrderList;
+	private List<OrderElement> refundOrderList;
 	private int userId;
 	private String name;
 	private int goodId;
@@ -57,111 +53,34 @@ public class MyOrderAction extends BaseAction{
 		userId=282;
 		//userId=(int) session.get(userId);
 		allOrderList=orderService.viewOrder(userId);
-		for(int i=0;i<allOrderList.size();i++){
-			int orderId=allOrderList.get(i).getId();
-			setAllOrderDetailList(getOrderDetail(allOrderList));
-		}
 		return SUCCESS;
 		}
 	
 	public String getWaitPayOrder(){
 		waitPayOrderList=orderService.getWaitPayOrder(userId);
-		for(int i=0;i<waitPayOrderList.size();i++){
-			int orderId=waitPayOrderList.get(i).getId();
-			setWaitPayOrderDetailList(getOrderDetail(waitPayOrderList));
-		}
 		return SUCCESS;
 		}
 	
 	public String getWaitSendOrder(){
 		waitSendOrderList=orderService.getWaitPayOrder(userId);
-		for(int i=0;i<waitSendOrderList.size();i++){
-			int orderId=waitSendOrderList.get(i).getId();
-			setWaitSendOrderDetailList(getOrderDetail(waitSendOrderList));
-		}
 		return SUCCESS;
 		}
 	
 	
 	public String getWaitConfirmOrder(){
 		waitConfirmOrderList=orderService.getWaitPayOrder(userId);
-		for(int i=0;i<waitConfirmOrderList.size();i++){
-			int orderId=waitConfirmOrderList.get(i).getId();
-			setWaitConfirmOrderDetailList(getOrderDetail(waitConfirmOrderList));
-		}
 		return SUCCESS;
 		}
 	
 	public String getrefundOrder(){
 		refundOrderList=orderService.getrefundOrder(userId);
-		for(int i=0;i<refundOrderList.size();i++){
-			int orderId=refundOrderList.get(i).getId();
-			setRefundOrderDetailList(getOrderDetail(refundOrderList));
-		}
 		return SUCCESS;
 		}
 	
 	
 	
-	public List<OrderDetailVo> getOrderDetail(List<OrderVo> orderList){
-		List<OrderDetailVo> orderDetailList=new ArrayList<OrderDetailVo>();
-		for(int i=0;i<orderList.size();i++){
-		OrderVo thisOrder=orderList.get(i);
-		List<OrderDetailVo> thisorderDetailList=orderService.viewOrderDetail(userId, thisOrder);
-		orderDetailList.addAll(thisorderDetailList);
-		}
-		return orderDetailList;
-	}
 
 
-	public List<OrderDetailVo> getAllOrderDetailList() {
-		return allOrderDetailList;
-	}
-
-
-	public void setAllOrderDetailList(List<OrderDetailVo> allOrderDetailList) {
-		this.allOrderDetailList = allOrderDetailList;
-	}
-
-
-	public List<OrderDetailVo> getWaitSendOrderDetailList() {
-		return waitSendOrderDetailList;
-	}
-
-
-	public void setWaitSendOrderDetailList(List<OrderDetailVo> waitSendOrderDetailList) {
-		this.waitSendOrderDetailList = waitSendOrderDetailList;
-	}
-
-
-	public List<OrderDetailVo> getWaitConfirmOrderDetailList() {
-		return waitConfirmOrderDetailList;
-	}
-
-
-	public void setWaitConfirmOrderDetailList(List<OrderDetailVo> waitConfirmOrderDetailList) {
-		this.waitConfirmOrderDetailList = waitConfirmOrderDetailList;
-	}
-
-
-	public List<OrderDetailVo> getWaitPayOrderDetailList() {
-		return waitPayOrderDetailList;
-	}
-
-
-	public void setWaitPayOrderDetailList(List<OrderDetailVo> waitPayOrderDetailList) {
-		this.waitPayOrderDetailList = waitPayOrderDetailList;
-	}
-
-
-	public List<OrderDetailVo> getRefundOrderDetailList() {
-		return refundOrderDetailList;
-	}
-
-
-	public void setRefundOrderDetailList(List<OrderDetailVo> refundOrderDetailList) {
-		this.refundOrderDetailList = refundOrderDetailList;
-	}
 
 
 	public ArrayList<String> getPictureList() {
@@ -252,52 +171,52 @@ public class MyOrderAction extends BaseAction{
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
 	}
-	public List<OrderVo> getAllOrderList() {
+	public List<OrderElement> getAllOrderList() {
 		return allOrderList;
 	}
 
 
-	public void setAllOrderList(List<OrderVo> allOrderList) {
+	public void setAllOrderList(List<OrderElement> allOrderList) {
 		this.allOrderList = allOrderList;
 	}
 
 
-	public List<OrderVo> getWaitPayOrderList() {
+	public List<OrderElement> getWaitPayOrderList() {
 		return waitPayOrderList;
 	}
 
 
-	public void setWaitPayOrderList(List<OrderVo> waitPayOrderList) {
+	public void setWaitPayOrderList(List<OrderElement> waitPayOrderList) {
 		this.waitPayOrderList = waitPayOrderList;
 	}
 
 
-	public List<OrderVo> getWaitSendOrderList() {
+	public List<OrderElement> getWaitSendOrderList() {
 		return waitSendOrderList;
 	}
 
 
-	public void setWaitSendOrderList(List<OrderVo> waitSendOrderList) {
+	public void setWaitSendOrderList(List<OrderElement> waitSendOrderList) {
 		this.waitSendOrderList = waitSendOrderList;
 	}
 
 
-	public List<OrderVo> getWaitConfirmOrderList() {
+	public List<OrderElement> getWaitConfirmOrderList() {
 		return waitConfirmOrderList;
 	}
 
 
-	public void setWaitConfirmOrderList(List<OrderVo> waitConfirmOrderList) {
+	public void setWaitConfirmOrderList(List<OrderElement> waitConfirmOrderList) {
 		this.waitConfirmOrderList = waitConfirmOrderList;
 	}
 
 
-	public List<OrderVo> getRefundOrderList() {
+	public List<OrderElement> getRefundOrderList() {
 		return refundOrderList;
 	}
 
 
-	public void setRefundOrderList(List<OrderVo> refundOrderList) {
+	public void setRefundOrderList(List<OrderElement> refundOrderList) {
 		this.refundOrderList = refundOrderList;
 	}
 
