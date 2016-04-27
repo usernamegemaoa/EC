@@ -56,7 +56,7 @@ public class MyOrderAction extends BaseAction{
 		System.out.println("-------------------");
 		userId=282;
 		//userId=(int) session.get(userId);
-		allOrderList=orderService.viewOrder(userId);
+//		allOrderList=orderService.viewOrder(userId);
 		for(int i=0;i<allOrderList.size();i++){
 			int orderId=allOrderList.get(i).getId();
 			setAllOrderDetailList(getOrderDetail(allOrderList));
@@ -65,7 +65,7 @@ public class MyOrderAction extends BaseAction{
 		}
 	
 	public String getWaitPayOrder(){
-		waitPayOrderList=orderService.getWaitPayOrder(userId);
+//		waitPayOrderList=orderService.getWaitPayOrder(userId);
 		for(int i=0;i<waitPayOrderList.size();i++){
 			int orderId=waitPayOrderList.get(i).getId();
 			setWaitPayOrderDetailList(getOrderDetail(waitPayOrderList));
@@ -74,7 +74,7 @@ public class MyOrderAction extends BaseAction{
 		}
 	
 	public String getWaitSendOrder(){
-		waitSendOrderList=orderService.getWaitPayOrder(userId);
+//		waitSendOrderList=orderService.getWaitPayOrder(userId);
 		for(int i=0;i<waitSendOrderList.size();i++){
 			int orderId=waitSendOrderList.get(i).getId();
 			setWaitSendOrderDetailList(getOrderDetail(waitSendOrderList));
@@ -84,7 +84,7 @@ public class MyOrderAction extends BaseAction{
 	
 	
 	public String getWaitConfirmOrder(){
-		waitConfirmOrderList=orderService.getWaitPayOrder(userId);
+//		waitConfirmOrderList=orderService.getWaitPayOrder(userId);
 		for(int i=0;i<waitConfirmOrderList.size();i++){
 			int orderId=waitConfirmOrderList.get(i).getId();
 			setWaitConfirmOrderDetailList(getOrderDetail(waitConfirmOrderList));
@@ -93,7 +93,7 @@ public class MyOrderAction extends BaseAction{
 		}
 	
 	public String getrefundOrder(){
-		refundOrderList=orderService.getrefundOrder(userId);
+//		refundOrderList=orderService.getrefundOrder(userId);
 		for(int i=0;i<refundOrderList.size();i++){
 			int orderId=refundOrderList.get(i).getId();
 			setRefundOrderDetailList(getOrderDetail(refundOrderList));
