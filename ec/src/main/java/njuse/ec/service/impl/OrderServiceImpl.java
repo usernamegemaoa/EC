@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import njuse.ec.service.OrderService;
 import njuse.ec.vo.CastVo;
 import njuse.ec.vo.ColorElement;
 import njuse.ec.vo.DetailElement;
+import njuse.ec.vo.GoodElement;
 import njuse.ec.vo.GoodVo;
 import njuse.ec.vo.OrderDetailVo;
 import njuse.ec.vo.OrderElement;
@@ -366,46 +368,51 @@ public class OrderServiceImpl implements OrderService {
 					OrderInfo.class, 
 					"order_id", 
 					String.valueOf(order.getId()));
-			GoodVo goodVo = null;
-			if (!infos.isEmpty()) {
-				OrderInfo info = infos.get(0);
-				goodVo = goodService.getDetailGood(info.getGood_id());
-				element.setImg(goodVo.getMainPic());
-				element.setName(goodVo.getName());
-			} else {
-				element.setName("无orderInfo");
-			}
 			Iterator<OrderInfo> iInfo = infos.iterator();
-			HashMap<String, ColorElement> colorMap = 
-					new HashMap<String, ColorElement>();
-			// 逐个遍历详情
+			HashMap<Integer, List<OrderInfo>> goodSplit = new HashMap<>();
+			element.setGoodList(new ArrayList<GoodElement>());
 			double totalPrice = 0;
 			while (iInfo.hasNext()) {
-				//筛选相同颜色订单
 				OrderInfo info = iInfo.next();
-				if (!colorMap.containsKey(info.getColor())) {
-					ColorElement colorElement = new ColorElement();
-					colorElement.setColor(info.getColor());
-					colorElement.setDetailList(new ArrayList<DetailElement>());
-					colorMap.put(info.getColor(), colorElement);
+				if (!goodSplit.containsKey(info.getGood_id())) {
+					goodSplit.put(info.getGood_id(), new ArrayList<OrderInfo>());
 				}
-				
-				ColorElement colorElement = colorMap.get(info.getColor());
-				DetailElement detailElement = new DetailElement();
-				detailElement.setNum(info.getQuantity());
-				detailElement.setSize(info.getSize());
-				detailElement.setUnitPrice(goodVo.getPrice());
-				double singleTotal = goodVo.getPrice() * info.getQuantity();
-				detailElement.setTotalPrice(singleTotal);
-				totalPrice += singleTotal;
-				colorElement.getDetailList().add(detailElement);
+				goodSplit.get(info.getGood_id()).add(info);
 			}
-			
-			element.setColorList(
-					new ArrayList<ColorElement>(colorMap.values()));
+			Iterator<Entry<Integer, List<OrderInfo>>> iGoodSplit = goodSplit.entrySet().iterator();
+			while (iGoodSplit.hasNext()) {
+				Entry<Integer, List<OrderInfo>> entry = iGoodSplit.next();
+				int goodId = entry.getKey();
+				List<OrderInfo> infoList = entry.getValue();
+				GoodVo goodVo = goodService.getDetailGood(goodId);
+				GoodElement goodElement = new GoodElement();
+				goodElement.setImg(goodVo.getMainPic());
+				goodElement.setName(goodVo.getName());
+				
+				HashMap<String, ColorElement> colorMap = new HashMap<>();
+				Iterator<OrderInfo> iInfoList = infoList.iterator();
+				while (iInfoList.hasNext()) {
+					OrderInfo singleInfo = iInfoList.next();
+					if (!colorMap.containsKey(singleInfo.getColor())) {
+						ColorElement colorElement = new ColorElement();
+						colorElement.setColor(singleInfo.getColor());
+						colorElement.setDetailList(new ArrayList<DetailElement>());
+						colorMap.put(singleInfo.getColor(), colorElement);
+					}
+					ColorElement colorElement = colorMap.get(singleInfo.getColor());
+					DetailElement detailElement = new DetailElement();
+					detailElement.setNum(singleInfo.getQuantity());
+					detailElement.setSize(singleInfo.getSize());
+					detailElement.setUnitPrice(goodVo.getPrice());
+					double singleTotal = goodVo.getPrice() * singleInfo.getQuantity();
+					detailElement.setTotalPrice(singleTotal);
+					totalPrice += singleTotal;
+					colorElement.getDetailList().add(detailElement);
+				}
+				goodElement.setColorList(new ArrayList<ColorElement>(colorMap.values()));
+				element.getGoodList().add(goodElement);
+			}
 			element.setTotalPrice(totalPrice);
-			
-			elements.add(element);
 		}
 		
 		return elements;

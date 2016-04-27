@@ -55,40 +55,45 @@ public class MyOrderAction extends BaseAction {
 	public String getAllOrder() {
 		System.out.println("-------------------");
 		if (getSession().containsKey("userId")) {
-		userId = (int) getSession().get("userId");}
+			userId = (int) getSession().get("userId");
+		}
 		allOrderList = orderService.viewOrder(userId);
 		return SUCCESS;
 	}
-	
-	public String confirmOrder(){
-		OrderVo vo=new OrderVo();
+
+	public String confirmOrder() {
+		OrderVo vo = new OrderVo();
 		vo.setId(orderId);
 		if (getSession().containsKey("userId")) {
-		userId = (int) getSession().get("userId");}
-		ResultVo result=orderService.receiptOrder(userId, vo);
-		jsonResult.put("resultMessage", result.getResultMessage());
-		return SUCCESS;
-	}
-	
-	public String cancelOrder(){
-		OrderVo vo=new OrderVo();
-		vo.setId(orderId);
-		if (getSession().containsKey("userId")) {
-		userId = (int) getSession().get("userId");}
-		ResultVo result=orderService.cancelOrder(userId, vo);
+			userId = (int) getSession().get("userId");
+		}
+		ResultVo result = orderService.receiptOrder(userId, vo);
 		jsonResult.put("resultMessage", result.getResultMessage());
 		return SUCCESS;
 	}
 
-	public String refundOrder(){
-		OrderVo vo=new OrderVo();
+	public String cancelOrder() {
+		OrderVo vo = new OrderVo();
 		vo.setId(orderId);
 		if (getSession().containsKey("userId")) {
-		userId = (int) getSession().get("userId");}
-		ResultVo result=orderService.refundOrder(userId, vo);
+			userId = (int) getSession().get("userId");
+		}
+		ResultVo result = orderService.cancelOrder(userId, vo);
 		jsonResult.put("resultMessage", result.getResultMessage());
 		return SUCCESS;
 	}
+
+	public String refundOrder() {
+		OrderVo vo = new OrderVo();
+		vo.setId(orderId);
+		if (getSession().containsKey("userId")) {
+			userId = (int) getSession().get("userId");
+		}
+		ResultVo result = orderService.refundOrder(userId, vo);
+		jsonResult.put("resultMessage", result.getResultMessage());
+		return SUCCESS;
+	}
+
 	public String getWaitPayOrder() {
 		waitPayOrderList = orderService.getWaitPayOrder(userId);
 		return SUCCESS;

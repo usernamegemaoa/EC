@@ -71,11 +71,12 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h3 class="panel-title">
-									<span class="span-inline" style="color: red; margin-left: 15px"><s:property value="#each_order.orderId"/></span>
-									<span class="span-inline" style="margin-left: 280px">尺码</span>
-									<span class="span-inline">选购数</span> <span class="span-inline">单价(元)</span>
-									<span class="span-inline">金额(元)</span> <span
-										class="span-inline" style="margin-left: 180px">订单状态</span>
+									<span class="span-inline" style="color: red; margin-left: 15px"><s:property
+											value="#each_order.orderId" /></span> <span class="span-inline"
+										style="margin-left: 280px">尺码</span> <span class="span-inline">选购数</span>
+									<span class="span-inline">单价(元)</span> <span
+										class="span-inline">金额(元)</span> <span class="span-inline"
+										style="margin-left: 180px">订单状态</span>
 								</h3>
 							</div>
 							<div class="panel-body">
@@ -291,7 +292,8 @@
 								</div>
 								<div class="right">
 									<span style="display: block; margin-bottom: 15px;"><s:property
-											value="#each_order.status" /></span><span><a href="Confirm('#each_order.orderId')">(确认收货)</a></span>
+											value="#each_order.status" /></span><span><a
+										href="Confirm('#each_order.orderId')">(确认收货)</a></span>
 								</div>
 							</div>
 						</div>
@@ -364,15 +366,17 @@
 
 	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	
+
 	<script>
-	function confirm(orderId){
-		$.post("json/confirmOrder", {
-			orderId : orderId
-		}, function(data, status) {
-			alert(data.resultMessage);
+		function confirm(orderId) {
+			$.post("json/confirmOrder", {
+				orderId : orderId
+			}, function(data, status) {
+				alert(data.resultMessage);
 			});
-	}
+		}
+	
+		
 	</script>
 </body>
 </html>
