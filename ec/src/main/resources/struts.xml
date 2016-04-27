@@ -15,8 +15,11 @@
 		<action name="Category" class="CategoryAction">
 			<result name="success">/webPage/category.jsp</result>
 		</action>
-		<action name="getOrder" class="MyOrderAction">
-			<result name="success">/webPage/test.jsp</result>
+		<action name="cancelOrder" class="MyOrderAction">
+			<result name="success">/webPage/cancelOrder.jsp</result>
+		</action>
+		<action name="refundOrder" class="MyOrderAction">
+			<result name="success">/webPage/refundOrder.jsp</result>
 		</action>
 		<action name="personalCenter" class="PersonalCenterAction">
 			<result name="success">/webPage/PersonalCenter.jsp</result>
@@ -92,6 +95,21 @@
 			</result>
 		</action>
 		<action name="addPlan" class="GoodInfoAction" method="addPlan">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="confirmOrder" class="MyOrderAction" method="confirmOrder">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="cancelOrder" class="MyOrderAction" method="cancelOrder">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="refundOrder" class="MyOrderAction" method="refundOrder">
 			<result type="json">
 				<param name="root">jsonResult</param>
 			</result>

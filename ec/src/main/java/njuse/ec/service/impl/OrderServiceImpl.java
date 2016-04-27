@@ -294,7 +294,11 @@ public class OrderServiceImpl implements OrderService {
 				Iterator<Order> i = orders.iterator();
 				while (i.hasNext()) {
 					Order order = i.next();
-					if (order.getState() != OrderStatus.WaitConfirm.getCode() + 1) {
+					System.out.println("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+					System.out.println(order.getState());
+					System.out.println(OrderStatus.WaitConfirm.getCode());
+					if (order.getState() != (OrderStatus.WaitConfirm.getCode() + 1)) {
+						
 						i.remove();
 					}
 				}
@@ -313,7 +317,7 @@ public class OrderServiceImpl implements OrderService {
 				Iterator<Order> i = orders.iterator();
 				while (i.hasNext()) {
 					Order order = i.next();
-					if (order.getState() != OrderStatus.WaitRate.getCode() + 1) {
+					if (order.getState() != OrderStatus.Refund.getCode() + 1) {
 						i.remove();
 					}
 				}
@@ -368,6 +372,8 @@ public class OrderServiceImpl implements OrderService {
 				goodVo = goodService.getDetailGood(info.getGood_id());
 				element.setImg(goodVo.getMainPic());
 				element.setName(goodVo.getName());
+			} else {
+				element.setName("无orderInfo");
 			}
 			Iterator<OrderInfo> iInfo = infos.iterator();
 			HashMap<String, ColorElement> colorMap = 
