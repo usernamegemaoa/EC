@@ -32,6 +32,14 @@ public class MyOrderAction extends BaseAction{
 	private List<OrderDetailVo> waitConfirmOrderDetailList;
 	private List<OrderDetailVo> refundOrderDetailList;
 	private int userId;
+	private String name;
+	private int goodId;
+	private String size;
+	private int quantity;
+	private double price;
+	private String status;
+	private int id;
+	private int orderId;
 	private ArrayList<String> pictureList;
 	
 	
@@ -43,7 +51,6 @@ public class MyOrderAction extends BaseAction{
 		getrefundOrder();
 		return SUCCESS;
 	}
-
 	
 	public String getAllOrder(){
 		System.out.println("-------------------");
@@ -165,6 +172,143 @@ public class MyOrderAction extends BaseAction{
 	public void setPictureList(ArrayList<String> pictureList) {
 		this.pictureList = pictureList;
 	}
-	
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public int getGoodId() {
+		return goodId;
+	}
+
+
+	public void setGoodId(int goodId) {
+		this.goodId = goodId;
+	}
+
+
+	public String getSize() {
+		return size;
+	}
+
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+
+	public double getPrice() {
+		return price;
+	}
+
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public int getOrderId() {
+		return orderId;
+	}
+
+
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
+	public List<OrderVo> getAllOrderList() {
+		return allOrderList;
+	}
+
+
+	public void setAllOrderList(List<OrderVo> allOrderList) {
+		this.allOrderList = allOrderList;
+	}
+
+
+	public List<OrderVo> getWaitPayOrderList() {
+		return waitPayOrderList;
+	}
+
+
+	public void setWaitPayOrderList(List<OrderVo> waitPayOrderList) {
+		this.waitPayOrderList = waitPayOrderList;
+	}
+
+
+	public List<OrderVo> getWaitSendOrderList() {
+		return waitSendOrderList;
+	}
+
+
+	public void setWaitSendOrderList(List<OrderVo> waitSendOrderList) {
+		this.waitSendOrderList = waitSendOrderList;
+	}
+
+
+	public List<OrderVo> getWaitConfirmOrderList() {
+		return waitConfirmOrderList;
+	}
+
+
+	public void setWaitConfirmOrderList(List<OrderVo> waitConfirmOrderList) {
+		this.waitConfirmOrderList = waitConfirmOrderList;
+	}
+
+
+	public List<OrderVo> getRefundOrderList() {
+		return refundOrderList;
+	}
+
+
+	public void setRefundOrderList(List<OrderVo> refundOrderList) {
+		this.refundOrderList = refundOrderList;
+	}
+
+
+	public int getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 	
 	}

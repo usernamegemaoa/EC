@@ -4,6 +4,7 @@ import java.util.List;
 
 import njuse.ec.vo.CastVo;
 import njuse.ec.vo.OrderDetailVo;
+import njuse.ec.vo.OrderElement;
 import njuse.ec.vo.OrderVo;
 import njuse.ec.vo.ResultVo;
 
@@ -19,7 +20,7 @@ public interface OrderService {
 	 * @param userId 用户编号
 	 * @return 订单列表
 	 */
-	List<OrderVo> viewOrder(int userId);
+	List<OrderElement> viewOrder(int userId);
 	
 	/**
 	 * 查看订单详情.
@@ -87,33 +88,33 @@ public interface OrderService {
 	ResultVo refundMoney(int userId, OrderVo order);
 
 	/**
-	 * 获得待付款订单
-	 * @param userId
+	 * 获得待付款订单.
+	 * @param userId id
 	 * @return 订单列表
 	 */
-	List<OrderVo> getWaitPayOrder(int userId); 
+	List<OrderElement> getWaitPayOrder(int userId); 
 	/**
-	 * 获得待发货订单
-	 * @param userId
+	 * 获得待发货订单.
+	 * @param userId id
 	 * @return 订单列表
 	 */
-	List<OrderVo> getWaitSendOrder(int userId);
+	List<OrderElement> getWaitSendOrder(int userId);
 	
 	
 	/**
-	 * 获得待确认收货订单
-	 * @param userId
+	 * 获得待确认收货订单.
+	 * @param userId id
 	 * @return 订单列表
 	 */
-	List<OrderVo> getWaitConfirm(int userId);
+	List<OrderElement> getWaitConfirm(int userId);
 	
 
 
 	/**
-	 * 获得可以申请退款的订单
-	 * @param userId
-	 * @return
+	 * 获得可以申请退款的订单.
+	 * @param userId id
+	 * @return 订单列表
 	 */
-	List<OrderVo> getrefundOrder(int userId);
+	List<OrderElement> getrefundOrder(int userId);
 	}
 
