@@ -20,19 +20,9 @@ public class OrderElement {
 	private String status;
 	
 	/**
-	 * 图片.
+	 * 商品列表.
 	 */
-	private String img;
-	
-	/**
-	 * 商品名.
-	 */
-	private String name;
-	
-	/**
-	 * 颜色节点.
-	 */
-	private List<ColorElement> colorList;
+	private List<GoodElement> goodList;
 	
 	/**
 	 * 总价.
@@ -68,45 +58,17 @@ public class OrderElement {
 	}
 
 	/**
-	 * @return the img
+	 * @return the goodList
 	 */
-	public final String getImg() {
-		return img;
+	public final List<GoodElement> getGoodList() {
+		return goodList;
 	}
 
 	/**
-	 * @param img the img to set
+	 * @param goodList the goodList to set
 	 */
-	public final void setImg(String img) {
-		this.img = img;
-	}
-
-	/**
-	 * @return the name
-	 */
-	public final String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public final void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return the colorList
-	 */
-	public final List<ColorElement> getColorList() {
-		return colorList;
-	}
-
-	/**
-	 * @param colorList the colorList to set
-	 */
-	public final void setColorList(List<ColorElement> colorList) {
-		this.colorList = colorList;
+	public final void setGoodList(List<GoodElement> goodList) {
+		this.goodList = goodList;
 	}
 
 	/**
@@ -122,5 +84,4 @@ public class OrderElement {
 	public final void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-	
 }
