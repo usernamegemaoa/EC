@@ -96,7 +96,7 @@
 						<span style="display: block; margin-bottom: 15px;"><s:property
 								value="#each_order.status" /></span>
 						<s:if test="#each_order.status=='待支付'">
-							<span><a href="cancelOrder('#each_order.orderId')">取消订单</a></span>
+							<span><a onclick="cancelOrder('<s:property value="#each_order.orderId"/>')">取消订单</a></span>
 						</s:if>
 					</div>
 				</div>

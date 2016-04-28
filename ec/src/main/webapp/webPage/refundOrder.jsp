@@ -96,7 +96,6 @@
 						<span style="display: block; margin-bottom: 15px;"><s:property
 								value="#each_order.status" /></span>
 						<s:if test="#each_order.status=='待支付'">
-							<span><a href="refundOrder('#each_order.orderId')">申请退款</a></span>
 						</s:if>
 					</div>
 				</div>
@@ -111,7 +110,7 @@
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
-		function refundOrder((orderId){
+	function refundOrder(orderId){
 				$.post("json/refundOrder", {
 					orderId : orderId
 				}, function(data, status) {

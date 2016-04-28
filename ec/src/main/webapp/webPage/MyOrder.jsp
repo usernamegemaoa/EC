@@ -293,7 +293,7 @@
 								<div class="right">
 									<span style="display: block; margin-bottom: 15px;"><s:property
 											value="#each_order.status" /></span><span><a
-										href="Confirm('#each_order.orderId')">(确认收货)</a></span>
+										onclick="Confirm('<s:property value="#each_order.orderId"/>')">(确认收货)</a></span>
 								</div>
 							</div>
 						</div>

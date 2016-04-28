@@ -65,7 +65,6 @@
 			<result name="success">/webPage/AddressCenter.jsp</result>
 		</action>
 	</package>
-
 	<package name="json" namespace="/json" extends="struts-default,json-default">
 		<action name="changePassword" class="UserAction" method="changePassword">
 			<result type="json">
@@ -108,6 +107,11 @@
 			</result>
 		</action>
 		<action name="confirmOrder" class="MyOrderAction" method="confirmOrder">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="unfavour" class="MyOrderAction" method="unfavour">
 			<result type="json">
 				<param name="root">jsonResult</param>
 			</result>

@@ -1,6 +1,7 @@
 package njuse.ec.action;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -8,9 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import njuse.ec.model.Order;
+import njuse.ec.service.GoodService;
 import njuse.ec.service.OrderService;
+import njuse.ec.service.UserService;
 import njuse.ec.vo.ColorElement;
 import njuse.ec.vo.DetailElement;
+import njuse.ec.vo.FavouriteVo;
+import njuse.ec.vo.GoodVo;
 import njuse.ec.vo.OrderDetailVo;
 import njuse.ec.vo.OrderElement;
 import njuse.ec.vo.OrderVo;
@@ -26,11 +31,16 @@ public class MyOrderAction extends BaseAction {
 
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private GoodService goodService;
 	private List<OrderElement> allOrderList;
 	private List<OrderElement> waitPayOrderList;
 	private List<OrderElement> waitSendOrderList;
 	private List<OrderElement> waitConfirmOrderList;
 	private List<OrderElement> refundOrderList;
+	private List<GoodVo> favouriteGoodList;
 	private int userId;
 	private String name;
 	private int goodId;
@@ -94,6 +104,32 @@ public class MyOrderAction extends BaseAction {
 		return SUCCESS;
 	}
 
+	
+	public String getFavourite(){
+		if (getSession().containsKey("userId")) {
+			userId = (int) getSession().get("userId");
+		}
+		List<FavouriteVo> favourite=userService.favourites(userId);
+		Iterator<FavouriteVo> i=favourite.iterator();
+		while(i.hasNext()){
+			FavouriteVo vo=i.next();
+			GoodVo good=new GoodVo();
+			goodId=vo.getGoodId();
+			good=goodService.getDetailGood(goodId);
+			favouriteGoodList.add(good);
+			
+		}
+		return SUCCESS;
+	}
+	
+	public String unfavour(){
+		if (getSession().containsKey("userId")) {
+			userId = (int) getSession().get("userId");
+		}
+		ResultVo result=userService.unFavour(userId, goodId);
+		jsonResult.put("resultMessage", result.getResultMessage());
+		return SUCCESS;
+	}
 	public String getWaitPayOrder() {
 		waitPayOrderList = orderService.getWaitPayOrder(userId);
 		return SUCCESS;
