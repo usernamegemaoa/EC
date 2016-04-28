@@ -15,8 +15,11 @@
 		<action name="Category" class="CategoryAction">
 			<result name="success">/webPage/category.jsp</result>
 		</action>
-		<action name="getOrder" class="MyOrderAction">
-			<result name="success">/webPage/test.jsp</result>
+		<action name="cancelOrder" class="MyOrderAction">
+			<result name="success">/webPage/cancelOrder.jsp</result>
+		</action>
+		<action name="refundOrder" class="MyOrderAction">
+			<result name="success">/webPage/refundOrder.jsp</result>
 		</action>
 		<action name="personalCenter" class="PersonalCenterAction">
 			<result name="success">/webPage/PersonalCenter.jsp</result>
@@ -36,6 +39,9 @@
 		<action name="AddGoodForm" class="AddGoodAction" method="addInfo">
 			<result name="success">/webPage/AddGood.jsp</result>
 		</action>
+		<action name="AddAddressForm" class="AddressAction" method="addAddress">
+			<result name="success">/webPage/AddressCenter.jsp</result>
+		</action>
 		<action name="regiest" class="LogAction" method="regiest">
 			<result name="success">/webPage/regiest.jsp</result>
 		</action>
@@ -52,10 +58,23 @@
 		<action name="Homepage" class="HomepageAction">
 			<result name="success">/webPage/homepage.jsp</result>
 		</action>
+		<action name="getAddress" class="AddressAction" method="getAddress">
+			<result name="success">/webPage/AddressCenter.jsp</result>
+		</action>
 	</package>
 
 	<package name="json" namespace="/json" extends="struts-default,json-default">
 		<action name="changePassword" class="UserAction" method="changePassword">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="getCity" class="AddressAction" method="getCity">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="getDistrict" class="AddressAction" method="getDistrict">
 			<result type="json">
 				<param name="root">jsonResult</param>
 			</result>
@@ -76,6 +95,21 @@
 			</result>
 		</action>
 		<action name="addPlan" class="GoodInfoAction" method="addPlan">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="confirmOrder" class="MyOrderAction" method="confirmOrder">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="cancelOrder" class="MyOrderAction" method="cancelOrder">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="refundOrder" class="MyOrderAction" method="refundOrder">
 			<result type="json">
 				<param name="root">jsonResult</param>
 			</result>

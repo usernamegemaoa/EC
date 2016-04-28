@@ -1,24 +1,30 @@
 package njuse.ec.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import njuse.ec.dao.BaseDao;
-import njuse.ec.dao.CastDAO;
 import njuse.ec.dao.OrderDAO;
 import njuse.ec.dao.PlanDAO;
-import njuse.ec.model.Cast;
 import njuse.ec.model.Order;
 import njuse.ec.model.OrderInfo;
 import njuse.ec.model.Plan;
 import njuse.ec.service.CastService;
+import njuse.ec.service.GoodService;
 import njuse.ec.service.OrderService;
 import njuse.ec.vo.CastVo;
+import njuse.ec.vo.ColorElement;
+import njuse.ec.vo.DetailElement;
+import njuse.ec.vo.GoodElement;
+import njuse.ec.vo.GoodVo;
 import njuse.ec.vo.OrderDetailVo;
+import njuse.ec.vo.OrderElement;
 import njuse.ec.vo.OrderStatus;
 import njuse.ec.vo.OrderVo;
 import njuse.ec.vo.ResultVo;
@@ -47,6 +53,12 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	private BaseDao<Order> orderBaseDao;
+	
+	@Autowired
+	private BaseDao<OrderInfo> infoDao;
+	
+	@Autowired
+	private GoodService goodService;
 
 	@Override
 	public final ResultVo creatOrder(
@@ -210,24 +222,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public final List<OrderVo> viewOrder(final int userId) {
+	public final List<OrderElement> viewOrder(final int userId) {
 		// 订单查看
-		System.out.println("TEST++++++++++++++++++");
-		List<OrderVo> result = new ArrayList<OrderVo>();
-		if (userId > 0) {
-			OrderVo order = new OrderVo();
-			List<Order> allOrder = new ArrayList<Order>();
-			allOrder = orderDao.viewOrder(userId);
-			
-			System.out.println("allOrder.size()"+allOrder.size());
-			
-			for (int i = 0; i < allOrder.size(); i++) {
-				Order thisOrder = allOrder.get(i);
-				OrderVo thisOrderVo = order.convertOrder(thisOrder);
-				result.add(thisOrderVo);
-			}
-		}
-		return result;
+		List<Order> orders = orderBaseDao.findlist(
+				Order.class, 
+				"user_id", 
+				String.valueOf(userId));
+		
+		return convertOrders(orders);
 	}
 
 	@Override
@@ -247,71 +249,172 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public final List<OrderVo> getWaitPayOrder(
+	public final List<OrderElement> getWaitPayOrder(
 			final int userId) {
 		//查看待支付订单
-		
-		List<OrderVo> result = new ArrayList<OrderVo>();
-		List<Order> waitPayOrder = orderBaseDao.findlist(Order.class, "user_id", String.valueOf(userId));
-		Iterator<Order> i = waitPayOrder.iterator();
+		List<Order> orders = orderBaseDao.findlist(
+				Order.class, 
+				"user_id", 
+				String.valueOf(userId));
+		Iterator<Order> i = orders.iterator();
 		while (i.hasNext()) {
 			Order order = i.next();
-			if (order.getState() == OrderStatus.WaitPay.getCode() + 1) {
-				OrderVo thisOrderVo = (new OrderVo()).convertOrder(order);
-				result.add(thisOrderVo);
+			if (order.getState() != OrderStatus.WaitPay.getCode() + 1) {
+				i.remove();
 			}
 		}
 		
-		return result;
+		return convertOrders(orders);
 	}
 
 	@Override
-	public final List<OrderVo> getWaitSendOrder(final int userId) {
-		List<OrderVo> result = new ArrayList<OrderVo>();
-		List<Order> waitSendOrder = orderBaseDao.findlist(Order.class, "user_id", String.valueOf(userId));
-		Iterator<Order> i = waitSendOrder.iterator();
-		while (i.hasNext()) {
-			Order order = i.next();
-			if (order.getState() == OrderStatus.WaitSend.getCode() + 1) {
-				OrderVo thisOrderVo = (new OrderVo()).convertOrder(order);
-				result.add(thisOrderVo);
-			}
-		}
-		
-		return result;
+	public final List<OrderElement> getWaitSendOrder(final int userId) {
+		//查看待发货订单
+				List<Order> orders = orderBaseDao.findlist(
+						Order.class, 
+						"user_id", 
+						String.valueOf(userId));
+				Iterator<Order> i = orders.iterator();
+				while (i.hasNext()) {
+					Order order = i.next();
+					if (order.getState() != OrderStatus.WaitSend.getCode() + 1) {
+						i.remove();
+					}
+				}
+				
+				return convertOrders(orders);
 	}
 
 	@Override
-	public List<OrderVo> getWaitConfirm(int userId) {
-		List<OrderVo> result = new ArrayList<OrderVo>();
-		List<Order> waitConfirmOrder = orderBaseDao.findlist(Order.class, "user_id", String.valueOf(userId));
-		Iterator<Order> i = waitConfirmOrder.iterator();
-		while (i.hasNext()) {
-			Order order = i.next();
-			if (order.getState() == OrderStatus.WaitConfirm.getCode() + 1) {
-				OrderVo thisOrderVo = (new OrderVo()).convertOrder(order);
-				result.add(thisOrderVo);
-			}
-		}
-		
-		return result;
+	public final List<OrderElement> getWaitConfirm(final int userId) {
+
+		//查看待确认订单
+				List<Order> orders = orderBaseDao.findlist(
+						Order.class, 
+						"user_id", 
+						String.valueOf(userId));
+				Iterator<Order> i = orders.iterator();
+				while (i.hasNext()) {
+					Order order = i.next();
+					System.out.println("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+					System.out.println(order.getState());
+					System.out.println(OrderStatus.WaitConfirm.getCode());
+					if (order.getState() != (OrderStatus.WaitConfirm.getCode() + 1)) {
+						
+						i.remove();
+					}
+				}
+				
+				return convertOrders(orders);
 	}
 
 	@Override
-	public List<OrderVo> getrefundOrder(int userId) {
-		List<OrderVo> result = new ArrayList<OrderVo>();
-		List<Order> waitRefundOrder = orderBaseDao.findlist(Order.class, "user_id", String.valueOf(userId));
-		Iterator<Order> i = waitRefundOrder.iterator();
-		while (i.hasNext()) {
-			Order order = i.next();
-			if (order.getState() == OrderStatus.Refund.getCode() + 1) {
-				OrderVo thisOrderVo = (new OrderVo()).convertOrder(order);
-				result.add(thisOrderVo);
-			}
-		}
-		
-		return result;
+	public final List<OrderElement> getrefundOrder(final int userId) {
+
+		//查看可退款订单
+				List<Order> orders = orderBaseDao.findlist(
+						Order.class, 
+						"user_id", 
+						String.valueOf(userId));
+				Iterator<Order> i = orders.iterator();
+				while (i.hasNext()) {
+					Order order = i.next();
+					if (order.getState() != OrderStatus.Refund.getCode() + 1) {
+						i.remove();
+					}
+				}
+				
+				return convertOrders(orders);
 	}
 	
-	
+	/**
+	 * order to orderElement.
+	 * @param orders model
+	 * @return vo
+	 */
+	private List<OrderElement> convertOrders(final List<Order> orders) {
+		List<OrderElement> elements = new ArrayList<OrderElement>();
+		
+		// 逐个遍历order
+		Iterator<Order> iOrder = orders.iterator();
+		while (iOrder.hasNext()) {
+			Order order = iOrder.next();
+			OrderElement element = new OrderElement();
+			element.setOrderId(order.getId());
+			switch(order.getState()) {
+			case 1:
+				element.setStatus("待支付");
+				break;
+			case 2:
+				element.setStatus("待发货");
+				break;
+			case 3:
+				element.setStatus("待确认");
+				break;
+			case 4:
+				element.setStatus("待评价");
+				break;
+			case 5:
+				element.setStatus("退款中");
+				break;
+			case 6:
+				element.setStatus("已完成");
+				break;
+			default:
+				element.setStatus("status异常");
+				break;
+			}
+			List<OrderInfo> infos = infoDao.findlist(
+					OrderInfo.class, 
+					"order_id", 
+					String.valueOf(order.getId()));
+			Iterator<OrderInfo> iInfo = infos.iterator();
+			HashMap<Integer, List<OrderInfo>> goodSplit = new HashMap<>();
+			element.setGoodList(new ArrayList<GoodElement>());
+			double totalPrice = 0;
+			while (iInfo.hasNext()) {
+				OrderInfo info = iInfo.next();
+				if (!goodSplit.containsKey(info.getGood_id())) {
+					goodSplit.put(info.getGood_id(), new ArrayList<OrderInfo>());
+				}
+				goodSplit.get(info.getGood_id()).add(info);
+			}
+			Iterator<Entry<Integer, List<OrderInfo>>> iGoodSplit = goodSplit.entrySet().iterator();
+			while (iGoodSplit.hasNext()) {
+				Entry<Integer, List<OrderInfo>> entry = iGoodSplit.next();
+				int goodId = entry.getKey();
+				List<OrderInfo> infoList = entry.getValue();
+				GoodVo goodVo = goodService.getDetailGood(goodId);
+				GoodElement goodElement = new GoodElement();
+				goodElement.setImg(goodVo.getMainPic());
+				goodElement.setName(goodVo.getName());
+				
+				HashMap<String, ColorElement> colorMap = new HashMap<>();
+				Iterator<OrderInfo> iInfoList = infoList.iterator();
+				while (iInfoList.hasNext()) {
+					OrderInfo singleInfo = iInfoList.next();
+					if (!colorMap.containsKey(singleInfo.getColor())) {
+						ColorElement colorElement = new ColorElement();
+						colorElement.setColor(singleInfo.getColor());
+						colorElement.setDetailList(new ArrayList<DetailElement>());
+						colorMap.put(singleInfo.getColor(), colorElement);
+					}
+					ColorElement colorElement = colorMap.get(singleInfo.getColor());
+					DetailElement detailElement = new DetailElement();
+					detailElement.setNum(singleInfo.getQuantity());
+					detailElement.setSize(singleInfo.getSize());
+					detailElement.setUnitPrice(goodVo.getPrice());
+					double singleTotal = goodVo.getPrice() * singleInfo.getQuantity();
+					detailElement.setTotalPrice(singleTotal);
+					totalPrice += singleTotal;
+					colorElement.getDetailList().add(detailElement);
+				}
+				goodElement.setColorList(new ArrayList<ColorElement>(colorMap.values()));
+				element.getGoodList().add(goodElement);
+			}
+			element.setTotalPrice(totalPrice);
+		}
+		
+		return elements;
+	}
 }

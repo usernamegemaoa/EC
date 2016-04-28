@@ -71,6 +71,8 @@
 	</bean>
 	<bean id="HomepageAction" class="njuse.ec.action.HomepageAction">
 	</bean>
+	<bean id="AddressAction" class="njuse.ec.action.AddressAction">
+	</bean>
 	
 	<!-- 定义 Autowired 自动注入 bean -->
 	<bean

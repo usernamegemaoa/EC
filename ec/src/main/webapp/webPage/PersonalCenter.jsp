@@ -46,16 +46,16 @@
 							</a>
 						</li>
 						<li >
-							<a href="#" target="i">订单中心</a>
+							<a href="" target="i">订单中心</a>
 						</li>
 						<li style="margin-left:15px">
 							<a href="myOrder" id="myOrder" name="orderCenter" target="i">我的订单</a>
 						</li>
 						<li style="margin-left:15px">
-							<a href="webPage/cancelOrder.jsp" id="cancelOrder" name="orderCenter" target="i">取消订单</a>
+							<a href="cancelOrder" id="cancelOrder" name="orderCenter" target="i">取消订单</a>
 						</li>
 						<li style="margin-left:15px">
-							<a href="webPage/refound.jsp" id="refund" name="orderCenter" target="i">退款申请</a>
+							<a href="refundOrder" id="refund" name="orderCenter" target="i">退款申请</a>
 						</li>
 						<li style="margin-left:15px">
 							<a href="webPage/favourite.jsp" id="favourite" name="orderCenter" target="i">收藏产品</a>
@@ -69,7 +69,7 @@
 							<a href="webPage/myInfo.jsp" id="myInfo" name="Information" target="i">我的资料</a>
 						</li >
 						<li style="margin-left:15px">
-							<a href="webPage/myFavourite.jsp" id="myFavourite" name="Information" target="i">收藏货物</a>
+							<a href="getAddress" id="address" name="Information" target="i">收货地址</a>
 						</li >
 						<li style="margin-left:15px">
 							<a href="jumpChangePassword" id="changeCode" name="Information" target="i">修改密码</a>
