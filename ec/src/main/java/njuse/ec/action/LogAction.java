@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import njuse.ec.service.UserService;
@@ -28,6 +29,7 @@ public class LogAction extends BaseAction {
 	
 	//set
 	private String account;
+	private String password;
 	private String pw1;
 	private String pw2;
 	private String name;
@@ -37,6 +39,10 @@ public class LogAction extends BaseAction {
 	private int role;
 	
 	public String regiest() {
+		return SUCCESS;
+	}
+	
+	public String login() {
 		return SUCCESS;
 	}
 	
@@ -64,6 +70,24 @@ public class LogAction extends BaseAction {
 		jsonResult.put("code", result.getResultCode());
 		jsonResult.put("message", result.getResultMessage());
 		
+		return SUCCESS;
+	}
+	
+	public String loginUser() {
+		ResultVo result = userService.login(account, password);
+		if (result.getResultCode() == 0) {
+			int userId = Integer.parseInt(result.getResultMessage());
+			getSession().put("userId", userId);
+		}
+		jsonResult = new HashMap<String, Object>();
+		jsonResult.put("code", result.getResultCode());
+		jsonResult.put("message", result.getResultMessage());
+		
+		return SUCCESS;
+	}
+	
+	public String logout() {
+		getSession().clear();
 		return SUCCESS;
 	}
 
@@ -128,6 +152,13 @@ public class LogAction extends BaseAction {
 	 */
 	public final void setRole(int role) {
 		this.role = role;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public final void setPassword(String password) {
+		this.password = password;
 	}
 
 }

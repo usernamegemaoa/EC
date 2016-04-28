@@ -9,20 +9,29 @@
 		<action name="" class="IndexAction">
 			<result name="success">/webPage/index.jsp</result>
 		</action>
-		<action name="MyOrder" class="MyOrderAction">
-			<result name="ViewOrderSuccess">/webPage/ViewOrder/jsp</result>
+		<action name="myOrder" class="MyOrderAction">
+			<result name="success">/webPage/MyOrder.jsp</result>
 		</action>
 		<action name="Category" class="CategoryAction">
 			<result name="success">/webPage/category.jsp</result>
 		</action>
-		<action name="getOrder" class="MyOrderAction">
-			<result name="success">/webPage/test.jsp</result>
+		<action name="cancelOrder" class="MyOrderAction">
+			<result name="success">/webPage/cancelOrder.jsp</result>
+		</action>
+		<action name="refundOrder" class="MyOrderAction">
+			<result name="success">/webPage/refundOrder.jsp</result>
 		</action>
 		<action name="personalCenter" class="PersonalCenterAction">
 			<result name="success">/webPage/PersonalCenter.jsp</result>
 		</action>
+		<action name="getUserInfo" class="PersonalCenterAction" method="getUserInfo">
+			<result name="success">/webPage/thisPerson.jsp</result>
+		</action>
 		<action name="jumpChangePassword" class="UserAction">
 			<result name="success">/webPage/changePassword.jsp</result>
+		</action>
+		<action name="getGoodInfo" class="GoodInfoAction" method="getGoodInfo">
+			<result name="success">/webPage/GoodInfo.jsp</result>
 		</action>
 		<action name="AddGood" class="AddGoodAction">
 			<result name="success">/webPage/AddGood.jsp</result>
@@ -30,8 +39,17 @@
 		<action name="AddGoodForm" class="AddGoodAction" method="addInfo">
 			<result name="success">/webPage/AddGood.jsp</result>
 		</action>
+		<action name="AddAddressForm" class="AddressAction" method="addAddress">
+			<result name="success">/webPage/AddressCenter.jsp</result>
+		</action>
 		<action name="regiest" class="LogAction" method="regiest">
 			<result name="success">/webPage/regiest.jsp</result>
+		</action>
+		<action name="login" class="LogAction" method="login">
+			<result name="success">/webPage/login.jsp</result>
+		</action>
+		<action name="logout" class="LogAction" method="logout">
+			<result name="success" type="redirect">/</result>
 		</action>
 		<action name="Search" class="SearchAction">
 			<result name="success">/webPage/search.jsp</result>
@@ -40,10 +58,23 @@
 		<action name="Homepage" class="HomepageAction">
 			<result name="success">/webPage/homepage.jsp</result>
 		</action>
+		<action name="getAddress" class="AddressAction" method="getAddress">
+			<result name="success">/webPage/AddressCenter.jsp</result>
+		</action>
 	</package>
 
 	<package name="json" namespace="/json" extends="struts-default,json-default">
 		<action name="changePassword" class="UserAction" method="changePassword">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="getCity" class="AddressAction" method="getCity">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="getDistrict" class="AddressAction" method="getDistrict">
 			<result type="json">
 				<param name="root">jsonResult</param>
 			</result>
@@ -54,6 +85,36 @@
 			</result>
 		</action>
 		<action name="regiest" class="LogAction" method="regiestUser">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="favourite" class="GoodInfoAction" method="favourite">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="addPlan" class="GoodInfoAction" method="addPlan">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="confirmOrder" class="MyOrderAction" method="confirmOrder">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="cancelOrder" class="MyOrderAction" method="cancelOrder">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="refundOrder" class="MyOrderAction" method="refundOrder">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="login" class="LogAction" method="loginUser">
 			<result type="json">
 				<param name="root">jsonResult</param>
 			</result>

@@ -51,7 +51,7 @@ public class OrderVo {
 	/**
 	 * 已读标签.
 	 */
-	private boolean read;
+	private int read;
 	/**
 	 * 时间.
 	 */
@@ -62,8 +62,14 @@ public class OrderVo {
 	private String express_number;
 	
 	/**
+	 * 状态编号
+	 */
+	private String state;
+	
+	/**
 	 * @return the id
 	 */
+	
 	public final int getId() {
 		return id;
 	}
@@ -172,13 +178,13 @@ public class OrderVo {
 	/**
 	 * @return the read
 	 */
-	public final boolean isRead() {
+	public final int isRead() {
 		return read;
 	}
 	/**
 	 * @param newRead the read to set
 	 */
-	public final void setRead(final boolean newRead) {
+	public final void setRead(final int newRead) {
 		this.read = newRead;
 	}
 	/**
@@ -257,24 +263,36 @@ public class OrderVo {
 		switch(order.getState()){
 		case 1:
 			newOrder.setStatus(OrderStatus.WaitPay);
+			newOrder.setState("待支付");
 			break;
 		case 2:
 			newOrder.setStatus(OrderStatus.WaitSend);
+			newOrder.setState("待发货");
 			break;
 		case 3:
 			newOrder.setStatus(OrderStatus.WaitConfirm);
+			newOrder.setState("待确认");
 			break;
 		case 4:
 			newOrder.setStatus(OrderStatus.WaitRate);
+			newOrder.setState("待评价");
 			break;
 		case 5:
 			newOrder.setStatus(OrderStatus.Refund);
+			newOrder.setState("退款中");
 			break;
 		case 6:
 			newOrder.setStatus(OrderStatus.Finish);
+			newOrder.setState("已完成");
 			break;
 			
 		}
 		return newOrder;
+	}
+	public final String getState() {
+		return state;
+	}
+	public void setState( final String state) {
+		this.state = state;
 	}
 }

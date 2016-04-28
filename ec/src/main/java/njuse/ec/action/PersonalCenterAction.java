@@ -1,5 +1,6 @@
 package njuse.ec.action;
 
+import java.text.DateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +28,33 @@ public class PersonalCenterAction extends BaseAction {
 	private String icon;
 	private String email;
     private int score;
-    private Date birthday;
+    private String birthday;
     
     
     public String execute(){
     	return SUCCESS;
     }
     
-    private void getUser(){
-    	userId=(int) getSession().get(userId);
+    public String getUserInfo(){
+    	UserVo vo=new UserVo();
+    	if (getSession().containsKey("userId")) {
+			int userId = (int) getSession().get("userId");
+			vo = userService.userInfo(userId);
+		}
+    	name=vo.getName();
+    	int thisSex=vo.getMale();
+    	if(thisSex==0){
+    		sex="男";
+    	}else{
+    		sex="女";
+    	}
+    	icon=vo.getIconPath();
+    	email=vo.getEmail();
+    	score=vo.getScore();
+    	Date thisbirthday=vo.getBirthday();
+    	DateFormat df1 = DateFormat.getDateInstance();//日期格式，精确到日
+        birthday=df1.format(thisbirthday);
+    	return SUCCESS;
     }
 
 	public String getName() {
@@ -78,16 +97,24 @@ public class PersonalCenterAction extends BaseAction {
 		this.score = score;
 	}
 
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
     
     

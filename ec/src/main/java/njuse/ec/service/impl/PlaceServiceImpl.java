@@ -35,7 +35,7 @@ public class PlaceServiceImpl implements PlaceService {
 			Place place = i.next();
 			PlaceVo vo = new PlaceVo();
 			vo.setId(place.getId());
-			vo.setPlaceCode(vo.getPlaceCode());
+			vo.setPlaceCode(place.getPlaceCode());
 			vo.setPlaceName(place.getPlaceName());
 			provinces.add(vo);
 		}
@@ -51,7 +51,7 @@ public class PlaceServiceImpl implements PlaceService {
 			Place place = i.next();
 			PlaceVo vo = new PlaceVo();
 			vo.setId(place.getId());
-			vo.setPlaceCode(vo.getPlaceCode());
+			vo.setPlaceCode(place.getPlaceCode());
 			vo.setPlaceName(place.getPlaceName());
 			citys.add(vo);
 		}
@@ -67,7 +67,7 @@ public class PlaceServiceImpl implements PlaceService {
 			Place place = i.next();
 			PlaceVo vo = new PlaceVo();
 			vo.setId(place.getId());
-			vo.setPlaceCode(vo.getPlaceCode());
+			vo.setPlaceCode(place.getPlaceCode());
 			vo.setPlaceName(place.getPlaceName());
 			districts.add(vo);
 		}

@@ -398,4 +398,28 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
+	@Override
+	public final ResultVo addAddress(
+			final int userId, 
+			final AddressVo addressVo) {
+		UserVo userVo = userInfo(userId);
+		userVo.getAddressVoList().add(addressVo);
+		return modify(userVo);
+	}
+
+	@Override
+	public final ResultVo delAddress(final int userId, final int addressId) {
+		ResultVo result = new ResultVo();
+		Address address = addressDao.load(Address.class, addressId);
+		if (address.getUser().getId() == userId) {
+			addressDao.delete(address);
+			result.setResultCode(0);
+			result.setResultMessage("删除成功");
+		} else {
+			result.setResultCode(1);
+			result.setResultMessage("删除失败");
+		}
+		return result;
+	}
+
 }
