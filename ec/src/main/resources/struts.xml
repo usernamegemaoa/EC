@@ -58,13 +58,20 @@
 		<action name="Homepage" class="HomepageAction">
 			<result name="success">/webPage/homepage.jsp</result>
 		</action>
+		<action name="favourite" class="MyOrderAction" method="getFavourite">
+			<result name="success">/webPage/favourite.jsp</result>
+		</action>
 		<action name="getAddress" class="AddressAction" method="getAddress">
 			<result name="success">/webPage/AddressCenter.jsp</result>
 		</action>
 	</package>
-
 	<package name="json" namespace="/json" extends="struts-default,json-default">
 		<action name="changePassword" class="UserAction" method="changePassword">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="modifyInfo" class="PersonalCenterAction" method="modifyInfo">
 			<result type="json">
 				<param name="root">jsonResult</param>
 			</result>
@@ -104,6 +111,11 @@
 				<param name="root">jsonResult</param>
 			</result>
 		</action>
+		<action name="unfavour" class="MyOrderAction" method="unfavour">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
 		<action name="cancelOrder" class="MyOrderAction" method="cancelOrder">
 			<result type="json">
 				<param name="root">jsonResult</param>
@@ -115,6 +127,11 @@
 			</result>
 		</action>
 		<action name="login" class="LogAction" method="loginUser">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="cancelRefund" class="MyOrderAction" method="cancelRefund">
 			<result type="json">
 				<param name="root">jsonResult</param>
 			</result>

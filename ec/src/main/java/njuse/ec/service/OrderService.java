@@ -47,6 +47,12 @@ public interface OrderService {
 	ResultVo cancelOrder(int userId, OrderVo order);
 	
 	/**
+	 * 取消退款申请
+	 * @param order 订单
+	 * @return 结果
+	 */
+	ResultVo cancelRefund(int userId, OrderVo order);
+	/**
 	 * 订单支付.
 	 * @param userId 用户编号
 	 * @param order 订单

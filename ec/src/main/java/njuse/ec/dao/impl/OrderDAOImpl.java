@@ -208,4 +208,18 @@ public class OrderDAOImpl implements OrderDAO {
 		return orderInfoBaseDao.findlist(OrderInfo.class, "order_id", String.valueOf(id));
 	}
 
+	@Override
+	public boolean cancelRefund(Order order) {
+		boolean success = true;
+		order.setState(4);
+		Session session = getSession();
+		try {
+			session.update(order);
+			session.flush();
+		} catch (Exception e) {
+			success = false; // 修改订单状态时出错
+		}
+		return success;
+	}
+
 }
