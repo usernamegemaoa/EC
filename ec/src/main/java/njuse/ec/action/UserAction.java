@@ -33,13 +33,17 @@ public class UserAction extends BaseAction{
 	}
 	public final String changePassword(){
 		jsonResult=new HashMap<String,Object>();
-			int userId = (int) getSession().get("userId");
-			UserVo userVo = userService.userInfo(userId);
-		resultVo=userService.modifyPassword(userVo, oldPassword, newPassword1, newPassword2);
+		UserVo vo=new UserVo();
+		if (getSession().containsKey("userId")) {
+		int userId = (int) getSession().get("userId");
+		vo = userService.userInfo(userId);}
+		resultVo=userService.modifyPassword(vo, oldPassword, newPassword1, newPassword2);
 		jsonResult.put("resultMessage", resultVo.getResultMessage());
 		System.out.println(resultVo.getResultMessage());
 		return SUCCESS;
 	}
+	
+
 	
 	public String getOldPassword() {
 		return oldPassword;

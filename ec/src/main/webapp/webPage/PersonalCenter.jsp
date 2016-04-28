@@ -58,16 +58,13 @@
 							<a href="refundOrder" id="refund" name="orderCenter" target="i">退款申请</a>
 						</li>
 						<li style="margin-left:15px">
-							<a href="webPage/favourite.jsp" id="favourite" name="orderCenter" target="i">收藏产品</a>
+							<a href="favourite" id="favourite" name="orderCenter" target="i">收藏产品</a>
 						</li>
 					</ul>
 					<ul class="nav nav-sidebar">
 						<li  class="active">
 							<a href="">资料信息</a>
 						</li>
-						<li style="margin-left:15px">
-							<a href="webPage/myInfo.jsp" id="myInfo" name="Information" target="i">我的资料</a>
-						</li >
 						<li style="margin-left:15px">
 							<a href="getAddress" id="address" name="Information" target="i">收货地址</a>
 						</li >
@@ -78,7 +75,7 @@
 					</ul>
 					<ul class="nav nav-sidebar">
 						<li  class="active">
-							<a href="webPage/.jsp" id="logOut" name="Log" target="i" onclick="quit()">安全退出</a>
+							<a href="logout" id="logOut" name="Log">安全退出</a>
 						</li>
 					</ul>
 				</div>
