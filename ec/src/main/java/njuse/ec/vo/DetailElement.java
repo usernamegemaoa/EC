@@ -26,6 +26,8 @@ public class DetailElement {
 	 * 总价.
 	 */
 	private double totalPrice;
+	
+	private int stockNum;
 
 	/**
 	 * @return the size
@@ -81,5 +83,13 @@ public class DetailElement {
 	 */
 	public final void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+
+	public final int getStockNum() {
+		return stockNum;
+	}
+
+	public final void setStockNum(int stockNum) {
+		this.stockNum = stockNum;
 	}
 }
