@@ -92,6 +92,17 @@ public class MyOrderAction extends BaseAction {
 		jsonResult.put("resultMessage", result.getResultMessage());
 		return SUCCESS;
 	}
+	
+	public String cancelRefund(){
+		OrderVo vo = new OrderVo();
+		vo.setId(orderId);
+		if (getSession().containsKey("userId")) {
+			userId = (int) getSession().get("userId");
+		}
+		ResultVo result = orderService.cancelRefund(userId, vo);
+		jsonResult.put("resultMessage", result.getResultMessage());
+		return SUCCESS;
+	}
 
 	public String refundOrder() {
 		OrderVo vo = new OrderVo();

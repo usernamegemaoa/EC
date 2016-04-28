@@ -131,6 +131,11 @@
 				<param name="root">jsonResult</param>
 			</result>
 		</action>
+		<action name="cancelRefund" class="MyOrderAction" method="cancelRefund">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
 	</package>
 </struts>
 
