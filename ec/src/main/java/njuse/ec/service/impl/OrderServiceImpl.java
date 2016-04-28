@@ -431,7 +431,6 @@ public class OrderServiceImpl implements OrderService {
 				}
 				goodElement.setColorList(new ArrayList<ColorElement>(colorMap.values()));
 				element.getGoodList().add(goodElement);
-				elements.add(element);
 			}
 			element.setTotalPrice(totalPrice);
 			element.setTotalNum(totalNum);

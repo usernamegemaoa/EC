@@ -9,6 +9,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<title>订单详情</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<base href=" <%=basePath%>">
 
 <!-- 新 Bootstrap 核心 CSS 文件 -->
 <link rel="stylesheet"
@@ -17,9 +20,28 @@
 <!-- 可选的Bootstrap主题文件（一般不用引入） -->
 <link rel="stylesheet"
 	href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<base href=" <%=basePath%>">
-<title>订单详情</title>
+<style type="text/css">
+.span-inline {
+	display: inline-block;
+	width: 14%
+}
+
+.left {
+	float: left;
+	width: 15%
+}
+
+.tableDiv {
+	float: left;;
+	width: 70%
+}
+
+.right {
+	float: right;
+	width: 10%;
+	font-size: 20px
+}
+</style>
 </head>
 <body>
 
@@ -42,10 +64,8 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">
-				<span class="span-inline" style="color: red; margin-left: 15px"><s:property
-						value="element.orderId" /></span> <span class="span-inline"
-					style="margin-left: 280px">尺码</span> <span class="span-inline">选购数</span>
-				<span class="span-inline">单价(元)</span> <span class="span-inline">金额(元)</span>
+				订单号
+				<s:property value="element.orderId" />
 			</h3>
 		</div>
 		<div class="panel-body">
@@ -70,7 +90,8 @@
 						</tr>
 
 						<s:iterator value="#each_good.colorList" var="each_color">
-							<s:iterator value="#each_color.detailList" var="each_element" status="L">
+							<s:iterator value="#each_color.detailList" var="each_element"
+								status="L">
 								<tr>
 									<s:if test="#L.index==0">
 										<th width="17%"

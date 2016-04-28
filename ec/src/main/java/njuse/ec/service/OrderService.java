@@ -16,7 +16,7 @@ import njuse.ec.vo.ResultVo;
 public interface OrderService {
 	
 	/**
-	 * 获取一个订单
+	 * 获取一个订单.
 	 * @param orderId id
 	 * @return order节点
 	 */
@@ -54,7 +54,8 @@ public interface OrderService {
 	ResultVo cancelOrder(int userId, OrderVo order);
 	
 	/**
-	 * 取消退款申请
+	 * 取消退款申请.
+	 * @param userId 用户编号
 	 * @param order 订单
 	 * @return 结果
 	 */

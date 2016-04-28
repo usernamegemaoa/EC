@@ -40,6 +40,11 @@ public class OrderAction extends BaseAction {
 		}
 		return SUCCESS;
 	}
+	
+	public String pay() {
+		
+		return SUCCESS;
+	}
 
 	/**
 	 * @return the element
