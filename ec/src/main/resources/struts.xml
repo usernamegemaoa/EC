@@ -61,6 +61,9 @@
 		<action name="getAddress" class="AddressAction" method="getAddress">
 			<result name="success">/webPage/AddressCenter.jsp</result>
 		</action>
+		<action name="order" class="OrderAction">
+			<result name="success">/webPage/order.jsp</result>
+		</action>
 	</package>
 
 	<package name="json" namespace="/json" extends="struts-default,json-default">
