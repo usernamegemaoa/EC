@@ -83,6 +83,24 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	public final ResultVo cancelRefund(final int userId,final OrderVo order){
+		ResultVo result = new ResultVo();
+		if (userId < 0) {
+			result.setResultCode(1);
+			result.setResultMessage("请先登录");
+		}else{
+			Order newOrder = order.convertOrderVo(order);
+			boolean success = orderDao.cancelRefund(newOrder);
+			if (success) {
+				result.setResultCode(0);
+			} else {
+				result.setResultCode(1);
+				result.setResultMessage("取消申请退款失败");
+			}
+		}
+		return result;
+	}
+	@Override
 	public final ResultVo cancelOrder(final int userId, final OrderVo order) {
 		// 取消订单
 		ResultVo result = new ResultVo();
@@ -417,6 +435,7 @@ public class OrderServiceImpl implements OrderService {
 			}
 			element.setTotalPrice(totalPrice);
 			element.setTotalNum(totalNum);
+			elements.add(element);
 		}
 		
 		return elements;
