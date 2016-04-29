@@ -390,6 +390,7 @@ public class OrderServiceImpl implements OrderService {
 			HashMap<Integer, List<OrderInfo>> goodSplit = new HashMap<>();
 			element.setGoodList(new ArrayList<GoodElement>());
 			double totalPrice = 0;
+			int totalNum = 0;
 			while (iInfo.hasNext()) {
 				OrderInfo info = iInfo.next();
 				if (!goodSplit.containsKey(info.getGood_id())) {
@@ -425,15 +426,27 @@ public class OrderServiceImpl implements OrderService {
 					double singleTotal = goodVo.getPrice() * singleInfo.getQuantity();
 					detailElement.setTotalPrice(singleTotal);
 					totalPrice += singleTotal;
+					totalNum += singleInfo.getQuantity();
 					colorElement.getDetailList().add(detailElement);
 				}
 				goodElement.setColorList(new ArrayList<ColorElement>(colorMap.values()));
 				element.getGoodList().add(goodElement);
 			}
 			element.setTotalPrice(totalPrice);
+			element.setTotalNum(totalNum);
 			elements.add(element);
 		}
 		
 		return elements;
+	}
+
+	@Override
+	public final OrderElement oneOrder(final int orderId) {
+		System.out.println("orderid"+orderId);
+		Order order = orderBaseDao.load(Order.class, orderId);
+		List<Order> oneList = new ArrayList<>();
+		oneList.add(order);
+		List<OrderElement> oneElement = convertOrders(oneList);
+		return oneElement.get(0);
 	}
 }
