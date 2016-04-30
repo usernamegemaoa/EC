@@ -20,6 +20,7 @@ import njuse.ec.vo.OrderDetailVo;
 import njuse.ec.vo.OrderElement;
 import njuse.ec.vo.OrderVo;
 import njuse.ec.vo.ResultVo;
+import njuse.ec.vo.UserVo;
 
 @Repository
 public class MyOrderAction extends BaseAction {
@@ -49,17 +50,40 @@ public class MyOrderAction extends BaseAction {
 	private double price;
 	private String status;
 	private int id;
+	private String expressNumber;
+	public String getExpressNumber() {
+		return expressNumber;
+	}
+
+	public void setExpressNumber(String expressNumber) {
+		this.expressNumber = expressNumber;
+	}
+
 	private int orderId;
+	private int role;//1 用户 2店家
 	private ArrayList<String> pictureList;
 	private Map<String, Object> jsonResult;
 
 	public String execute() {
-		getAllOrder();
-		getWaitPayOrder();
-		getWaitSendOrder();
-		getWaitConfirmOrder();
-		getrefundOrder();
-		return SUCCESS;
+		if (getSession().containsKey("userId")) {
+			userId = (int) getSession().get("userId");
+		}
+		UserVo vo=userService.userInfo(userId);
+		if (vo.getRole() == 1) {
+			role=1;
+			getAllOrder();
+			getWaitPayOrder();
+			getWaitSendOrder();
+			getWaitConfirmOrder();
+			getrefundOrder();
+			return SUCCESS;			
+		} else {
+			role=2;
+			getShopOrder();
+			getShopWaitSendOrder();
+			getShopRefundOrder();
+			return "shop";
+		}
 	}
 
 	public String getAllOrder() {
@@ -68,6 +92,44 @@ public class MyOrderAction extends BaseAction {
 			userId = (int) getSession().get("userId");
 		}
 		allOrderList = orderService.viewOrder(userId);
+		return SUCCESS;
+	}
+	
+	private String getShopOrder(){
+		if (getSession().containsKey("userId")) {
+			userId = (int) getSession().get("userId");
+		}
+		allOrderList=orderService.getShopOrder(userId);
+		return SUCCESS;
+	}
+	
+	private String sendOrder(){
+		OrderVo vo=new OrderVo();
+		vo.setId(orderId);
+		if (getSession().containsKey("userId")) {
+			userId = (int) getSession().get("userId");
+		}
+		ResultVo result = orderService.shipOrder(userId, vo, expressNumber);
+		jsonResult.put("resultMessage", result.getResultMessage());
+		return SUCCESS;
+	}
+	
+	private String refundMoney(){
+		OrderVo vo=new OrderVo();
+		vo.setId(orderId);
+		if (getSession().containsKey("userId")) {
+			userId = (int) getSession().get("userId");
+		}
+		ResultVo result = orderService.refundMoney(userId, vo);
+		jsonResult.put("resultMessage", result.getResultMessage());
+		return SUCCESS;
+	}
+	private String getShopWaitSendOrder(){
+		waitSendOrderList=orderService.getShopWaitSendOrder(userId);
+		return SUCCESS;
+	}
+	private String getShopRefundOrder(){
+		refundOrderList=orderService.getShopRefundOrder(userId);
 		return SUCCESS;
 	}
 
@@ -287,6 +349,16 @@ public class MyOrderAction extends BaseAction {
 
 	public void setJsonResult(Map<String, Object> jsonResult) {
 		this.jsonResult = jsonResult;
+	}
+
+	
+
+	public int getRole() {
+		return role;
+	}
+
+	public void setRole(int role) {
+		this.role = role;
 	}
 
 }

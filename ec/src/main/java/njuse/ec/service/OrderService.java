@@ -95,11 +95,11 @@ public interface OrderService {
 	 
 	/**
 	 * 退款成功.
-	 * @param userId 用户编号
+	 * @param shopId 店家编号
 	 * @param order 订单
 	 * @return 结果
 	 */
-	ResultVo refundMoney(int userId, OrderVo order);
+	ResultVo refundMoney(int shopId, OrderVo order);
 
 	/**
 	 * 获得待付款订单.
@@ -130,5 +130,27 @@ public interface OrderService {
 	 * @return 订单列表
 	 */
 	List<OrderElement> getrefundOrder(int userId);
+	
+	/**
+	 * 获得一个店家的所有订单
+	 * @param shopId
+	 * @return 订单列表
+	 */
+	List<OrderElement> getShopOrder(int shopId);
+	
+	/**
+	 * 获得一个店家的所有待发货订单
+	 * @param shopId
+	 * @return 订单列表
+	 */
+	List<OrderElement> getShopWaitSendOrder(int shopId);
+	
+	/**
+	 * 获得一个店家所有申请退款中的订单
+	 * @param shopId
+	 * @return 订单列表
+	 */
+	List<OrderElement> getShopRefundOrder(int shopId);
 	}
+
 

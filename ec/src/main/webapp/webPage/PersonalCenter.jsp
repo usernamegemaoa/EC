@@ -46,28 +46,33 @@
 							</a>
 						</li>
 						<li >
-							<a href="" target="i">订单中心</a>
+							<a>订单中心</a>
 						</li>
 						<li style="margin-left:15px">
 							<a href="myOrder" id="myOrder" name="orderCenter" target="i">我的订单</a>
 						</li>
+						<s:if test="<s:property value="role"/>==1">
 						<li style="margin-left:15px">
 							<a href="cancelOrder" id="cancelOrder" name="orderCenter" target="i">取消订单</a>
 						</li>
+						
 						<li style="margin-left:15px">
 							<a href="refundOrder" id="refund" name="orderCenter" target="i">退款申请</a>
 						</li>
 						<li style="margin-left:15px">
 							<a href="favourite" id="favourite" name="orderCenter" target="i">收藏产品</a>
 						</li>
+						</s:if>
 					</ul>
 					<ul class="nav nav-sidebar">
 						<li  class="active">
-							<a href="">资料信息</a>
+							<a>资料信息</a>
 						</li>
+						<s:if test="<s:property value="role"/>==1">
 						<li style="margin-left:15px">
 							<a href="getAddress" id="address" name="Information" target="i">收货地址</a>
 						</li >
+						</s:if>
 						<li style="margin-left:15px">
 							<a href="jumpChangePassword" id="changeCode" name="Information" target="i">修改密码</a>
 						</li>

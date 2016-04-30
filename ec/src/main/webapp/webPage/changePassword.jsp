@@ -76,9 +76,9 @@
 			success=true;
 		if(success){
 		$.post("json/changePassword",{oldPassword: oldpassword, newPassword1: newpassword1, newPassword2:newpassword2},
-            function (data,status) {//ajax请求完成时执行，result为返回的结果
-                alert(data.resultMessage);
-            })
+				function (data,status) {//ajax请求完成时执行，result为返回的结果
+            alert(data.resultMessage);
+        })
 		}
 	}
 	

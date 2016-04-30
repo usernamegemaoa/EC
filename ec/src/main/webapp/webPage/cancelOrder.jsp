@@ -100,7 +100,7 @@
 					<div class="right">
 						<span style="display: block; margin-bottom: 15px;"><s:property
 								value="#each_order.status" /></span>
-						<s:if test="#each_order.status=='待支付'"||test="#each_order.status=='待发货'"||test="#each_order.status=='退款中'">
+						<s:if test="#each_order.status=='待支付' || #each_order.status=='待发货'">
 							<span><a onclick="cancelOrder('<s:property value="#each_order.orderId"/>')">取消订单</a></span>
 						</s:if>
 					</div>
