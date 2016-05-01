@@ -27,7 +27,16 @@ public class DetailElement {
 	 */
 	private double totalPrice;
 	
+	
+	/**
+	 * 数量.
+	 */
 	private int stockNum;
+	
+	/**
+	 * 购物单id.
+	 */
+	private int castId;
 
 	/**
 	 * @return the size
@@ -91,5 +100,13 @@ public class DetailElement {
 
 	public final void setStockNum(int stockNum) {
 		this.stockNum = stockNum;
+	}
+
+	public final int getCastId() {
+		return castId;
+	}
+
+	public final void setCastId(int castId) {
+		this.castId = castId;
 	}
 }
