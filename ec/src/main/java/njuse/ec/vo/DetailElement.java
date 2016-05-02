@@ -27,9 +27,8 @@ public class DetailElement {
 	 */
 	private double totalPrice;
 	
-	
 	/**
-	 * 数量.
+	 * 库存数量.
 	 */
 	private int stockNum;
 	

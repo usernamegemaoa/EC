@@ -83,6 +83,24 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	public final ResultVo cancelRefund(final int userId,final OrderVo order){
+		ResultVo result = new ResultVo();
+		if (userId < 0) {
+			result.setResultCode(1);
+			result.setResultMessage("请先登录");
+		}else{
+			Order newOrder = order.convertOrderVo(order);
+			boolean success = orderDao.cancelRefund(newOrder);
+			if (success) {
+				result.setResultCode(0);
+			} else {
+				result.setResultCode(1);
+				result.setResultMessage("取消申请退款失败");
+			}
+		}
+		return result;
+	}
+	@Override
 	public final ResultVo cancelOrder(final int userId, final OrderVo order) {
 		// 取消订单
 		ResultVo result = new ResultVo();
@@ -372,6 +390,7 @@ public class OrderServiceImpl implements OrderService {
 			HashMap<Integer, List<OrderInfo>> goodSplit = new HashMap<>();
 			element.setGoodList(new ArrayList<GoodElement>());
 			double totalPrice = 0;
+			int totalNum = 0;
 			while (iInfo.hasNext()) {
 				OrderInfo info = iInfo.next();
 				if (!goodSplit.containsKey(info.getGood_id())) {
@@ -407,14 +426,27 @@ public class OrderServiceImpl implements OrderService {
 					double singleTotal = goodVo.getPrice() * singleInfo.getQuantity();
 					detailElement.setTotalPrice(singleTotal);
 					totalPrice += singleTotal;
+					totalNum += singleInfo.getQuantity();
 					colorElement.getDetailList().add(detailElement);
 				}
 				goodElement.setColorList(new ArrayList<ColorElement>(colorMap.values()));
 				element.getGoodList().add(goodElement);
 			}
 			element.setTotalPrice(totalPrice);
+			element.setTotalNum(totalNum);
+			elements.add(element);
 		}
 		
 		return elements;
+	}
+
+	@Override
+	public final OrderElement oneOrder(final int orderId) {
+		System.out.println("orderid"+orderId);
+		Order order = orderBaseDao.load(Order.class, orderId);
+		List<Order> oneList = new ArrayList<>();
+		oneList.add(order);
+		List<OrderElement> oneElement = convertOrders(oneList);
+		return oneElement.get(0);
 	}
 }

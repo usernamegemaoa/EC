@@ -28,6 +28,11 @@ public class OrderElement {
 	 * 总价.
 	 */
 	private double totalPrice;
+	
+	/**
+	 * 数量总计.
+	 */
+	private int totalNum;
 
 	/**
 	 * @return the orderId
@@ -83,5 +88,19 @@ public class OrderElement {
 	 */
 	public final void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+
+	/**
+	 * @return the totalNum
+	 */
+	public final int getTotalNum() {
+		return totalNum;
+	}
+
+	/**
+	 * @param totalNum the totalNum to set
+	 */
+	public final void setTotalNum(int totalNum) {
+		this.totalNum = totalNum;
 	}
 }

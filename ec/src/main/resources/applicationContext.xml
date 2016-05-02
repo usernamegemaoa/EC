@@ -64,7 +64,9 @@
 	<bean id="AddGoodAction" class="njuse.ec.action.AddGoodAction">
 	</bean>
 	<bean id="GoodInfoAction" class="njuse.ec.action.GoodInfoAction">
-		</bean>
+	</bean>
+	<bean id="OrderAction" class="njuse.ec.action.OrderAction">
+	</bean>
 	<bean id="LogAction" class="njuse.ec.action.LogAction">
 	</bean>
 	<bean id="SearchAction" class="njuse.ec.action.SearchAction">
@@ -76,6 +78,7 @@
 	<bean id="MyCastAction" class="njuse.ec.action.MyCastAction">
 	</bean>
 	
+
 	<!-- 定义 Autowired 自动注入 bean -->
 	<bean
 		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
