@@ -15,7 +15,8 @@
 
 <!-- 可选的Bootstrap主题文件（一般不用引入） -->
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-
+<link rel="stylesheet" href="css/buttons.css">
+<link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
         .col {
             float: left;
@@ -24,7 +25,7 @@
         }
         
         .path {
-            background-color: #c0c0c0;
+            background-color: #F0F0F0;
             text-align: left;
             padding: 5px;
         }
@@ -55,6 +56,8 @@
         .number {
             float: initial;
             width: 100%;
+            table-layout:fixed;
+            
         }
         
         .midpic {
@@ -67,7 +70,7 @@
 </head>
 <body>
     <div class="path">
-        <a href="#">首页</a> / <a href="#">上装</a> / <a href="#">毛衣</a>
+        <a href="Homepage">首页</a>   /   <a href='Category?kindId=<s:property value="fatherKind.kindId"/>&page=0'><s:property value="fatherKind.name"/></a>   /   <a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=0'><s:property value="sonKind.name"/></a>   /   <a><s:property value="name"/></a>
     </div>
     <div class="container" style="padding-top:10px;">
     <div class="row">
@@ -84,66 +87,62 @@
                 </div>
             </div>
              <div class="col-sm-7">
-                <p><strong><s:property value="name"/></strong></p>
+                <p style="font-size:30px"><strong><s:property value="name"/></strong></p>
                 <p class="money">￥<s:property value="price"/></p>
                 <hr>
                 <div class="smailpic">
                     <img src="<s:property value="mainPic"/>" alt="a" />
-                </div>
+                </div >
                 <table class="number">
                     <thead >
-                        <th style="font-size: 18px" id="tsize">尺码</th>
-                        <th style="font-size: 18px">颜色</th>
-                        <th style="font-size: 18px">价格</th>
-                        <th style="font-size: 18px">库存</th>
-                        <th style="font-size: 18px" id="tnumber">购买量</th>
-                        <th style="font-size: 18px">总价</th>
+                        <th style="font-size: 18px" id="tsize" style="width:15%">尺码</th>
+                        <th style="font-size: 18px"  style="width:15%">颜色</th>
+                        <th style="font-size: 18px"  style="width:15%">价格</th>
+                        <th style="font-size: 18px"  style="width:15%">库存</th>
+                        <th style="font-size: 18px" id="tnumber"  style="width:15%">购买量</th>
                     </thead>
-                    <tbody>
+                    <tbody >
                     <s:iterator  value="stocks" var="stock">      
-                        <tr id="<s:property value="#stock.id"/>">
+                        <tr style="line-height:50px" id="<s:property value="#stock.id"/>">
                             <td><s:property value="#stock.size"/></td>
                             <td><s:property value="#stock.color"/></td>
                             <td>￥<s:property value="price"/></td>
                             <td><s:property value="#stock.quantity"/></td>
                             <td>
-                                <div class="btn-group" role="group" aria-label="...">
-  									<button type="button"  class="glyphicon glyphicon-minus" style="background-color:transparent" onclick="deleteGood('<s:property value="#stock.size"/><s:property value="#stock.color"/>','<s:property value="price"/>')"></button>
+  									<button class="button button-primary button-circle button-small " onclick="deleteGood('<s:property value="#stock.size"/><s:property value="#stock.color"/>','<s:property value="price"/>')"><i class="fa fa-minus"></i></button>
  									<span id="<s:property value="#stock.size"/><s:property value="#stock.color"/>">0</span>
-  									<button type="button" class="glyphicon glyphicon-plus" style="background-color:transparent" onclick="addGood('<s:property value="#stock.size"/><s:property value="#stock.color"/>','<s:property value="price"/>','<s:property value="#stock.quantity"/>')"></button>
-								</div>
+  									<button class="button button-primary button-circle button-small " onclick="addGood('<s:property value="#stock.size"/><s:property value="#stock.color"/>','<s:property value="price"/>','<s:property value="#stock.quantity"/>')"><i class="fa fa-plus"></i></button>
                             </td>
+                                                       
                         </tr>
+                                                    
                          </s:iterator>
-                        
-                        <tr style="font-size:25px">
-                        	<td>总计</td>
-                        	<td></td>
-                        	<td></td>
-                        	<td></td>
+                        <tr style="font-size:25px;color: #c40000;">
+                        	<td >总计</td>
                             <td ><span id="totalGood">0</span>件</td>
                             <td >￥<span id="totalMoney">0</span></td>
                         </tr>
                     </tbody>
                 </table>
+                <hr>
                 <div style="padding: 10px;">
-                	<button type="button" class="btn btn-default glyphicon glyphicon-heart" style="float:left" onclick="favourite()">收藏</button>
+                	<button type="button" class="btn btn-default glyphicon glyphicon-heart" style="float:left;background-color: transparent; border: 0;color:#9999CC" onclick="favourite()">收藏</button>
                     <div class="btn-group" role="group" aria-label="..." style="float:right">
- 						<button type="button" class="btn btn-default" onclick="addPlan()">加入购物车</button>
-  						<button type="button" class="btn btn-default">立刻购买</button>
+ 						<button type="button" class="btn btn-default" style="background:#FFC78E" onclick="addPlan()"> <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>加入购物车</button>
+  						<button type="button" class="btn btn-default" style="background:#ACD6FF"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>立刻购买</button>
 					</div>
                 </div>
             </div>
         </div>
         <div class="row" style="padding-top:20px">
             <div class="col-sm-3">
-                <h5>同类热销</h5>
-               <!--   
+                <h5 style="font-size:25px">同类热销</h5>
+               
                <s:iterator value="hotGood" var="each_good">
                 <a href="getGoodInfo?goodId=<s:property value='#each_good.goodId'/>"><img class="img-responsive" src="<s:property value='#each_good.img'/>" alt="a"/></a>
                 <p><s:property value="#each_good.name"/></p>
                 </s:iterator>
-                -->
+                
             </div>
             <div class="col-sm-9">
             <!-- Nav tabs -->
