@@ -14,6 +14,7 @@ import njuse.ec.service.GoodService;
 import njuse.ec.service.UserService;
 import njuse.ec.vo.CastVo;
 import njuse.ec.vo.GoodVo;
+import njuse.ec.vo.KindVo;
 import njuse.ec.vo.ResultVo;
 import njuse.ec.vo.SimpleGoodVo;
 import njuse.ec.vo.StockVo;
@@ -48,6 +49,16 @@ public class GoodInfoAction extends BaseAction {
 	private String img;
 	private String stockIdList;
 	private String numList;
+	private KindVo fatherKind;
+	public KindVo getSonKind() {
+		return sonKind;
+	}
+
+	public void setSonKind(KindVo sonKind) {
+		this.sonKind = sonKind;
+	}
+
+	private KindVo sonKind;
 
 
 	private Map<String,Object> jsonResult;
@@ -57,7 +68,13 @@ public class GoodInfoAction extends BaseAction {
 	}
 
 	public final String getGoodInfo() {
+		super.execute();
 		goodVo = goodService.getDetailGood(goodId);
+		name=goodVo.getName();
+		int sonkindId=goodVo.getKindId();
+		sonKind=goodService.getKind(sonkindId);
+		int fatherKindId=sonKind.getFatherKind();
+		setFatherKind(goodService.getKind(fatherKindId));
 		List<SimpleGoodVo> allHotGood = goodService.getHotGood(goodId);
 		hotGood = new ArrayList<SimpleGoodVo>();
 		for (int i = 0; i < allHotGood.size(); i++) {
@@ -276,6 +293,14 @@ public class GoodInfoAction extends BaseAction {
 
 	public Map<String, Object> getJsonResult() {
 		return jsonResult;
+	}
+
+	public KindVo getFatherKind() {
+		return fatherKind;
+	}
+
+	public void setFatherKind(KindVo fatherKind) {
+		this.fatherKind = fatherKind;
 	}
 
 

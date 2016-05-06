@@ -48,4 +48,17 @@ public interface PlanDAO {
 	 * @return 价格
 	 */
 	double getPrice(Plan plan);
+	
+	/**
+	 * 根据id获取进货单.
+	 * @param planId id
+	 * @return 进货单
+	 */
+	Plan getById(int planId);
+	
+	/**
+	 * 根据id删除进货单.
+	 * @param planId id
+	 */ 
+	void deleteById(int planId);
 }

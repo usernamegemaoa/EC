@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import njuse.ec.service.GoodService;
+import njuse.ec.service.UserService;
 import njuse.ec.vo.KindVo;
 import njuse.ec.vo.SimpleGoodVo;
+import njuse.ec.vo.UserVo;
 
 @Repository
 public class HomepageAction extends BaseAction {
@@ -19,14 +21,25 @@ public class HomepageAction extends BaseAction {
 
 	@Autowired
 	private GoodService goodService;
+	
+	@Autowired
+	private UserService userService;
 
-	private int page;
+	private int page = 0;
 	
 	private List<SimpleGoodVo> latestGoods;
 	
 	private List<KindVo> fatherKinds;
 	
 	private int totalPage;
+
+	public String execute(){
+		super.execute();
+		latestGoods = goodService.getLatestGood(page);
+		totalPage = goodService.getLatestGoodPages();
+		fatherKinds = goodService.getFatherKind();
+		return "success";
+	}
 	
 	public final int getPage() {
 		return page;
@@ -60,10 +73,4 @@ public class HomepageAction extends BaseAction {
 		this.totalPage = totalPage;
 	}
 
-	public String execute(){
-		latestGoods = goodService.getLatestGood(page);
-		totalPage = goodService.getLatestGoodPages();
-		fatherKinds = goodService.getFatherKind();
-		return "success";
-	}
 }

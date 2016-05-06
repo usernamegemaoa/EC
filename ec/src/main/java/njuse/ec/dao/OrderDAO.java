@@ -34,7 +34,7 @@ public interface OrderDAO {
 	 * @param order 订单
 	 * @return 是否成功
 	 */
-	boolean creatOrder(int shopId, List<CastVo> casts, Order order);
+	int creatOrder(int shopId, List<CastVo> casts, Order order);
 
 	/**
 	 * 取消订单.
@@ -49,6 +49,13 @@ public interface OrderDAO {
 	 * @return 是否成功
 	 */
 	boolean payOrder(Order order);
+	
+	/**
+	 * 取消申请退款
+	 * @param order 订单
+	 * @return 是否成功
+	 */
+	boolean cancelRefund(Order order);
 
 	/**
 	 * 发货.

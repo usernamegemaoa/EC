@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import njuse.ec.service.GoodService;
+import njuse.ec.service.UserService;
 import njuse.ec.vo.KindVo;
 import njuse.ec.vo.SimpleGoodVo;
+import njuse.ec.vo.UserVo;
 
 @Repository
 public class CategoryAction extends BaseAction {
@@ -20,9 +22,16 @@ public class CategoryAction extends BaseAction {
 	@Autowired
 	private GoodService goodService;
 	
+	@Autowired
+	private UserService userService;
+	
+	private String userName;
+	
+	private String userId;
+	
 	private int kindId = 1;
 	
-	private int page = 0;
+	private int page;
 	
 	private List<KindVo> fatherKinds;
 	
@@ -39,6 +48,15 @@ public class CategoryAction extends BaseAction {
 	private int totalPage;
 
 	public String execute(){	
+		if (getSession().containsKey("userId")) {
+			int id = (int) getSession().get("userId");
+			UserVo vo = userService.userInfo(id);
+			userName = vo.getName();
+			userId = String.valueOf(vo.getId());
+		} else {
+			userId = "0";
+			userName = "";
+		}
 		fatherKind = goodService.getKind(kindId);
 		if(fatherKind.getFatherKind() == 0) {
 			sonKind = goodService.getSonKind(fatherKind).get(0);
@@ -49,7 +67,6 @@ public class CategoryAction extends BaseAction {
 		fatherKinds = goodService.getFatherKind();
 		sonKinds = goodService.getSonKind(fatherKind);
 		goodsList = goodService.getKindGood(sonKind, page);
-//		System.out.print(goodsList.get(0).getMainPic());
 		fatherId = fatherKind.getKindId();
 		totalPage = goodService.getKindGoodPages(sonKind);
 		return "success";
@@ -125,5 +142,13 @@ public class CategoryAction extends BaseAction {
 
 	public final void setTotalPage(int totalPage) {
 		this.totalPage = totalPage;
+	}
+
+	public final String getUserName() {
+		return userName;
+	}
+
+	public final String getUserId() {
+		return userId;
 	}
 }

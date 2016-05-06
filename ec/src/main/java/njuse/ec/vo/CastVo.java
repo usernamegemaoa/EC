@@ -10,6 +10,10 @@ import njuse.ec.model.OrderInfo;
  * @author 阳
  *
  */
+/**
+ * @author 阳
+ *
+ */
 public class CastVo {
 
 	/**
@@ -47,6 +51,15 @@ public class CastVo {
 	 */
 	private int num;
 	
+	/**
+	 * 库存数量.
+	 */
+	private int stockNum;
+	
+	/**
+	 * 价格.
+	 */
+	private double price;
 
 	/**
 	 * 获取用户id.
@@ -158,6 +171,22 @@ public class CastVo {
 	 */
 	public final void setNum(final int newNum) {
 		this.num = newNum;
+	}
+
+	public final int getStockNum() {
+		return stockNum;
+	}
+
+	public final void setStockNum(int stockNum) {
+		this.stockNum = stockNum;
+	}
+
+	public final double getPrice() {
+		return price;
+	}
+
+	public final void setPrice(double price) {
+		this.price = price;
 	}
 
 }
