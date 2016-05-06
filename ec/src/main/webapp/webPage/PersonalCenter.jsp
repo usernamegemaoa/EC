@@ -46,7 +46,7 @@
 <body>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-3 col-md-2 sidebar"
+			<div class="col-sm-3 sidebar"
 				style="font-family: 'Microsoft Yahei', Tahoma, Arial, Helvetica, Simsun, STHeiti; margin-left: 100px; margin-top: 20px; width: 9%">
 				<ul class="nav nav-sidebar">
 					<li class="active bac"><a href="getUserInfo" id="thisPerson"
@@ -85,10 +85,12 @@
 					</li>
 				</ul>
 			</div>
+			<div class="col-sm-9">
 			<iframe src="getUserInfo" id="iframe" name="i"
-				class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"
-				style="height: 700px; width: 81%; margin-left: 20px; margin-top: 10px"
+				class="main"
+				style="height: 700px; width: 100%; margin-left: 20px; margin-top: 10px"
 				frameborder="0" scrolling="yes"> </iframe>
+			</div>
 		</div>
 	</div>
 </body>

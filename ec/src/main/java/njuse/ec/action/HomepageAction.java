@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import njuse.ec.service.GoodService;
+import njuse.ec.service.UserService;
 import njuse.ec.vo.KindVo;
 import njuse.ec.vo.SimpleGoodVo;
+import njuse.ec.vo.UserVo;
 
 @Repository
 public class HomepageAction extends BaseAction {
@@ -19,6 +21,12 @@ public class HomepageAction extends BaseAction {
 
 	@Autowired
 	private GoodService goodService;
+	
+	@Autowired
+	private UserService userService;
+	
+	private String userName;
+	private String userId;
 
 	private int page;
 	
@@ -27,6 +35,22 @@ public class HomepageAction extends BaseAction {
 	private List<KindVo> fatherKinds;
 	
 	private int totalPage;
+
+	public String execute(){
+		if (getSession().containsKey("userId")) {
+			int userId = (int) getSession().get("userId");
+			UserVo vo = userService.userInfo(userId);
+			userName = vo.getName();
+			userId = vo.getId();
+		} else {
+			userId = "0";
+			userName = "";
+		}
+		latestGoods = goodService.getLatestGood(page);
+		totalPage = goodService.getLatestGoodPages();
+		fatherKinds = goodService.getFatherKind();
+		return "success";
+	}
 	
 	public final int getPage() {
 		return page;
@@ -60,10 +84,18 @@ public class HomepageAction extends BaseAction {
 		this.totalPage = totalPage;
 	}
 
-	public String execute(){
-		latestGoods = goodService.getLatestGood(page);
-		totalPage = goodService.getLatestGoodPages();
-		fatherKinds = goodService.getFatherKind();
-		return "success";
+	/**
+	 * @return the userName
+	 */
+	public final String getUserName() {
+		return userName;
 	}
+
+	/**
+	 * @return the userId
+	 */
+	public final String getUserId() {
+		return userId;
+	}
+
 }
