@@ -42,7 +42,12 @@
 <title>Favourite</title>
 </head>
 <body>
+	<s:if test="favouriteGoodList.size==0">
+		<div style="text-align: center; font-size: 60px">
+			您还没有任何收藏商品，赶紧去收藏哦！</div>
+	</s:if>
 	<s:iterator value="favouriteGoodList" var="each_favourite">
+
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">
@@ -76,8 +81,7 @@
 					</button>
 					<button type="button" class="btn btn-primary btn-lg"
 						onclick="unfavour'<s:property value="#each_favourite.goodId"/>')">
-						取消收藏
-					</button>
+						取消收藏</button>
 				</div>
 			</div>
 

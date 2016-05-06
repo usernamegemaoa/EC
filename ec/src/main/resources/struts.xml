@@ -11,6 +11,7 @@
 		</action>
 		<action name="myOrder" class="MyOrderAction">
 			<result name="success">/webPage/MyOrder.jsp</result>
+			<result name="shop">/webPage/shopOrder.jsp</result>
 		</action>
 		<action name="Category" class="CategoryAction">
 			<result name="success">/webPage/category.jsp</result>
@@ -20,6 +21,9 @@
 		</action>
 		<action name="refundOrder" class="MyOrderAction">
 			<result name="success">/webPage/refundOrder.jsp</result>
+		</action>
+		<action name="sendOrderForm" class="MyOrderAction" method="sendOrder">
+			<result name="success">/webPage/shopOrder.jsp</result>
 		</action>
 		<action name="personalCenter" class="PersonalCenterAction">
 			<result name="success">/webPage/PersonalCenter.jsp</result>
@@ -105,7 +109,7 @@
 				<param name="root">jsonResult</param>
 			</result>
 		</action>
-		<action name="favourite" class="GoodInfoAction" method="favourite">
+		<action name="addFavourite" class="GoodInfoAction" method="favourite">
 			<result type="json">
 				<param name="root">jsonResult</param>
 			</result>
@@ -131,6 +135,11 @@
 			</result>
 		</action>
 		<action name="refundOrder" class="MyOrderAction" method="refundOrder">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="refundMoney" class="MyOrderAction" method="refundMoney">
 			<result type="json">
 				<param name="root">jsonResult</param>
 			</result>
