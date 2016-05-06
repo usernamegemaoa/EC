@@ -3571,10 +3571,10 @@ INSERT INTO `plan` (`id`, `stock_id`, `user_id`, `quantity`) VALUES
 (3, 3, 276, 1);
 
 INSERT INTO `Picture` (`id`, `good_id`, `file`, `main`) VALUES
-(1, 1, 'img/ad2.jpg', 'true'),
-(2, 2, 'img/ad2.jpg', 'true'),
-(3, 1, 'img/ad2.jpg', 'false'),
-(4, 123, 'img/ad2.jpg', 'true');
+(1, 1, 'img/good.jpg', 'true'),
+(2, 2, 'img/good.jpg', 'true'),
+(3, 1, 'img/good.jpg', 'false'),
+(4, 123, 'img/good.jpg', 'true');
 
 INSERT INTO `comment` (`id`, `good_id`, `user_id`, `score`, `content`, `time`) VALUES
 (1, 1, 123, 3, "一般", now()),
