@@ -68,6 +68,7 @@ public class GoodInfoAction extends BaseAction {
 	}
 
 	public final String getGoodInfo() {
+		super.execute();
 		goodVo = goodService.getDetailGood(goodId);
 		name=goodVo.getName();
 		int sonkindId=goodVo.getKindId();

@@ -56,6 +56,7 @@ public class PersonalCenterAction extends BaseAction {
 	private Map<String, Object> jsonResult;
 
 	public String execute() {
+		super.execute();
 		UserVo vo = new UserVo();
 		if (getSession().containsKey("userId")) {
 			int userId = (int) getSession().get("userId");

@@ -27,6 +27,8 @@
 <!-- Custom styles for this template -->
 <link href="dashboard.css" rel="stylesheet">
 
+<link href="css/homepage.css" rel="stylesheet">
+
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
@@ -45,6 +47,9 @@
 
 <body>
 	<div class="container">
+	<div class="row">
+		<jsp:include page="head.jsp"></jsp:include>
+	</div>
 		<div class="row">
 			<div class="col-sm-2 sidebar"
 				style="font-family: 'Microsoft Yahei', Tahoma, Arial, Helvetica, Simsun, STHeiti;">
