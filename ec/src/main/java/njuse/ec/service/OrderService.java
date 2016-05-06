@@ -16,6 +16,13 @@ import njuse.ec.vo.ResultVo;
 public interface OrderService {
 	
 	/**
+	 * 获取order vo.
+	 * @param orderId id
+	 * @return vo
+	 */
+	OrderVo getOrder(int orderId);
+	
+	/**
 	 * 获取一个订单.
 	 * @param orderId id
 	 * @return order节点

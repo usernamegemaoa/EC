@@ -124,8 +124,10 @@
 										<span style="display: block; margin-bottom: 15px;"><s:property
 												value="#each_order.status" /></span>
 										<s:if test="#each_order.status=='待支付'">
+
 											<span><a
-												href="order?orderId=<s:property value="#each_order.orderId" />">(前往支付)</a></span>
+												href="order?orderId=<s:property value="#each_order.orderId" />"
+												target="_top">(前往支付)</a></span>
 										</s:if>
 									</div>
 								</div>
@@ -408,6 +410,8 @@
 				alert(data.resultMessage);
 			});
 		}
+	
+		
 	</script>
 </body>
 </html>
