@@ -42,6 +42,7 @@ public class OrderServiceImpl implements OrderService {
 	 */
 	@Autowired
 	private OrderDAO orderDao;
+	
 	/**
 	 * plan dao.
 	 */
@@ -110,7 +111,7 @@ public class OrderServiceImpl implements OrderService {
 			result.setResultMessage("请先登录");
 		} else {
 			OrderStatus state = order.getStatus();
-			Order newOrder = order.convertOrderVo(order);
+			Order newOrder = orderBaseDao.load(Order.class, order.getId());
 			if (state == OrderStatus.WaitConfirm) {
 				result.setResultCode(1);
 				result.setResultMessage("订单已发货无法取消");
