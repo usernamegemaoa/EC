@@ -6,9 +6,6 @@
 <struts>
 	<constant name="struts.multipart.maxSize" value="10485760" />
 	<package name="webpage" namespace="/" extends="struts-default">
-		<action name="" class="IndexAction">
-			<result name="success">/webPage/index.jsp</result>
-		</action>
 		<action name="myOrder" class="MyOrderAction">
 			<result name="success">/webPage/MyOrder.jsp</result>
 			<result name="shop">/webPage/shopOrder.jsp</result>
@@ -43,6 +40,9 @@
 		<action name="AddGoodForm" class="AddGoodAction" method="addInfo">
 			<result name="success">/webPage/AddGood.jsp</result>
 		</action>
+		<action name="modifyInfo" class="PersonalCenterAction" method="modifyInfo">
+			<result name="success" type="redirect">/getUserInfo</result>
+		</action>
 		<action name="AddAddressForm" class="AddressAction" method="addAddress">
 			<result name="success">/webPage/AddressCenter.jsp</result>
 		</action>
@@ -59,7 +59,7 @@
 			<result name="success">/webPage/search.jsp</result>
 			<result name="homepage" type="chain">Homepage</result>
 		</action>
-		<action name="Homepage" class="HomepageAction">
+		<action name="" class="HomepageAction">
 			<result name="success">/webPage/homepage.jsp</result>
 		</action>
 		<action name="favourite" class="MyOrderAction" method="getFavourite">
@@ -70,7 +70,7 @@
 		</action>
 		<action name="myCast" class="MyCastAction">
 			<result name="success">/webPage/MyCast.jsp</result>
-			</action>
+		</action>
 		<action name="order" class="OrderAction">
 			<result name="success">/webPage/order.jsp</result>
 		</action>
@@ -80,11 +80,6 @@
 	</package>
 	<package name="json" namespace="/json" extends="struts-default,json-default">
 		<action name="changePassword" class="UserAction" method="changePassword">
-			<result type="json">
-				<param name="root">jsonResult</param>
-			</result>
-		</action>
-		<action name="modifyInfo" class="PersonalCenterAction" method="modifyInfo">
 			<result type="json">
 				<param name="root">jsonResult</param>
 			</result>
