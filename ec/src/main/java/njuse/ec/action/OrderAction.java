@@ -39,6 +39,7 @@ public class OrderAction extends BaseAction {
 	private UserVo userVo;
 
 	public String execute() {
+		super.execute();
 		element = orderService.oneOrder(orderId);
 		if (getSession().containsKey("userId")) {
 			userVo = userService.userInfo((int) getSession().get("userId"));
