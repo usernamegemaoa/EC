@@ -26,9 +26,10 @@ public class HomepageAction extends BaseAction {
 	private UserService userService;
 	
 	private String userName;
+	
 	private String userId;
 
-	private int page;
+	private int page = 0;
 	
 	private List<SimpleGoodVo> latestGoods;
 	

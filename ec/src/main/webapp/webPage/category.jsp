@@ -36,22 +36,22 @@
 	</div>
 	<div class="menu" style="height: 30px;">
 		<ul class="left-list">
-			<li><a href="">主页</a></li>
-			<li><a href="">每日上新</a></li>
+			<li><a href="#">主页</a></li>
 			<s:iterator value="fatherKinds" id="each_father">
 				<li><a href='Category?kindId=<s:property value="#each_father.kindId"/>&page=0'><s:property value="#each_father.name" /></a></li>
 			</s:iterator>
-			<li><a href="">关于我们</a></li>
-			<li><a href="">常见问题</a></li>
 		</ul>
 		<ul class="right-list">
-			<li><s:property value="fatherKind.kindId" /></li>
-			
-			<li><a href="">用户id</a></li>
-			<li><a href="">退出</a></li>
-			<li><a href="">我的订单</a></li>
-			<li><a href="">个人中心</a></li>
-			<li><a href="">进货单</a></li>
+		<s:if test='userId==0'>
+			<li><a href="login">登录</a></li>
+			<li><a href="regiest">注册</a></li>
+		</s:if>
+		<s:else>		
+			<li><s:property value="userName" /></li>
+			<li><a href="logout">退出</a></li>
+			<li><a href="personalCenter">个人中心</a></li>
+			<li><a href="myCast">进货单</a></li>
+		</s:else>
 		</ul>
 	</div>
 	<hr style="margin: 10px; height: 0.5px; border: none; border-top: 2px solid #DDDDDD;" />
