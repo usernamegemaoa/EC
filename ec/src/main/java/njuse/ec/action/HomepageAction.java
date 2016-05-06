@@ -39,10 +39,10 @@ public class HomepageAction extends BaseAction {
 
 	public String execute(){
 		if (getSession().containsKey("userId")) {
-			int userId = (int) getSession().get("userId");
-			UserVo vo = userService.userInfo(userId);
+			int id = (int) getSession().get("userId");
+			UserVo vo = userService.userInfo(id);
 			userName = vo.getName();
-			userId = vo.getId();
+			userId = String.valueOf(vo.getId());
 		} else {
 			userId = "0";
 			userName = "";
