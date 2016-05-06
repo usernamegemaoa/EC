@@ -271,7 +271,7 @@ public class UserServiceImpl implements UserService {
 				addressDao.update(address);
 			}
 		}
-		
+		userDao.update(user);
 		result.setResultCode(0);
 		result.setResultMessage("修改成功");
 		return result;

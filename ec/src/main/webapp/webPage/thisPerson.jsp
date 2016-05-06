@@ -45,13 +45,20 @@
 
 
 		<div id="personInfo">
-			<div style="text-align: center;font-size:40px">个人资料</div>
+			<div style="text-align: center; font-size: 40px">个人资料</div>
 			<div class="infoTable" id="infoTable"
 				style="margin-left: auto; margin-right: auto">
 				<div>
-					<span class="content1-picture"> <img class="image"
-						src="<s:property value="icon"/>" />
-					</span>
+					<s:if test='icon=="img/a.jpg"'>
+						<span class="content1-picture"> <img class="image"
+							src="img/icon.jpeg" />
+						</span>
+					</s:if>
+					<s:else>
+						<span class="content1-picture"> <img class="image"
+							src="<s:property value="icon"/>" />
+						</span>
+					</s:else>
 				</div>
 				<ul class="list-group">
 					<li class="list-group-item"><span class="badge"><s:property
@@ -79,14 +86,14 @@
 								<h4 class="modal-title" id="myModalLabel">编辑个人资料</h4>
 							</div>
 							<div class="modal-body">
-								<form action="modifyInfo" method="POST" id="info-form">
+								<form action="modifyInfo" method="POST" id="info-form"
+									enctype="multipart/form-data">
 									<ul>
 										<div class="form-group">
 											<label for="name">昵称</label> <input type="text"
 												class="form-control" id="name"
-												placeholder="<s:property
-							value="name" /> "
-												name="name">
+												value="<s:property
+							value="name" /> " name="name">
 										</div>
 										<div class="form-group">
 											<label for="sex0">性别</label> <label class="radio-inline">
@@ -99,9 +106,8 @@
 										<div class="form-group">
 											<label for="name">邮箱</label> <input type="text"
 												class="form-control" id="email"
-												placeholder="<s:property
-							value="email" /> "
-												name="email">
+												value="<s:property
+							value="email" /> " name="email">
 										</div>
 										<div class="form-group ">
 											<label for="birth">生日</label>
@@ -114,7 +120,11 @@
 													class="icon-th"></i></span>
 											</div>
 										</div>
-
+										<div class="form-group">
+											<label for="mainphoto">上传头像</label> <input type="file"
+												id="mainphoto" name="mainpic" aria-describedby="mainhelp">
+											<span id="mainhelp" class="help-block"></span>
+										</div>
 									</ul>
 								</form>
 							</div>
@@ -145,15 +155,9 @@
 			language : 'zh-CN'
 		});
 
-		$('#save').click(
-						function() {
-							$.post("json/modifyInfo", $("#info-form").serialize(),
-									function(data, status) {
-										alert("修改成功");
-										
-									});
-							$('#myModal').modal('hide');
-						});
+		$('#save').click(function() {
+			$("#info-form").submit();
+		});
 
 		$("#cancelAdd").click(
 				function() {
