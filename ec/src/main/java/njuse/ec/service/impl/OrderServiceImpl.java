@@ -220,10 +220,10 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public final ResultVo refundMoney(final int userId, final OrderVo order) {
+	public final ResultVo refundMoney(final int shopId, final OrderVo order) {
 		// 确认退款
 		ResultVo result = new ResultVo();
-		if (userId < 0) {
+		if (shopId < 0) {
 			result.setResultCode(1);
 			result.setResultMessage("请先登录");
 		} else {
@@ -455,6 +455,51 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	public final List<OrderElement> getShopOrder(final int shopId) {
+		List<Order> orders = orderBaseDao.findlist(
+				Order.class, 
+				"shop_id", 
+				String.valueOf(shopId));
+		
+		return convertOrders(orders);
+	}
+
+	@Override
+	public List<OrderElement> getShopWaitSendOrder(int shopId) {
+		//查看待发货订单
+		List<Order> orders = orderBaseDao.findlist(
+				Order.class, 
+				"shop_id", 
+				String.valueOf(shopId));
+		Iterator<Order> i = orders.iterator();
+		while (i.hasNext()) {
+			Order order = i.next();
+			if (order.getState() != OrderStatus.WaitSend.getCode() + 1) {
+				i.remove();
+			}
+		}
+		
+		return convertOrders(orders);
+	}
+	
+	@Override
+	public List<OrderElement> getShopRefundOrder(int shopId) {
+		//查看退款中订单
+		List<Order> orders = orderBaseDao.findlist(
+				Order.class, 
+				"shop_id", 
+				String.valueOf(shopId));
+		Iterator<Order> i = orders.iterator();
+		while (i.hasNext()) {
+			Order order = i.next();
+			if (order.getState() != OrderStatus.Refund.getCode() + 1) {
+				i.remove();
+			}
+		}
+		
+		return convertOrders(orders);
+	}
+	
 	public OrderVo getOrder(int orderId) {
 		Order order = orderBaseDao.load(Order.class, orderId);
 		OrderVo vo = new OrderVo();
