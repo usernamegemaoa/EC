@@ -118,6 +118,13 @@ public class MyCastAction extends BaseAction {
 			OrderVo order = new OrderVo();
 			order.setStatus(OrderStatus.WaitPay);
 			orderId = Integer.parseInt((orderService.creatOrder(userId, cast, order)).getResultMessage());
+			System.out.println("cast num" + cast.size());
+			for(int i = 0; i < cast.size(); i++) {
+				CastVo sigCast = cast.get(i);
+				int id = sigCast.getCastId();
+				castService.deleteById(id);
+				System.out.println("action order" + id);
+			}
 			jsonResult.put("code", 1);
 			jsonResult.put("orderId", orderId);
 		} else {
