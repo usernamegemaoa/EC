@@ -24,9 +24,6 @@ public class HomepageAction extends BaseAction {
 	
 	@Autowired
 	private UserService userService;
-	
-	private String userName;
-	private String userId;
 
 	private int page;
 	
@@ -37,15 +34,7 @@ public class HomepageAction extends BaseAction {
 	private int totalPage;
 
 	public String execute(){
-		if (getSession().containsKey("userId")) {
-			int id = (int) getSession().get("userId");
-			UserVo vo = userService.userInfo(id);
-			userName = vo.getName();
-			userId = String.valueOf(vo.getId());
-		} else {
-			userId = "0";
-			userName = "";
-		}
+		super.execute();
 		latestGoods = goodService.getLatestGood(page);
 		totalPage = goodService.getLatestGoodPages();
 		fatherKinds = goodService.getFatherKind();
@@ -82,20 +71,6 @@ public class HomepageAction extends BaseAction {
 
 	public void setTotalPage(int totalPage) {
 		this.totalPage = totalPage;
-	}
-
-	/**
-	 * @return the userName
-	 */
-	public final String getUserName() {
-		return userName;
-	}
-
-	/**
-	 * @return the userId
-	 */
-	public final String getUserId() {
-		return userId;
 	}
 
 }

@@ -42,7 +42,7 @@
 			</s:iterator>
 		</ul>
 		<ul class="right-list">
-		<s:if test='userId=="0"'>
+		<s:if test='userId==0'>
 			<li><a href="login">登录</a></li>
 			<li><a href="regiest">注册</a></li>
 		</s:if>
