@@ -75,6 +75,9 @@
 	</bean>
 	<bean id="AddressAction" class="njuse.ec.action.AddressAction">
 	</bean>
+	<bean id="MyCastAction" class="njuse.ec.action.MyCastAction">
+	</bean>
+	
 
 	<!-- 定义 Autowired 自动注入 bean -->
 	<bean

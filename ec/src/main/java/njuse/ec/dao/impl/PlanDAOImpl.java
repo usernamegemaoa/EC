@@ -72,4 +72,14 @@ public class PlanDAOImpl implements PlanDAO {
 		double price = (int) result.get(0);
 		return price;
 	}
+
+	@Override
+	public Plan getById(int planId) {
+		return baseDao.find(Plan.class, "id", String.valueOf(planId));
+	}
+
+	@Override
+	public void deleteById(int planId) {
+		baseDao.delete(Plan.class, String.valueOf(planId));
+	}
 }

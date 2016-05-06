@@ -45,7 +45,7 @@
 
 
 		<div id="personInfo">
-			<div style="text-align: center">个人资料</div>
+			<div style="text-align: center;font-size:40px">个人资料</div>
 			<div class="infoTable" id="infoTable"
 				style="margin-left: auto; margin-right: auto">
 				<div>

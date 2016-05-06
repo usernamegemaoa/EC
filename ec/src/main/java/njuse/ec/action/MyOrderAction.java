@@ -20,6 +20,7 @@ import njuse.ec.vo.OrderDetailVo;
 import njuse.ec.vo.OrderElement;
 import njuse.ec.vo.OrderVo;
 import njuse.ec.vo.ResultVo;
+import njuse.ec.vo.UserVo;
 
 @Repository
 public class MyOrderAction extends BaseAction {
@@ -49,17 +50,41 @@ public class MyOrderAction extends BaseAction {
 	private double price;
 	private String status;
 	private int id;
+	private String expressNumber;
+
+	public String getExpressNumber() {
+		return expressNumber;
+	}
+
+	public void setExpressNumber(String expressNumber) {
+		this.expressNumber = expressNumber;
+	}
+
 	private int orderId;
+	private int role;// 1 用户 2店家
 	private ArrayList<String> pictureList;
 	private Map<String, Object> jsonResult;
 
 	public String execute() {
-		getAllOrder();
-		getWaitPayOrder();
-		getWaitSendOrder();
-		getWaitConfirmOrder();
-		getrefundOrder();
-		return SUCCESS;
+		if (getSession().containsKey("userId")) {
+			userId = (int) getSession().get("userId");
+		}
+		UserVo vo = userService.userInfo(userId);
+		if (vo.getRole() == 1) {
+			role = 1;
+			getAllOrder();
+			getWaitPayOrder();
+			getWaitSendOrder();
+			getWaitConfirmOrder();
+			getrefundOrder();
+			return SUCCESS;
+		} else {
+			role = 2;
+			getShopOrder();
+			getShopWaitSendOrder();
+			getShopRefundOrder();
+			return "shop";
+		}
 	}
 
 	public String getAllOrder() {
@@ -68,6 +93,46 @@ public class MyOrderAction extends BaseAction {
 			userId = (int) getSession().get("userId");
 		}
 		allOrderList = orderService.viewOrder(userId);
+		return SUCCESS;
+	}
+
+	private String getShopOrder() {
+		if (getSession().containsKey("userId")) {
+			userId = (int) getSession().get("userId");
+		}
+		allOrderList = orderService.getShopOrder(userId);
+		return SUCCESS;
+	}
+
+	private String sendOrder() {
+		OrderVo vo = new OrderVo();
+		vo.setId(orderId);
+		if (getSession().containsKey("userId")) {
+			userId = (int) getSession().get("userId");
+		}
+		ResultVo result = orderService.shipOrder(userId, vo, expressNumber);
+		jsonResult.put("resultMessage", result.getResultMessage());
+		return SUCCESS;
+	}
+
+	private String refundMoney() {
+		OrderVo vo = new OrderVo();
+		vo.setId(orderId);
+		if (getSession().containsKey("userId")) {
+			userId = (int) getSession().get("userId");
+		}
+		ResultVo result = orderService.refundMoney(userId, vo);
+		jsonResult.put("resultMessage", result.getResultMessage());
+		return SUCCESS;
+	}
+
+	private String getShopWaitSendOrder() {
+		waitSendOrderList = orderService.getShopWaitSendOrder(userId);
+		return SUCCESS;
+	}
+
+	private String getShopRefundOrder() {
+		refundOrderList = orderService.getShopRefundOrder(userId);
 		return SUCCESS;
 	}
 
@@ -92,8 +157,8 @@ public class MyOrderAction extends BaseAction {
 		jsonResult.put("resultMessage", result.getResultMessage());
 		return SUCCESS;
 	}
-	
-	public String cancelRefund(){
+
+	public String cancelRefund() {
 		OrderVo vo = new OrderVo();
 		vo.setId(orderId);
 		if (getSession().containsKey("userId")) {
@@ -115,32 +180,34 @@ public class MyOrderAction extends BaseAction {
 		return SUCCESS;
 	}
 
-	
-	public String getFavourite(){
+	public String getFavourite() {
+		favouriteGoodList = new ArrayList<GoodVo>();
 		if (getSession().containsKey("userId")) {
 			userId = (int) getSession().get("userId");
 		}
-		List<FavouriteVo> favourite=userService.favourites(userId);
-		Iterator<FavouriteVo> i=favourite.iterator();
-		while(i.hasNext()){
-			FavouriteVo vo=i.next();
-			GoodVo good=new GoodVo();
-			goodId=vo.getGoodId();
-			good=goodService.getDetailGood(goodId);
+		List<FavouriteVo> favourite = userService.favourites(userId);
+		Iterator<FavouriteVo> i = favourite.iterator();
+		while (i.hasNext()) {
+			FavouriteVo vo = i.next();
+			GoodVo good = new GoodVo();
+			goodId = vo.getGoodId();
+			good = goodService.getDetailGood(goodId);
 			favouriteGoodList.add(good);
-			
+
 		}
+		System.out.println("favouriteGoodList=============" + favouriteGoodList.size());
 		return SUCCESS;
 	}
-	
-	public String unfavour(){
+
+	public String unfavour() {
 		if (getSession().containsKey("userId")) {
 			userId = (int) getSession().get("userId");
 		}
-		ResultVo result=userService.unFavour(userId, goodId);
+		ResultVo result = userService.unFavour(userId, goodId);
 		jsonResult.put("resultMessage", result.getResultMessage());
 		return SUCCESS;
 	}
+
 	public String getWaitPayOrder() {
 		waitPayOrderList = orderService.getWaitPayOrder(userId);
 		return SUCCESS;
@@ -287,6 +354,22 @@ public class MyOrderAction extends BaseAction {
 
 	public void setJsonResult(Map<String, Object> jsonResult) {
 		this.jsonResult = jsonResult;
+	}
+
+	public int getRole() {
+		return role;
+	}
+
+	public void setRole(int role) {
+		this.role = role;
+	}
+
+	public List<GoodVo> getFavouriteGoodList() {
+		return favouriteGoodList;
+	}
+
+	public void setFavouriteGoodList(List<GoodVo> favouriteGoodList) {
+		this.favouriteGoodList = favouriteGoodList;
 	}
 
 }

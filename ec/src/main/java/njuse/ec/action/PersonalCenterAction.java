@@ -39,6 +39,7 @@ public class PersonalCenterAction extends BaseAction {
 		this.male = male;
 	}
 
+	private int role;
 	private String icon;
 	private String email;
 	private int score;
@@ -47,6 +48,15 @@ public class PersonalCenterAction extends BaseAction {
 	private Map<String, Object> jsonResult;
 
 	public String execute() {
+		UserVo vo = new UserVo();
+		if (getSession().containsKey("userId")) {
+			int userId = (int) getSession().get("userId");
+			vo = userService.userInfo(userId);
+		}
+		if(vo.getRole()==1){
+			role=1;
+		}else
+			role=2;
 		return SUCCESS;
 	}
 
@@ -161,6 +171,14 @@ public class PersonalCenterAction extends BaseAction {
 
 	public void setModifybirthday(Date modifybirthday) {
 		this.modifybirthday = modifybirthday;
+	}
+
+	public int getRole() {
+		return role;
+	}
+
+	public void setRole(int role) {
+		this.role = role;
 	}
 
 }

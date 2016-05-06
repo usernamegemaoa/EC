@@ -11,6 +11,7 @@
 		</action>
 		<action name="myOrder" class="MyOrderAction">
 			<result name="success">/webPage/MyOrder.jsp</result>
+			<result name="shop">/webPage/shopOrder.jsp</result>
 		</action>
 		<action name="Category" class="CategoryAction">
 			<result name="success">/webPage/category.jsp</result>
@@ -20,6 +21,9 @@
 		</action>
 		<action name="refundOrder" class="MyOrderAction">
 			<result name="success">/webPage/refundOrder.jsp</result>
+		</action>
+		<action name="sendOrderForm" class="MyOrderAction" method="sendOrder">
+			<result name="success">/webPage/shopOrder.jsp</result>
 		</action>
 		<action name="personalCenter" class="PersonalCenterAction">
 			<result name="success">/webPage/PersonalCenter.jsp</result>
@@ -64,6 +68,9 @@
 		<action name="getAddress" class="AddressAction" method="getAddress">
 			<result name="success">/webPage/AddressCenter.jsp</result>
 		</action>
+		<action name="myCast" class="MyCastAction">
+			<result name="success">/webPage/MyCast.jsp</result>
+			</action>
 		<action name="order" class="OrderAction">
 			<result name="success">/webPage/order.jsp</result>
 		</action>
@@ -102,7 +109,7 @@
 				<param name="root">jsonResult</param>
 			</result>
 		</action>
-		<action name="favourite" class="GoodInfoAction" method="favourite">
+		<action name="addFavourite" class="GoodInfoAction" method="favourite">
 			<result type="json">
 				<param name="root">jsonResult</param>
 			</result>
@@ -132,12 +139,22 @@
 				<param name="root">jsonResult</param>
 			</result>
 		</action>
+		<action name="refundMoney" class="MyOrderAction" method="refundMoney">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
 		<action name="login" class="LogAction" method="loginUser">
 			<result type="json">
 				<param name="root">jsonResult</param>
 			</result>
 		</action>
 		<action name="cancelRefund" class="MyOrderAction" method="cancelRefund">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="createOrder" class="MyCastAction" method="createOrder">
 			<result type="json">
 				<param name="root">jsonResult</param>
 			</result>
