@@ -57,7 +57,7 @@
 		</action>
 		<action name="Search" class="SearchAction">
 			<result name="success">/webPage/search.jsp</result>
-			<result name="homepage" type="chain">Homepage</result>
+			<result name="homepage" type="redirect">/</result>
 		</action>
 		<action name="" class="HomepageAction">
 			<result name="success">/webPage/homepage.jsp</result>
