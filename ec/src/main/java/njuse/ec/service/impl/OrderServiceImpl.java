@@ -359,6 +359,10 @@ public class OrderServiceImpl implements OrderService {
 			Order order = iOrder.next();
 			OrderElement element = new OrderElement();
 			element.setOrderId(order.getId());
+			element.setPeopleName(order.getPeople());
+			element.setPhone(order.getPhone());
+			element.setPlaceCode(order.getPlace_code());
+			element.setPlaceName(order.getPlace_name());
 			switch(order.getState()) {
 			case 1:
 				element.setStatus("待支付");
@@ -448,5 +452,13 @@ public class OrderServiceImpl implements OrderService {
 		oneList.add(order);
 		List<OrderElement> oneElement = convertOrders(oneList);
 		return oneElement.get(0);
+	}
+
+	@Override
+	public OrderVo getOrder(int orderId) {
+		Order order = orderBaseDao.load(Order.class, orderId);
+		OrderVo vo = new OrderVo();
+		vo = vo.convertOrder(order);
+		return vo;
 	}
 }

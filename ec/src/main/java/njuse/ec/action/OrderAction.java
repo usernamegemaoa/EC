@@ -1,11 +1,15 @@
 package njuse.ec.action;
 
+import java.util.Iterator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import njuse.ec.service.OrderService;
 import njuse.ec.service.UserService;
+import njuse.ec.vo.AddressVo;
 import njuse.ec.vo.OrderElement;
+import njuse.ec.vo.OrderVo;
 import njuse.ec.vo.UserVo;
 
 /**
@@ -28,6 +32,7 @@ public class OrderAction extends BaseAction {
 	private UserService userService;
 	
 	private int orderId;
+	private int addressId;
 	
 	private OrderElement element;
 	
@@ -42,7 +47,20 @@ public class OrderAction extends BaseAction {
 	}
 	
 	public String pay() {
-		
+		OrderVo vo = orderService.getOrder(orderId);
+		userVo = userService.userInfo((int) getSession().get("userId"));
+		Iterator<AddressVo> i = userVo.getAddressVoList().iterator();
+		while (i.hasNext()) {
+			AddressVo address = i.next();
+			if (address.getId() == addressId) {
+				vo.setPeopleName(address.getPeople());
+				vo.setPhone(address.getPhone());
+				vo.setPlaceCode(address.getPlaceCode());
+				vo.setPlaceName(address.getPlaceName());
+				break;
+			}
+		}
+		orderService.payOrder(userVo.getId(), vo);
 		return SUCCESS;
 	}
 
@@ -65,6 +83,13 @@ public class OrderAction extends BaseAction {
 	 */
 	public final UserVo getUserVo() {
 		return userVo;
+	}
+
+	/**
+	 * @param addressId the addressId to set
+	 */
+	public final void setAddressId(int addressId) {
+		this.addressId = addressId;
 	}
 
 }
