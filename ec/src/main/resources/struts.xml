@@ -70,6 +70,9 @@
 		<action name="order" class="OrderAction">
 			<result name="success">/webPage/order.jsp</result>
 		</action>
+		<action name="payorder" class="OrderAction" method="pay">
+			<result name="success" type="redirect">/order</result>
+		</action>
 	</package>
 	<package name="json" namespace="/json" extends="struts-default,json-default">
 		<action name="changePassword" class="UserAction" method="changePassword">
