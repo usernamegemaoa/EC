@@ -42,7 +42,7 @@
 <title>MyOrder</title>
 </head>
 <body>
-	<div>
+	<div style="margin-left: auto; margin-right: auto">
 		<div id="showFrame">
 
 			<!-- Nav tabs -->
@@ -63,7 +63,9 @@
 					aria-controls="refund" role="tab" data-toggle="tab">退款中<span
 						class="badge"><s:property value="refundOrderList.size" /></span></a></li>
 			</ul>
-
+			<s:if test="allOrderList.size==0">
+				<div style="text-align: center; font-size: 40px">您还没有任何订单，赶紧去添加哦！</div>
+			</s:if>
 			<!-- Tab panes -->
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane active" id="allOrder">
@@ -122,7 +124,8 @@
 										<span style="display: block; margin-bottom: 15px;"><s:property
 												value="#each_order.status" /></span>
 										<s:if test="#each_order.status=='待支付'">
-											<span><a href="order?orderId=<s:property value="#each_order.orderId" />">(前往支付)</a></span>
+											<span><a
+												href="order?orderId=<s:property value="#each_order.orderId" />">(前往支付)</a></span>
 										</s:if>
 									</div>
 								</div>

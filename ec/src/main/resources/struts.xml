@@ -103,7 +103,7 @@
 				<param name="root">jsonResult</param>
 			</result>
 		</action>
-		<action name="favourite" class="GoodInfoAction" method="favourite">
+		<action name="addFavourite" class="GoodInfoAction" method="favourite">
 			<result type="json">
 				<param name="root">jsonResult</param>
 			</result>

@@ -199,7 +199,7 @@ function addGood(thisSize,price,quantity){
 }
 
 function favourite(){
-	$.post("json/favourite",
+	$.post("json/addFavourite",
             function (data,status) {
                 alert(data.resultMessage);
 })

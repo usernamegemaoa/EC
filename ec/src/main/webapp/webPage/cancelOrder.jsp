@@ -45,6 +45,9 @@
 </style>
 </head>
 <body>
+<s:if test="allOrderList.size==0">
+			<div style="text-align:center;font-size:40px;margin-top:20px">您还没有任何订单，赶紧去添加哦！</div>
+			</s:if>
 	<div>
 		<s:iterator value="allOrderList" var="each_order">
 			<div class="panel panel-default">
