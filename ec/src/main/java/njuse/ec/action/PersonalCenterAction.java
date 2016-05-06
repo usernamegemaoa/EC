@@ -1,5 +1,6 @@
 package njuse.ec.action;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import njuse.ec.model.User;
+import njuse.ec.service.FileService;
 import njuse.ec.service.UserService;
 import njuse.ec.vo.ResultVo;
 import njuse.ec.vo.UserVo;
@@ -25,12 +27,18 @@ public class PersonalCenterAction extends BaseAction {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private FileService fileService;
 	private int userId;
 	private User user;
 	private String name;
 	private String sex;
 	private int male;
-
+	
+	private File mainpic;
+	private String mainpicFileName;
+	private String mainpicContentType;
+	
 	public int getMale() {
 		return male;
 	}
@@ -100,6 +108,11 @@ public class PersonalCenterAction extends BaseAction {
 			e.printStackTrace();
 		}
 		vo.setBirthday(modifybirthday);
+		ResultVo mainResult = fileService.upload(mainpic, mainpicFileName); 
+		String mainPath = mainResult.getResultMessage();
+		if (mainResult.getResultCode() == 0) {
+			vo.setIconPath(mainPath);			
+		}
 		ResultVo result = userService.modify(vo);
 		jsonResult.put("resultMessage", result.getResultMessage());
 		return SUCCESS;
@@ -179,6 +192,18 @@ public class PersonalCenterAction extends BaseAction {
 
 	public void setRole(int role) {
 		this.role = role;
+	}
+
+	public final void setMainpic(File mainpic) {
+		this.mainpic = mainpic;
+	}
+
+	public final void setMainpicFileName(String mainpicFileName) {
+		this.mainpicFileName = mainpicFileName;
+	}
+
+	public final void setMainpicContentType(String mainpicContentType) {
+		this.mainpicContentType = mainpicContentType;
 	}
 
 }
