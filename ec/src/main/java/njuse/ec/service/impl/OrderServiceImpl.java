@@ -72,14 +72,15 @@ public class OrderServiceImpl implements OrderService {
 		int shopId = castDao.getShopId(thisPlan);
 		Order thisOrder = order.convertOrderVo(order);
 		// 订单创建是否成功
-		boolean success = orderDao.creatOrder(shopId, casts, thisOrder);
-		if (success) {
+		int success = orderDao.creatOrder(shopId, casts, thisOrder);
+		if (success != 0) {
 			result.setResultCode(0);
+			result.setResultMessage(String.valueOf(success));
 		} else {
 			result.setResultCode(1);
 			result.setResultMessage("订单创建失败");
 		}
-		return null;
+		return result;
 	}
 
 	@Override

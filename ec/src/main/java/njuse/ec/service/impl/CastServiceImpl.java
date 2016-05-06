@@ -1,17 +1,27 @@
 package njuse.ec.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import njuse.ec.dao.GoodDAO;
 import njuse.ec.dao.PlanDAO;
 import njuse.ec.dao.StockDAO;
+import njuse.ec.model.Good;
 import njuse.ec.model.Plan;
 import njuse.ec.model.Stock;
 import njuse.ec.service.CastService;
+import njuse.ec.service.GoodService;
 import njuse.ec.vo.CastVo;
+import njuse.ec.vo.ColorElement;
+import njuse.ec.vo.DetailElement;
+import njuse.ec.vo.GoodElement;
+import njuse.ec.vo.GoodVo;
 import njuse.ec.vo.ResultVo;
 
 /**
@@ -33,6 +43,12 @@ public class CastServiceImpl implements CastService {
 	 */
 	@Autowired
 	private StockDAO stockDao;
+	
+	@Autowired
+	private GoodDAO goodDao;
+	
+	@Autowired
+	private GoodService goodService;
 	
 	@Override
 	public final List<CastVo> getMyCast(final int userId) {
@@ -114,9 +130,12 @@ public class CastServiceImpl implements CastService {
 		int userId = plan.getUserId();
 		int quantity = plan.getQuantity();
 		Stock stock = stockDao.getStock(stockId);
-		int goodId = stock.getGoodId();
+		int stockNum = stock.getQuantity();
 		String color = stock.getColor();
 		String size = stock.getSize();
+		int goodId = stock.getGoodId();
+		Good good = goodDao.getGood(goodId);
+		double price = good.getPrice();
 		cast.setCastId(id);
 		cast.setStockId(stockId);
 		cast.setUserId(userId);
@@ -124,6 +143,8 @@ public class CastServiceImpl implements CastService {
 		cast.setGoodId(goodId);
 		cast.setColor(color);
 		cast.setSize(size);
+		cast.setStockNum(stockNum);
+		cast.setPrice(price);
 		return cast;
 	}
 
@@ -143,5 +164,81 @@ public class CastServiceImpl implements CastService {
 		plan.setUserId(userId);
 		plan.setQuantity(quantity);
 		return plan;
+	}
+
+	@Override
+	public List<GoodElement> getCastElement(int userId) {
+		List<GoodElement> castElement = new ArrayList<GoodElement>();
+		List<CastVo> casts = getMyCast(userId);
+		Iterator<CastVo> iCasts = casts.iterator();
+		
+		HashMap<Integer, List<CastVo>> goodSplit = new HashMap<>();
+		while(iCasts.hasNext()) {
+			CastVo cast = iCasts.next();
+			if(!goodSplit.containsKey(cast.getGoodId())) {
+				goodSplit.put(cast.getGoodId(), new ArrayList<CastVo>());
+			}
+			goodSplit.get(cast.getGoodId()).add(cast);
+		}
+		
+		Iterator<Entry<Integer, List<CastVo>>> iGoodSplit = goodSplit.entrySet().iterator();
+		while(iGoodSplit.hasNext()) {
+			Entry<Integer, List<CastVo>> entry = iGoodSplit.next();
+			int goodId = entry.getKey();
+			List<CastVo> castList = entry.getValue();
+			GoodVo goodVo = goodService.getDetailGood(goodId);
+			GoodElement goodElement = new GoodElement();
+			goodElement.setImg(goodVo.getMainPic());
+			goodElement.setName(goodVo.getName());
+			
+			HashMap<String, ColorElement> colorMap = new HashMap<>();
+			Iterator<CastVo> iCastList = castList.iterator();
+			while(iCastList.hasNext()) {
+				CastVo singleCast = iCastList.next();
+				if(!colorMap.containsKey(singleCast.getColor())) {
+					ColorElement colorElement = new ColorElement();
+					colorElement.setColor(singleCast.getColor());
+					colorElement.setDetailList(new ArrayList<DetailElement>());
+					colorMap.put(singleCast.getColor(), colorElement);
+				}
+				ColorElement colorElement = colorMap.get(singleCast.getColor());
+				DetailElement detailElement = new DetailElement();
+				detailElement.setNum(singleCast.getNum());
+				detailElement.setCastId(singleCast.getCastId());
+				detailElement.setSize(singleCast.getSize());
+				detailElement.setStockNum(singleCast.getStockNum());
+				detailElement.setUnitPrice(singleCast.getPrice());
+				colorElement.getDetailList().add(detailElement);
+			}
+			goodElement.setColorList(new ArrayList<ColorElement>(colorMap.values()));
+			castElement.add(goodElement);
+		}
+		return castElement;
+	}
+
+	@Override
+	public CastVo getById(int castId) {
+		CastVo cast = new CastVo();
+		try {
+			Plan plan = planDao.getById(castId);
+			cast = convertToCast(plan);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cast;
+	}
+
+	@Override
+	public ResultVo deleteById(int castId) {
+		ResultVo result = new ResultVo();
+		try {
+			planDao.deleteById(castId);
+			result.setResultCode(0);
+			result.setResultMessage("订单删除成功！");
+		} catch (Exception e) {
+			result.setResultCode(1);
+			result.setResultMessage("订单删除失败！");
+		}
+		return result;
 	}
 }

@@ -57,13 +57,13 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public final boolean creatOrder(
+	public final int creatOrder(
 			final int shopId, 
 			final List<CastVo> casts, 
 			final Order order) {
 		// 创建订单
 		// !!!缺少库存数量判断
-		boolean success = true;
+		int success = 0;
 		order.setUser_id(casts.get(0).getUserId());
 		Date now = new Date();
 		order.setTime(now);
@@ -76,9 +76,9 @@ public class OrderDAOImpl implements OrderDAO {
 		try {
 			orderId = (int) session.save(order);
 		} catch (Exception e) {
-			success = false; // 订单创建时出错
+			orderId = 0; // 订单创建时出错
 		}
-		if (success) {
+		if (orderId != 0) {
 			List<OrderInfo> orderInfo = new ArrayList<OrderInfo>();
 			for (int i = 0; i < casts.size(); i++) { // 将castVo转化为orderinfo
 				CastVo cast = casts.get(i);
@@ -100,8 +100,9 @@ public class OrderDAOImpl implements OrderDAO {
 					}
 				}
 				session.flush();
+				success = orderId;
 			} catch (Exception e) {
-				success = false; // 订单创建时出错
+				success = 0; // 订单创建时出错
 			}
 		}
 		return success;
