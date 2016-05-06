@@ -35,22 +35,22 @@
 	</div>
 	<div class="menu" style="height: 30px;">
 		<ul class="left-list">
-			<li><a href="">主页</a></li>
-			<li><a href="">每日上新</a></li>
+			<li><a href="#">主页</a></li>
 			<s:iterator value="fatherKinds" id="each_father">
 				<li><a href='Category?kindId=<s:property value="#each_father.kindId"/>&page=0'><s:property value="#each_father.name" /></a></li>
 			</s:iterator>
-			<li><a href="">关于我们</a></li>
-			<li><a href="">常见问题</a></li>
 		</ul>
 		<ul class="right-list">
-			<li><s:property value="fatherKind.kindId" /></li>
-			
-			<li><a href="">用户id</a></li>
-			<li><a href="">退出</a></li>
-			<li><a href="">我的订单</a></li>
-			<li><a href="">个人中心</a></li>
-			<li><a href="">进货单</a></li>
+		<s:if test='userId==0'>
+			<li><a href="login">登录</a></li>
+			<li><a href="regiest">注册</a></li>
+		</s:if>
+		<s:else>		
+			<li><s:property value="userName" /></li>
+			<li><a href="logout">退出</a></li>
+			<li><a href="personalCenter">个人中心</a></li>
+			<li><a href="myCast">进货单</a></li>
+		</s:else>
 		</ul>
 	</div>
 	<s:if test="goodList.size() > 0">
@@ -58,16 +58,57 @@
 			<ul class="search-list">
 				<s:iterator value="goodList" id="good">
 					<li>
-	    			<div class="main-pic">
-	    			<img src=<s:property value="#good.img" /> />
-	    			</div>
-	    			<div class="item-link">
-	    			<a href=""><s:property value="#good.name" /></a>
-	    			</div>
-	    			</li>
+    			<div class="main-pic" style="margin:20px;">
+    				<img src=<s:property value="#good.img" /> style="width:160px;height:280px;"/>
+    			</div>
+    			<div class="item-link">
+    			<a href='getGoodInfo?goodId=<s:property value="#good.goodId" />'><s:property value="#good.name" /></a>
+    			</div>
+    			</li>
 				</s:iterator>
 			</ul>
 		</div>
+		
+		<nav style="text-align:center;">
+    		<ul class="pagination">
+    			<s:if test="page != 0">
+    				<li>
+		    			<a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="page - 1" />' aria-label="Previous">
+	        				<span aria-hidden="true">&laquo;</span>
+	      				</a>
+      				</li>
+    			</s:if>
+    			<s:else>
+    				<li class="disabled">
+		    			<a aria-label="Previous">
+	        				<span aria-hidden="true">&laquo;</span>
+	      				</a>
+      				</li>
+    			</s:else>
+    			<s:iterator begin='0' end='page' id="status">
+    				<s:if test="#status == page">
+    					<li class="active"><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="#status" />'><s:property value="#status + 1" /></a></li>
+    				</s:if>
+    				<s:else>
+    					<li><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="#status" />'><s:property value="#status + 1" /></a></li>
+    				</s:else>
+    			</s:iterator>
+    			<s:if test="page < (totalPage-1)">
+    				<li>
+		    			<a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="page - 1" />' aria-label="Next">
+	        				<span aria-hidden="true">&raquo;</span>
+	      				</a>
+      				</li>
+    			</s:if>
+    			<s:else>
+    				<li class="disabled">
+		    			<a aria-label="Next">
+	        				<span aria-hidden="true">&raquo;</span>
+	      				</a>
+      				</li>
+    			</s:else>
+    		</ul>
+    	</nav>
 	</s:if>
 	<s:else>
 		未找到搜索结果

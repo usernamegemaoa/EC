@@ -16,6 +16,7 @@
 <!-- 可选的Bootstrap主题文件（一般不用引入） -->
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="css/buttons.css">
+<link href="css/homepage.css" rel="stylesheet">
 <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
         .col {
@@ -69,10 +70,15 @@
 <title>GoodInfo</title>
 </head>
 <body>
+    <div class="container" style="padding-top:10px;">
+    <div class="row">
+    	<jsp:include page="head.jsp"></jsp:include>
+    </div>
+    <div class="row">    
     <div class="path">
         <a href="Homepage">首页</a>   /   <a href='Category?kindId=<s:property value="fatherKind.kindId"/>&page=0'><s:property value="fatherKind.name"/></a>   /   <a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=0'><s:property value="sonKind.name"/></a>   /   <a><s:property value="name"/></a>
     </div>
-    <div class="container" style="padding-top:10px;">
+    </div>
     <div class="row">
             <div class="col-sm-5">
                 <div class="bigpic" >

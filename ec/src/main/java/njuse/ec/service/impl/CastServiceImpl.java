@@ -233,9 +233,11 @@ public class CastServiceImpl implements CastService {
 		ResultVo result = new ResultVo();
 		try {
 			planDao.deleteById(castId);
+			System.out.println("castId" + "delete"+castId);
 			result.setResultCode(0);
 			result.setResultMessage("订单删除成功！");
 		} catch (Exception e) {
+			e.printStackTrace();
 			result.setResultCode(1);
 			result.setResultMessage("订单删除失败！");
 		}

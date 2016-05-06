@@ -106,7 +106,8 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	@Override
 	public final void delete(final Class<T> c, final String id) {
 		Session session = getSession();
-		T obj = (T) session.get(c, id);
+		T obj = (T) session.get(c, Integer.parseInt(id));
+		System.out.println(id+" delete");
 		session.delete(obj);
 		session.flush();
 	}
