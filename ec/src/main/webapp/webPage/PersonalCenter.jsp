@@ -65,6 +65,10 @@
 						<li style="margin-left: 15px"><a href="favourite"
 							id="favourite" name="orderCenter" target="i">收藏产品</a></li>
 					</s:if>
+					<s:if test="role==2">
+					<li style="margin-left: 15px"><a href="AddGood"
+							id="AddGood" name="orderCenter" target="i">添加商品</a></li>
+					</s:if>
 				</ul>
 				<ul class="nav nav-sidebar">
 					<li class="active bac"><a>资料信息</a></li>
