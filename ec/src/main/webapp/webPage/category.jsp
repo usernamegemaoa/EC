@@ -82,8 +82,8 @@
     	<ul class="item-list">
     		<s:iterator value="goodsList" id="good">
     			<li>
-    			<div class="main-pic">
-    			<img src=<s:property value="#good.img" /> />
+    			<div class="main-pic" style="margin:20px;">
+    				<img src=<s:property value="#good.img" /> style="width:160px;height:280px;"/>
     			</div>
     			<div class="item-link">
     			<a href='getGoodInfo?goodId=<s:property value="#good.goodId" />'><s:property value="#good.name" /></a>
@@ -98,52 +98,109 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <!--<script src="js/bootstrap.min.js"></script>-->
 
-    	<ul class="page-list">
-    		<s:if test="page < 4">
-    			<s:if test="page != 0">
-    				<li style="width: 60px;"><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="page - 1" />'>上一页</a></li>
-    			</s:if>
-    			<s:iterator begin='0' end='page' id="status">
-    				<s:if test="#status == page">
-    					<li  style="border: none;"><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="#status" />'><s:property value="#status + 1" /></a></li>
-    				</s:if>
-    				<s:else>
-    					<li><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="#status" />'><s:property value="#status + 1" /></a></li>
-    				</s:else>
-    			</s:iterator> 
-    		</s:if>
-    		<s:else>
-    			<li style="width: 60px;"><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="page - 1" />'>上一页</a></li>
-    			<li><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=0'>1</a></li>
-    			<li style="border: none;">...</li>
-    			<s:iterator begin='page-2' end='page' id="status"> 
-    				<s:if test="#status == page">
-    					<li  style="border: none;"><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="#status" />'><s:property value="#status + 1" /></a></li>
-    				</s:if>
-    				<s:else>
-    					<li><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="#status" />'><s:property value="#status + 1" /></a></li>
-    				</s:else>
-    			</s:iterator>
-    		</s:else>
-    		
-    		<s:if test="(totalPage-page)>4">
-    			<s:iterator begin='page+1' end='page+2' id='status'>
-    				<li><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="#status" />' ><s:property value="#status+1" /></a></li>
-    			</s:iterator>
-    			<li style="border: none;">...</li>
-    			<li><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="totalPage - 1" />' ><s:property value="totalPage" /></a></li>	
-    			<li style="width: 60px;"><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="page + 1" />'>下一页</a></li>
-    		</s:if>
-    		<s:else>
-    			<s:if test="page < (totalPage-1)">
-	    			<s:iterator begin='page+1' end='totalPage-1' id='status'>
+	<!--  	<nav>
+	    	<ul class="pagination">
+	    		<s:if test="page < 4">
+	    			<s:if test="page != 0">
+	    				<li>
+		    				<a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="page - 1" />' aria-label="Previous">
+	        					<span aria-hidden="true">&laquo;</span>
+	      					</a>
+      					</li>
+	    			</s:if>
+	    				<li class="disabled">
+		    				<a aria-label="Previous">
+	        					<span aria-hidden="true">&laquo;</span>
+	      					</a>
+      					</li>
+	    			<s:iterator begin='0' end='page' id="status">
+	    				<s:if test="#status == page">
+	    					<li class="active"><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="#status" />'><s:property value="#status + 1" /></a></li>
+	    				</s:if>
+	    				<s:else>
+	    					<li><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="#status" />'><s:property value="#status + 1" /></a></li>
+	    				</s:else>
+	    			</s:iterator> 
+	    		</s:if>
+	    		<s:else>
+	    			<a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="page - 1" />' aria-label="Previous">
+        				<span aria-hidden="true">&laquo;</span>
+      				</a>
+	    			<li><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=0'>1</a></li>
+	    			<li style="border: none;">...</li>
+	    			<s:iterator begin='page-2' end='page' id="status"> 
+	    				<s:if test="#status == page">
+	    					<li class="active"><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="#status" />'><s:property value="#status + 1" /></a></li>
+	    				</s:if>
+	    				<s:else>
+	    					<li><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="#status" />'><s:property value="#status + 1" /></a></li>
+	    				</s:else>
+	    			</s:iterator>
+	    		</s:else>
+	    		
+	    		<s:if test="(totalPage-page)>4">
+	    			<s:iterator begin='page+1' end='page+2' id='status'>
 	    				<li><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="#status" />' ><s:property value="#status+1" /></a></li>
 	    			</s:iterator>
-	    			<li style="width: 60px;"><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="page + 1" />'>下一页</a></li>
+	    			<li style="border: none;">...</li>
+	    			<li><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="totalPage - 1" />' ><s:property value="totalPage" /></a></li>	
+	    			<a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="page + 1" />' aria-label="Next">
+        				<span aria-hidden="true">&raquo;</span>
+      				</a>
+	    		</s:if>
+	    		<s:else>
+	    			<s:if test="page < (totalPage-1)">
+		    			<s:iterator begin='page+1' end='totalPage-1' id='status'>
+		    				<li><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="#status" />' ><s:property value="#status+1" /></a></li>
+		    			</s:iterator>
+		    			<a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="page + 1" />' aria-label="Next">
+        					<span aria-hidden="true">&raquo;</span>
+      					</a>
+	    			</s:if>
+	    		</s:else>
+	    	</ul>
+    	</nav>-->
+    	
+    	<nav style="text-align:center;">
+    		<ul class="pagination">
+    			<s:if test="page != 0">
+    				<li>
+		    			<a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="page - 1" />' aria-label="Previous">
+	        				<span aria-hidden="true">&laquo;</span>
+	      				</a>
+      				</li>
     			</s:if>
-    		</s:else>
-    		
-    	</ul>
+    			<s:else>
+    				<li class="disabled">
+		    			<a aria-label="Previous">
+	        				<span aria-hidden="true">&laquo;</span>
+	      				</a>
+      				</li>
+    			</s:else>
+    			<s:iterator begin='0' end='page' id="status">
+    				<s:if test="#status == page">
+    					<li class="active"><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="#status" />'><s:property value="#status + 1" /></a></li>
+    				</s:if>
+    				<s:else>
+    					<li><a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="#status" />'><s:property value="#status + 1" /></a></li>
+    				</s:else>
+    			</s:iterator>
+    			<s:if test="page < (totalPage-1)">
+    				<li>
+		    			<a href='Category?kindId=<s:property value="sonKind.kindId"/>&page=<s:property value="page - 1" />' aria-label="Next">
+	        				<span aria-hidden="true">&raquo;</span>
+	      				</a>
+      				</li>
+    			</s:if>
+    			<s:else>
+    				<li class="disabled">
+		    			<a aria-label="Next">
+	        				<span aria-hidden="true">&raquo;</span>
+	      				</a>
+      				</li>
+    			</s:else>
+    		</ul>
+    	</nav>
 
   	</div>
 </body>
