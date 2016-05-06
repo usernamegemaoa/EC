@@ -6,9 +6,6 @@
 <struts>
 	<constant name="struts.multipart.maxSize" value="10485760" />
 	<package name="webpage" namespace="/" extends="struts-default">
-		<action name="" class="IndexAction">
-			<result name="success">/webPage/index.jsp</result>
-		</action>
 		<action name="myOrder" class="MyOrderAction">
 			<result name="success">/webPage/MyOrder.jsp</result>
 			<result name="shop">/webPage/shopOrder.jsp</result>
@@ -59,7 +56,7 @@
 			<result name="success">/webPage/search.jsp</result>
 			<result name="homepage" type="chain">Homepage</result>
 		</action>
-		<action name="Homepage" class="HomepageAction">
+		<action name="" class="HomepageAction">
 			<result name="success">/webPage/homepage.jsp</result>
 		</action>
 		<action name="favourite" class="MyOrderAction" method="getFavourite">
