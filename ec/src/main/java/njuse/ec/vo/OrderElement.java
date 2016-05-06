@@ -33,6 +33,23 @@ public class OrderElement {
 	 * 数量总计.
 	 */
 	private int totalNum;
+	
+	/**
+	 * 邮编.
+	 */
+	private int placeCode;
+	/**
+	 * 地址.
+	 */
+	private String placeName;
+	/**
+	 * 收件人.
+	 */
+	private String peopleName;
+	/**
+	 * 电话.
+	 */
+	private String phone;
 
 	/**
 	 * @return the orderId
@@ -102,5 +119,61 @@ public class OrderElement {
 	 */
 	public final void setTotalNum(int totalNum) {
 		this.totalNum = totalNum;
+	}
+
+	/**
+	 * @return the placeCode
+	 */
+	public final int getPlaceCode() {
+		return placeCode;
+	}
+
+	/**
+	 * @param placeCode the placeCode to set
+	 */
+	public final void setPlaceCode(int placeCode) {
+		this.placeCode = placeCode;
+	}
+
+	/**
+	 * @return the placeName
+	 */
+	public final String getPlaceName() {
+		return placeName;
+	}
+
+	/**
+	 * @param placeName the placeName to set
+	 */
+	public final void setPlaceName(String placeName) {
+		this.placeName = placeName;
+	}
+
+	/**
+	 * @return the peopleName
+	 */
+	public final String getPeopleName() {
+		return peopleName;
+	}
+
+	/**
+	 * @param peopleName the peopleName to set
+	 */
+	public final void setPeopleName(String peopleName) {
+		this.peopleName = peopleName;
+	}
+
+	/**
+	 * @return the phone
+	 */
+	public final String getPhone() {
+		return phone;
+	}
+
+	/**
+	 * @param phone the phone to set
+	 */
+	public final void setPhone(String phone) {
+		this.phone = phone;
 	}
 }

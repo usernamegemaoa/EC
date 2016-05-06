@@ -31,19 +31,19 @@ public class OrderVo {
 	/**
 	 * 邮编.
 	 */
-	private int placeCode;
+	private int placeCode = 0;
 	/**
 	 * 地址.
 	 */
-	private String placeName;
+	private String placeName = "waitpay";
 	/**
 	 * 收件人.
 	 */
-	private String peopleName;
+	private String peopleName = "waitpay";
 	/**
 	 * 电话.
 	 */
-	private String phone;
+	private String phone = "waitpay";
 	/**
 	 * 订单状态.
 	 */

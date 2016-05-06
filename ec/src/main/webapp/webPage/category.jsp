@@ -86,7 +86,7 @@
     			<img src=<s:property value="#good.img" /> />
     			</div>
     			<div class="item-link">
-    			<a href=""><s:property value="#good.name" /></a>
+    			<a href='getGoodInfo?goodId=<s:property value="#good.goodId" />'><s:property value="#good.name" /></a>
     			</div>
     			</li>
     		</s:iterator>

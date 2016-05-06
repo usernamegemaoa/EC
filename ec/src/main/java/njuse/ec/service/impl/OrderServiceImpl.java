@@ -72,14 +72,15 @@ public class OrderServiceImpl implements OrderService {
 		int shopId = castDao.getShopId(thisPlan);
 		Order thisOrder = order.convertOrderVo(order);
 		// 订单创建是否成功
-		boolean success = orderDao.creatOrder(shopId, casts, thisOrder);
-		if (success) {
+		int success = orderDao.creatOrder(shopId, casts, thisOrder);
+		if (success != 0) {
 			result.setResultCode(0);
+			result.setResultMessage(String.valueOf(success));
 		} else {
 			result.setResultCode(1);
 			result.setResultMessage("订单创建失败");
 		}
-		return null;
+		return result;
 	}
 
 	@Override
@@ -359,6 +360,10 @@ public class OrderServiceImpl implements OrderService {
 			Order order = iOrder.next();
 			OrderElement element = new OrderElement();
 			element.setOrderId(order.getId());
+			element.setPeopleName(order.getPeople());
+			element.setPhone(order.getPhone());
+			element.setPlaceCode(order.getPlace_code());
+			element.setPlaceName(order.getPlace_name());
 			switch(order.getState()) {
 			case 1:
 				element.setStatus("待支付");
@@ -494,10 +499,12 @@ public class OrderServiceImpl implements OrderService {
 		}
 		
 		return convertOrders(orders);
-}
 	}
 	
-	
-	
-	
-
+	public OrderVo getOrder(int orderId) {
+		Order order = orderBaseDao.load(Order.class, orderId);
+		OrderVo vo = new OrderVo();
+		vo = vo.convertOrder(order);
+		return vo;
+	}
+}

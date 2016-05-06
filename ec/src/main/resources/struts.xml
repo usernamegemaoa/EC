@@ -68,8 +68,14 @@
 		<action name="getAddress" class="AddressAction" method="getAddress">
 			<result name="success">/webPage/AddressCenter.jsp</result>
 		</action>
+		<action name="myCast" class="MyCastAction">
+			<result name="success">/webPage/MyCast.jsp</result>
+			</action>
 		<action name="order" class="OrderAction">
 			<result name="success">/webPage/order.jsp</result>
+		</action>
+		<action name="payorder" class="OrderAction" method="pay">
+			<result name="success" type="redirect">/order</result>
 		</action>
 	</package>
 	<package name="json" namespace="/json" extends="struts-default,json-default">
@@ -144,6 +150,11 @@
 			</result>
 		</action>
 		<action name="cancelRefund" class="MyOrderAction" method="cancelRefund">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		<action name="createOrder" class="MyCastAction" method="createOrder">
 			<result type="json">
 				<param name="root">jsonResult</param>
 			</result>
