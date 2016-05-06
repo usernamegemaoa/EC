@@ -66,4 +66,18 @@ public interface CastService {
 	 * @return 进货单节点
 	 */
 	List<GoodElement> getCastElement(int userId);
+	
+	/**
+	 * 根据id获取CastVo.
+	 * @param castId id
+	 * @return CastVo
+	 */
+	CastVo getById(int castId);
+	
+	/**
+	 * 根据id删除cast.
+	 * @param castId id
+	 * @return 是否删除成功
+	 */
+	ResultVo deleteById(int castId);
 }

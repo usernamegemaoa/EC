@@ -215,4 +215,30 @@ public class CastServiceImpl implements CastService {
 		}
 		return castElement;
 	}
+
+	@Override
+	public CastVo getById(int castId) {
+		CastVo cast = new CastVo();
+		try {
+			Plan plan = planDao.getById(castId);
+			cast = convertToCast(plan);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cast;
+	}
+
+	@Override
+	public ResultVo deleteById(int castId) {
+		ResultVo result = new ResultVo();
+		try {
+			planDao.deleteById(castId);
+			result.setResultCode(0);
+			result.setResultMessage("订单删除成功！");
+		} catch (Exception e) {
+			result.setResultCode(1);
+			result.setResultMessage("订单删除失败！");
+		}
+		return result;
+	}
 }

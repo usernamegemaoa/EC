@@ -142,6 +142,11 @@
 				<param name="root">jsonResult</param>
 			</result>
 		</action>
+		<action name="createOrder" class="MyCastAction" method="createOrder">
+			<result type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
 	</package>
 </struts>
 
