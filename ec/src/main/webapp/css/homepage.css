@@ -78,16 +78,7 @@
     font-size: 1.2em;
     float: left;
 }
-.main-pic{
-	margin: 0px;
-	padding: 0px;
-	border: 0px;
-	height: 300px;
-	overflow: hidden;
-}
-.main-pic img{
-	width: 200px;
-}
+
 .item-link{
 	text-align: center;
 }

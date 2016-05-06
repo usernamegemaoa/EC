@@ -25,7 +25,7 @@ public class HomepageAction extends BaseAction {
 	@Autowired
 	private UserService userService;
 
-	private int page;
+	private int page = 0;
 	
 	private List<SimpleGoodVo> latestGoods;
 	
